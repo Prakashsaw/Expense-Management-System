@@ -21,23 +21,23 @@ const Header = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark">
+        <Link className="navbar-brand" to="/">
+          Expense Management System
+        </Link>
         <div className="container-fluid">
           <button
-            className="navbar-toggler"
+            className="responsive-btn navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01"
+            data-bs-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon " />
 
           </button>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link className="navbar-brand" to="/">
-              Expense Management System
-            </Link>
+          <div className="collapse navbar-collapse" id="navbarToggleExternalContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 {" "}
