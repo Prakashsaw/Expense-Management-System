@@ -133,8 +133,10 @@ const HomePage = () => {
       setEditable(null);
     } catch (error) {
       setLoading(false);
-      message.error("please fill all fields");
+      message.error("Please fill all fields");
     }
+    //For auto update on client if any update or edit be done
+    // setAUthors(oldAuthors => [...oldAuthors, newAuthor]); 
   };
 
   return (

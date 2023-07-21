@@ -17,6 +17,9 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        {/* if path is not correct then navigate to bydefault page */}
+        <Route path="*" element={<Navigate to="/" />} /> 
+
       </Routes>
     </>
   );
