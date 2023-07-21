@@ -1,13 +1,17 @@
-.navbar {
+/* .navbar {
   background-color: #6f4e3742 !important;
-}
+} */
+
+
 .navbar .navbar-brand {
-  color: #6f4e37 !important;
+  /* color: #6f4e37 !important; */
+  color: lightcyan !important;
   font-weight: bold;
   font-size: 1.5rem;
 }
 
 .nav-link {
+  color: white;
   font-size: 1.2rem;
 }
 

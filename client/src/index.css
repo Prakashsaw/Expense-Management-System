@@ -16,7 +16,9 @@
   padding: 15px 20px;
   box-shadow: 0 0 3px gray;
   margin-bottom: 10px;
+  background-color: gray;
 }
+
 /* transection page */
 
 /* antd icons */
@@ -25,6 +27,8 @@
   border: 1px solid rgba(0, 0, 0, 0.677);
   border-radius: 5px;
   padding: 10px 15px;
+  padding-top: 5px;
+  background-color: white;
 }
 
 .anticon svg {
@@ -35,10 +39,15 @@
 .active-icon {
   color: black;
 }
+
 .inactive-icon {
   color: gray;
 }
 
 .filter-tab .ant-select-selector {
   width: 150px !important;
+}
+
+.footer {
+  margin-top: 100px;
 }

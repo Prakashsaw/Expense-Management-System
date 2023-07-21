@@ -26,12 +26,12 @@ const HomePage = () => {
   //table data
   const columns = [
     {
-      title: "Date",
+      title: "Date(yyyy-mm-dd)",
       dataIndex: "date",
       render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
     },
     {
-      title: "Amount",
+      title: "Amount(Rs.)",
       dataIndex: "amount",
     },
     {
@@ -112,7 +112,7 @@ const HomePage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       if (editable) {
-        await axios.post("/api/v1/transections/edit-transection", {
+        await axios.post("/transections/edit-transection", {
           payload: {
             ...values,
             userId: user._id,
@@ -122,7 +122,7 @@ const HomePage = () => {
         setLoading(false);
         message.success("Transaction Updated Successfully");
       } else {
-        await axios.post("/api/v1/transections/add-transection", {
+        await axios.post("/transections/add-transection", {
           ...values,
           userid: user._id,
         });
@@ -138,113 +138,113 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
-      {loading && <Spinner />}
-      <div className="filters">
-        <div>
-          <h6>Select Frequency</h6>
-          <Select value={frequency} onChange={(values) => setFrequency(values)}>
-            <Select.Option value="7">LAST 1 Week</Select.Option>
-            <Select.Option value="30">LAST 1 Month</Select.Option>
-            <Select.Option value="365">LAST 1 year</Select.Option>
-            <Select.Option value="custom">custom</Select.Option>
-          </Select>
-          {frequency === "custom" && (
-            <RangePicker
-              value={selectedDate}
-              onChange={(values) => setSelectedate(values)}
+    <>
+      <Layout>
+        {loading && <Spinner />}
+        <div className="filters">
+          <div>
+            <h6>Select Frequency</h6>
+            <Select value={frequency} onChange={(values) => setFrequency(values)}>
+              <Select.Option value="7">LAST 1 Week</Select.Option>
+              <Select.Option value="30">LAST 1 Month</Select.Option>
+              <Select.Option value="365">LAST 1 Year</Select.Option>
+              <Select.Option value="custom">Custom</Select.Option>
+            </Select>
+            {frequency === "custom" && (
+              <RangePicker
+                value={selectedDate}
+                onChange={(values) => setSelectedate(values)}
+              />
+            )}
+          </div>
+          <div className="filter-tab ">
+            <h6>Select Type</h6>
+            <Select value={type} onChange={(values) => setType(values)}>
+              <Select.Option value="all">ALL</Select.Option>
+              <Select.Option value="income">INCOME</Select.Option>
+              <Select.Option value="expense">EXPENSE</Select.Option>
+            </Select>
+          </div>
+          <div className="switch-icons">
+            <UnorderedListOutlined
+              className={`mx-2 ${viewData === "table" ? "active-icon" : "inactive-icon"
+                }`}
+              onClick={() => setViewData("table")}
             />
-          )}
-        </div>
-        <div className="filter-tab ">
-          <h6>Select Type</h6>
-          <Select value={type} onChange={(values) => setType(values)}>
-            <Select.Option value="all">ALL</Select.Option>
-            <Select.Option value="income">INCOME</Select.Option>
-            <Select.Option value="expense">EXPENSE</Select.Option>
-          </Select>
-        </div>
-        <div className="switch-icons">
-          <UnorderedListOutlined
-            className={`mx-2 ${
-              viewData === "table" ? "active-icon" : "inactive-icon"
-            }`}
-            onClick={() => setViewData("table")}
-          />
-          <AreaChartOutlined
-            className={`mx-2 ${
-              viewData === "analytics" ? "active-icon" : "inactive-icon"
-            }`}
-            onClick={() => setViewData("analytics")}
-          />
-        </div>
-        <div>
-          <button
-            className="btn btn-primary"
-            onClick={() => setShowModal(true)}
-          >
-            Add New
-          </button>
-        </div>
-      </div>
-      <div className="content">
-        {viewData === "table" ? (
-          <Table columns={columns} dataSource={allTransection} />
-        ) : (
-          <Analytics allTransection={allTransection} />
-        )}
-      </div>
-      <Modal
-        title={editable ? "Edit Transaction" : "Add Transection"}
-        open={showModal}
-        onCancel={() => setShowModal(false)}
-        footer={false}
-      >
-        <Form
-          layout="vertical"
-          onFinish={handleSubmit}
-          initialValues={editable}
-        >
-          <Form.Item label="Amount" name="amount">
-            <Input type="text" required />
-          </Form.Item>
-          <Form.Item label="type" name="type">
-            <Select>
-              <Select.Option value="income">Income</Select.Option>
-              <Select.Option value="expense">Expense</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Category" name="category">
-            <Select>
-              <Select.Option value="salary">Salary</Select.Option>
-              <Select.Option value="tip">Tip</Select.Option>
-              <Select.Option value="project">Project</Select.Option>
-              <Select.Option value="food">Food</Select.Option>
-              <Select.Option value="movie">Movie</Select.Option>
-              <Select.Option value="bills">Bills</Select.Option>
-              <Select.Option value="medical">Medical</Select.Option>
-              <Select.Option value="fee">Fee</Select.Option>
-              <Select.Option value="tax">TAX</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Date" name="date">
-            <Input type="date" />
-          </Form.Item>
-          <Form.Item label="Refrence" name="refrence">
-            <Input type="text" required />
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <Input type="text" required />
-          </Form.Item>
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-primary">
-              {" "}
-              SAVE
+            <AreaChartOutlined
+              className={`mx-2 ${viewData === "analytics" ? "active-icon" : "inactive-icon"
+                }`}
+              onClick={() => setViewData("analytics")}
+            />
+          </div>
+          <div>
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowModal(true)}
+            >
+              Add New
             </button>
           </div>
-        </Form>
-      </Modal>
-    </Layout>
+        </div>
+        <div className="content">
+          {viewData === "table" ? (
+            <Table columns={columns} dataSource={allTransection} />
+          ) : (
+            <Analytics allTransection={allTransection} />
+          )}
+        </div>
+        <Modal
+          title={editable ? "Edit Transaction" : "Add Transection"}
+          open={showModal}
+          onCancel={() => setShowModal(false)}
+          footer={false}
+        >
+          <Form
+            layout="vertical"
+            onFinish={handleSubmit}
+            initialValues={editable}
+          >
+            <Form.Item label="Amount" name="amount">
+              <Input type="text" required />
+            </Form.Item>
+            <Form.Item label="type" name="type">
+              <Select>
+                <Select.Option value="income">Income</Select.Option>
+                <Select.Option value="expense">Expense</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Category" name="category">
+              <Select>
+                <Select.Option value="salary">Salary</Select.Option>
+                <Select.Option value="tip">Tip</Select.Option>
+                <Select.Option value="project">Project</Select.Option>
+                <Select.Option value="food">Food</Select.Option>
+                <Select.Option value="movie">Movie</Select.Option>
+                <Select.Option value="bills">Bills</Select.Option>
+                <Select.Option value="medical">Medical</Select.Option>
+                <Select.Option value="fee">Fee</Select.Option>
+                <Select.Option value="tax">TAX</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Date" name="date">
+              <Input type="date" />
+            </Form.Item>
+            <Form.Item label="Refrence" name="refrence">
+              <Input type="text" required />
+            </Form.Item>
+            <Form.Item label="Description" name="description">
+              <Input type="text" required />
+            </Form.Item>
+            <div className="d-flex justify-content-end">
+              <button type="submit" className="btn btn-primary">
+                {" "}
+                SAVE
+              </button>
+            </div>
+          </Form>
+        </Modal>
+      </Layout>
+    </>
   );
 };
 

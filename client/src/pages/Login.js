@@ -38,25 +38,29 @@ const Login = () => {
       <div className="login-page ">
         {loading && <Spinner />}
         <div className="row container">
-          <h1>Expsanse Managment System - MERN STACK</h1>
+          <h1>Expense Management System</h1>
           <div className="col-md-6">
             <img src={img} alt="login-img" width={"100%"} height="100%" />
           </div>
           <div className="col-md-4 login-form">
-            <Form layout="vertical" onFinish={submitHandler}>
-              <h1>Login Form</h1>
+            <Form
+              layout="vertical"
+              onFinish={submitHandler}
+            >
+              <h2>Login</h2>
 
               <Form.Item label="Email" name="email">
-                <Input type="email" required />
+                <Input type="email" placeholder="Enter your email address" required />
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type="password" required />
+                <Input type="password" placeholder="Enter correct password" required />
               </Form.Item>
-              <div className="d-flex justify-content-between">
-                <Link to="/register">
-                  Not a user ? Click Here to regsiter !
-                </Link>
+              <div className="pb-2 d-flex justify-content-center">
                 <button className="btn">Login</button>
+              </div>
+              <div className="text pt-2 d-flex justify-content-center">
+                Not a user ?
+                <Link to="/register">Regsiter here!</Link>
               </div>
             </Form>
           </div>
