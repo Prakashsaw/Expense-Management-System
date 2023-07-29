@@ -26,27 +26,33 @@ const HomePage = () => {
   //table data
   const columns = [
     {
+      id: "1",
       title: "Date(yyyy-mm-dd)",
       dataIndex: "date",
       render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
     },
     {
+      id: "2",
       title: "Amount(Rs.)",
       dataIndex: "amount",
     },
     {
+      id: "3",
       title: "Type",
       dataIndex: "type",
     },
     {
+      id: "4",
       title: "Category",
       dataIndex: "category",
     },
     {
+      id: "5",
       title: "Refrence",
       dataIndex: "refrence",
     },
     {
+      id: "6",
       title: "Actions",
       render: (text, record) => (
         <div>
@@ -99,10 +105,14 @@ const HomePage = () => {
       });
       setLoading(false);
       message.success("Transaction Deleted!");
+
+      //For auto update on client if any update or edit be done
+      // localStorage.reload();
+
     } catch (error) {
       setLoading(false);
       console.log(error);
-      message.error("unable to delete");
+      message.error("Unable to delete");
     }
   };
 
@@ -120,6 +130,9 @@ const HomePage = () => {
           transacationId: editable._id,
         });
         setLoading(false);
+
+        // localStorage.reload();
+
         message.success("Transaction Updated Successfully");
       } else {
         await axios.post("api/v1/transections/add-transection", {
@@ -127,16 +140,21 @@ const HomePage = () => {
           userid: user._id,
         });
         setLoading(false);
+
+        // localStorage.reload();
+
         message.success("Transaction Added Successfully");
       }
       setShowModal(false);
       setEditable(null);
+
+      //For auto update on client if any update or edit be done
+      // localStorage.reload();
+
     } catch (error) {
       setLoading(false);
       message.error("Please fill all fields");
     }
-    //For auto update on client if any update or edit be done
-    // setAUthors(oldAuthors => [...oldAuthors, newAuthor]); 
   };
 
   return (
@@ -217,16 +235,18 @@ const HomePage = () => {
             </Form.Item>
             <Form.Item label="Category" name="category">
               <Select>
-                <Select.Option value="salary">Salary</Select.Option>
-                <Select.Option value="tip">Part Time</Select.Option>
-                <Select.Option value="tip">Tip</Select.Option>
-                <Select.Option value="food">Food</Select.Option>
-                <Select.Option value="movie">Movie</Select.Option>
-                <Select.Option value="bills">Bills</Select.Option>
-                <Select.Option value="medical">Medical</Select.Option>
-                <Select.Option value="fee">Fee</Select.Option>
-                <Select.Option value="project">Project</Select.Option>
-                <Select.Option value="tax">TAX</Select.Option>
+                <Select.Option value="salary">Income in Salary</Select.Option>
+                <Select.Option value="part-time">Income in Part Time</Select.Option>
+                <Select.Option value="project">Income in Project</Select.Option>
+                <Select.Option value="freelancing">Income in Freelancing</Select.Option>
+                <Select.Option value="tip">Expense in Tip</Select.Option>
+                <Select.Option value="stationary">Expense in Stationary</Select.Option>
+                <Select.Option value="food">Expense in Food</Select.Option>
+                <Select.Option value="movie">Expense in Movie</Select.Option>
+                <Select.Option value="bills">Expense in Bills</Select.Option>
+                <Select.Option value="medical">Expense in Medical</Select.Option>
+                <Select.Option value="fees">Expense in Fees</Select.Option>
+                <Select.Option value="tax">Expense in TAX</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item label="Date" name="date">
