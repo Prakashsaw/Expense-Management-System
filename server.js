@@ -30,7 +30,7 @@ app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
 // app.get("*", function (req, res) {
 //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// }):
+// });
 
 //port
 const PORT = 8080 || process.env.PORT;
