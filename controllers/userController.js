@@ -23,6 +23,12 @@ const loginController = async (req, res) => {
 //Register Callback
 const registerController = async (req, res) => {
   try {
+    const {name, email, password} = req.body;
+    if(!name || !email || !password){
+      console.log("All fields are required!");
+      res.send("All fields are required");
+    }
+    
     const newUser = new userModel(req.body);
     await newUser.save();
     res.status(201).json({
