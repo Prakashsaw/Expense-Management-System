@@ -20,7 +20,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-dark">
+      <nav className="navbar navbar-expand-lg bg-dark sticky-top">
         <Link className="navbar-brand" to="/">
           Expense Management System
         </Link>
