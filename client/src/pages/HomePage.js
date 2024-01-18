@@ -90,7 +90,7 @@ const HomePage = () => {
         setAllTransection(res.data);
         setLoading(false);
       } catch (error) {
-        message.error("Ftech Issue With Tranction");
+        message.error("Fetch Issue With Transaction");
       }
     };
     getAllTransactions();
@@ -108,7 +108,6 @@ const HomePage = () => {
 
       //For auto update on client if any update or edit be done
       // localStorage.reload();
-
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -150,7 +149,6 @@ const HomePage = () => {
 
       //For auto update on client if any update or edit be done
       // localStorage.reload();
-
     } catch (error) {
       setLoading(false);
       message.error("Please fill all fields");
@@ -164,7 +162,10 @@ const HomePage = () => {
         <div className="filters">
           <div>
             <h6>Select Frequency</h6>
-            <Select value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select
+              value={frequency}
+              onChange={(values) => setFrequency(values)}
+            >
               <Select.Option value="7">LAST 1 Week</Select.Option>
               <Select.Option value="30">LAST 1 Month</Select.Option>
               <Select.Option value="365">LAST 1 Year</Select.Option>
@@ -181,19 +182,21 @@ const HomePage = () => {
             <h6>Select Type</h6>
             <Select value={type} onChange={(values) => setType(values)}>
               <Select.Option value="all">ALL</Select.Option>
-              <Select.Option value="income">INCOME</Select.Option>
-              <Select.Option value="expense">EXPENSE</Select.Option>
+              <Select.Option value="Income">INCOME</Select.Option>
+              <Select.Option value="Expense">EXPENSE</Select.Option>
             </Select>
           </div>
           <div className="switch-icons">
             <UnorderedListOutlined
-              className={`mx-2 ${viewData === "table" ? "active-icon" : "inactive-icon"
-                }`}
+              className={`mx-2 ${
+                viewData === "table" ? "active-icon" : "inactive-icon"
+              }`}
               onClick={() => setViewData("table")}
             />
             <AreaChartOutlined
-              className={`mx-2 ${viewData === "analytics" ? "active-icon" : "inactive-icon"
-                }`}
+              className={`mx-2 ${
+                viewData === "analytics" ? "active-icon" : "inactive-icon"
+              }`}
               onClick={() => setViewData("analytics")}
             />
           </div>
@@ -210,7 +213,7 @@ const HomePage = () => {
           {viewData === "table" ? (
             <Table columns={columns} dataSource={allTransection} />
           ) : (
-            <Analytics allTransection={allTransection} />
+              <Analytics allTransection={allTransection} />
           )}
         </div>
         <Modal
@@ -227,26 +230,50 @@ const HomePage = () => {
             <Form.Item label="Amount" name="amount">
               <Input type="text" required />
             </Form.Item>
-            <Form.Item label="type" name="type">
+            <Form.Item label="Type" name="type">
               <Select>
-                <Select.Option value="income">Income</Select.Option>
-                <Select.Option value="expense">Expense</Select.Option>
+                <Select.Option value="Income">Income</Select.Option>
+                <Select.Option value="Expense">Expense</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item label="Category" name="category">
               <Select>
-                <Select.Option value="salary">Income in Salary</Select.Option>
-                <Select.Option value="part-time">Income in Part Time</Select.Option>
-                <Select.Option value="project">Income in Project</Select.Option>
-                <Select.Option value="freelancing">Income in Freelancing</Select.Option>
-                <Select.Option value="tip">Expense in Tip</Select.Option>
-                <Select.Option value="stationary">Expense in Stationary</Select.Option>
-                <Select.Option value="food">Expense in Food</Select.Option>
-                <Select.Option value="movie">Expense in Movie</Select.Option>
-                <Select.Option value="bills">Expense in Bills</Select.Option>
-                <Select.Option value="medical">Expense in Medical</Select.Option>
-                <Select.Option value="fees">Expense in Fees</Select.Option>
-                <Select.Option value="tax">Expense in TAX</Select.Option>
+                <Select.Option value="Income in Salary">
+                  Income in Salary
+                </Select.Option>
+                <Select.Option value="Income in Part Time">
+                  Income in Part Time
+                </Select.Option>
+                <Select.Option value="Income in Project">
+                  Income in Project
+                </Select.Option>
+                <Select.Option value="Income in Freelancing">
+                  Income in Freelancing
+                </Select.Option>
+                <Select.Option value="Expense in Tip">
+                  Expense in Tip
+                </Select.Option>
+                <Select.Option value="Expense in Stationary">
+                  Expense in Stationary
+                </Select.Option>
+                <Select.Option value="Expense in Food">
+                  Expense in Food
+                </Select.Option>
+                <Select.Option value="Expense in Movie">
+                  Expense in Movie
+                </Select.Option>
+                <Select.Option value="Expense in Bills">
+                  Expense in Bills
+                </Select.Option>
+                <Select.Option value="Expense in Medical">
+                  Expense in Medical
+                </Select.Option>
+                <Select.Option value="Expense in Fees">
+                  Expense in Fees
+                </Select.Option>
+                <Select.Option value="Expense in TAX">
+                  Expense in TAX
+                </Select.Option>
               </Select>
             </Form.Item>
             <Form.Item label="Date" name="date">

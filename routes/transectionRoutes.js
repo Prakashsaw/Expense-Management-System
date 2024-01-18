@@ -10,14 +10,14 @@ const {
 const router = express.Router();
 
 //routes
-//add transection POST MEthod
+//add transection POST Method
 router.post("/add-transection", addTransection);
-//Edit transection POST MEthod
+//Edit transection POST Method
 router.post("/edit-transection", editTransection);
-//Delete transection POST MEthod
+//Delete transection POST Method
 router.post("/delete-transection", deleteTransection);
 
-//get transections
+//Get all transections
 router.post("/get-transection", getAllTransection);
 
 module.exports = router;

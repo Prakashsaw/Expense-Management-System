@@ -3,24 +3,27 @@ import { Progress } from "antd";
 const Analytics = ({ allTransection }) => {
   // category
   const categories = [
-    "salary",
-    "tip",
-    "project",
-    "food",
-    "movie",
-    "bills",
-    "medical",
-    "fee",
-    "tax",
+    "Income in Salary",
+    "Income in Part Time",
+    "Income in Project",
+    "Income in Freelancing",
+    "Income in Tip",
+    "Expense in Stationary",
+    "Expense in Food",
+    "Expense in Movie",
+    "Expense in Biils",
+    "Expense in Medical",
+    "Expense in Fees",
+    "Expense in TAX",
   ];
 
   // total transaction
   const totalTransaction = allTransection.length;
   const totalIncomeTransactions = allTransection.filter(
-    (transaction) => transaction.type === "income"
+    (transaction) => transaction.type === "Income"
   );
   const totalExpenseTransactions = allTransection.filter(
-    (transaction) => transaction.type === "expense"
+    (transaction) => transaction.type === "Expense"
   );
   const totalIncomePercent =
     (totalIncomeTransactions.length / totalTransaction) * 100;
@@ -33,11 +36,11 @@ const Analytics = ({ allTransection }) => {
     0
   );
   const totalIncomeTurnover = allTransection
-    .filter((transaction) => transaction.type === "income")
+    .filter((transaction) => transaction.type === "Income")
     .reduce((acc, transaction) => acc + transaction.amount, 0);
 
   const totalExpenseTurnover = allTransection
-    .filter((transaction) => transaction.type === "expense")
+    .filter((transaction) => transaction.type === "Expense")
     .reduce((acc, transaction) => acc + transaction.amount, 0);
 
   const totalIncomeTurnoverPercent =
@@ -105,7 +108,7 @@ const Analytics = ({ allTransection }) => {
             const amount = allTransection
               .filter(
                 (transaction) =>
-                  transaction.type === "income" &&
+                  transaction.type === "Income" &&
                   transaction.category === category
               )
               .reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -131,7 +134,7 @@ const Analytics = ({ allTransection }) => {
             const amount = allTransection
               .filter(
                 (transaction) =>
-                  transaction.type === "expense" &&
+                  transaction.type === "Expense" &&
                   transaction.category === category
               )
               .reduce((acc, transaction) => acc + transaction.amount, 0);
