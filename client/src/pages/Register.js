@@ -13,7 +13,10 @@ const Register = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      await axios.post("/api/v1/users/register", values);
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/v1/users/register`,
+        values
+      );
       message.success("Registeration Successfull");
       setLoading(false);
       navigate("/login");
@@ -39,27 +42,34 @@ const Register = () => {
             <img src={img} alt="register-img" width={"100%"} height="100%" />
           </div>
           <div className="col-md-4 register-form">
-            <Form
-              layout="vertical"
-              onFinish={submitHandler}
-            >
+            <Form layout="vertical" onFinish={submitHandler}>
               <h2>Register</h2>
 
               <Form.Item label="Name" name="name">
                 <Input type="text" placeholder="Enter your name" required />
               </Form.Item>
               <Form.Item label="Email" name="email">
-                <Input type="email" placeholder="Enter your valid email address" required />
+                <Input
+                  type="email"
+                  placeholder="Enter your valid email address"
+                  required
+                />
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type="password" placeholder="Password must be strong " required />
+                <Input
+                  type="password"
+                  placeholder="Password must be strong "
+                  required
+                />
               </Form.Item>
               <div className="pb-2 d-flex justify-content-center">
                 <button className="btn ">Resgiter</button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
                 Already Registered?
-                <Link className="link" to="/login">Login here!</Link>
+                <Link className="link" to="/login">
+                  Login here!
+                </Link>
               </div>
             </Form>
           </div>

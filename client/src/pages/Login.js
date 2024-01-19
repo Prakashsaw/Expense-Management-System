@@ -13,7 +13,11 @@ const Login = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/v1/users/login", values);
+
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/v1/users/login`,
+        values
+      );
       setLoading(false);
       message.success("login success");
       localStorage.setItem(
@@ -43,24 +47,28 @@ const Login = () => {
             <img src={img} alt="login-img" width={"100%"} height="100%" />
           </div>
           <div className="col-md-4 login-form">
-            <Form
-              layout="vertical"
-              onFinish={submitHandler}
-            >
+            <Form layout="vertical" onFinish={submitHandler}>
               <h2>Login</h2>
 
               <Form.Item label="Email" name="email">
-                <Input type="email" placeholder="Enter your email address" required />
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  required
+                />
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type="password" placeholder="Enter correct password" required />
+                <Input
+                  type="password"
+                  placeholder="Enter correct password"
+                  required
+                />
               </Form.Item>
               <div className="pb-2 d-flex justify-content-center">
                 <button className="btn">Login</button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
-                Not a user ?
-                <Link to="/register">Regsiter here!</Link>
+                Not a user ?<Link to="/register">Regsiter here!</Link>
               </div>
             </Form>
           </div>
