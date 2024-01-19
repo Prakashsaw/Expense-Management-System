@@ -25,15 +25,25 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 //transections routes
 app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
-// //static files
-// app.use(express.static(path.join(__dirname, "./client/build")));
-
-// app.get("*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
 
 //port
 const PORT = 8080 || process.env.PORT;
+
+//it is a test route just to see our server is working
+app.get("/", (req, res) => {
+  return res.send(`<div style = "background:green;padding:100px;"><h2>Welcome to Expense Management System Backend Server URL...</h2>
+    <p>Below are the some examples of supported routes...</p>
+        <div><ul>
+            <h3>User Route</h3>
+            <li>Register User - /api/v1/users/register</li>
+            <li>Login User - /api/v1/users/login</li>
+            <h3>Transection Route</h3>
+            <li>Transaction Route - /api/v1/transections</li>
+            <li>Much more...</li>
+        </ul></div>
+    </div>`);
+});
+
 
 //listen server
 app.listen(PORT, () => {
