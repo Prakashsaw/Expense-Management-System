@@ -66,6 +66,8 @@ const registerController = async (req, res) => {
     const jwt_token = createToken(newUser._id);
 
     res.status(200).json({
+      success: true,
+      newUser,
       Status: "Success",
       message: "Successfully Registered...!",
       _id: newUser._id,
