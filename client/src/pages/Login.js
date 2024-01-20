@@ -73,7 +73,6 @@ const Login = () => {
                 <Input
                   type="email"
                   placeholder="Please enter your valid email address"
-                  // required
                 />
               </Form.Item>
               <Form.Item
@@ -90,7 +89,6 @@ const Login = () => {
                   className="pass-input"
                   type="password"
                   placeholder="Please enter your password"
-                  // required
                 />
               </Form.Item>
               <div className="pb-2 d-flex justify-content-center">

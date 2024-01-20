@@ -49,9 +49,13 @@
 }
 
 .footer {
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .responsive-btn {
   background-color: white;
+}
+
+.page-not-found {
+  font-weight: bold;
 }

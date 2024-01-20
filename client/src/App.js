@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -17,9 +18,8 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        {/* if path is not correct then navigate to bydefault page */}
-        <Route path="*" element={<Navigate to="/" />} /> 
-
+        {/* if path is not correct then navigate to page not found page */}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
