@@ -38,6 +38,9 @@
 .login-form input {
   border-radius: 5px;
 }
+.login-form .pass-input {
+  border-radius: 5px;
+}
 
 .login-form button:hover {
   background-color: black;

@@ -42,24 +42,57 @@ const Register = () => {
             <img src={img} alt="register-img" width={"100%"} height="100%" />
           </div>
           <div className="col-md-4 register-form">
-            <Form layout="vertical" onFinish={submitHandler}>
+            <Form
+              layout="vertical"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={submitHandler}
+              autoComplete="off"
+            >
               <h2>Register</h2>
 
-              <Form.Item label="Name" name="name">
-                <Input type="text" placeholder="Enter your name" required />
+              <Form.Item
+                label="Name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your name...!",
+                  },
+                ]}
+              >
+                <Input type="text" placeholder="Please enter your name" />
               </Form.Item>
-              <Form.Item label="Email" name="email">
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your valid eamil...!",
+                  },
+                ]}
+              >
                 <Input
                   type="email"
                   placeholder="Enter your valid email address"
-                  required
                 />
               </Form.Item>
-              <Form.Item label="Password" name="password">
-                <Input
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Password must be a strong password...!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className="pass-input"
                   type="password"
-                  placeholder="Password must be strong "
-                  required
+                  placeholder="Please enter your password"
                 />
               </Form.Item>
               <div className="pb-2 d-flex justify-content-center">

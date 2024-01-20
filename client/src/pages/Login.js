@@ -47,21 +47,50 @@ const Login = () => {
             <img src={img} alt="login-img" width={"100%"} height="100%" />
           </div>
           <div className="col-md-4 login-form">
-            <Form layout="vertical" onFinish={submitHandler}>
+            <Form
+              layout="vertical"
+              initialValues={{
+                remember: true,
+              }}
+              style={{
+                maxWidth: 600,
+              }}
+              onFinish={submitHandler}
+              autoComplete="off"
+            >
               <h2>Login</h2>
 
-              <Form.Item label="Email" name="email">
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your valid email...!",
+                  },
+                ]}
+              >
                 <Input
                   type="email"
-                  placeholder="Enter your email address"
-                  required
+                  placeholder="Please enter your valid email address"
+                  // required
                 />
               </Form.Item>
-              <Form.Item label="Password" name="password">
-                <Input
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your password...!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className="pass-input"
                   type="password"
-                  placeholder="Enter correct password"
-                  required
+                  placeholder="Please enter your password"
+                  // required
                 />
               </Form.Item>
               <div className="pb-2 d-flex justify-content-center">

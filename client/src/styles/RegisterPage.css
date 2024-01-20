@@ -8,7 +8,7 @@
 .register-form {
   background-color: #b9bcccb6;
   margin-left: -15px;
-  padding: 30px;
+  padding: 20px;
 }
 
 .register-form h2 {
@@ -33,6 +33,9 @@
 }
 
 .register-form input {
+  border-radius: 5px;
+}
+.register-form .pass-input {
   border-radius: 5px;
 }
 
