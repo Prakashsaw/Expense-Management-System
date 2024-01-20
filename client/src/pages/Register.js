@@ -17,12 +17,12 @@ const Register = () => {
         `${process.env.REACT_APP_SERVER_URL}/api/v1/users/register`,
         values
       );
-      message.success("Registeration Successfull");
+      message.success("Registration Successfull");
       setLoading(false);
       navigate("/login");
     } catch (error) {
       setLoading(false);
-      message.error("something went wrong");
+      message.error("Something went wrong");
     }
   };
 

@@ -116,6 +116,8 @@ const loginController = async (req, res) => {
     const jwt_token = createToken(user._id);
 
     res.status(200).json({
+      success: true,
+      user,
       Status: "Success",
       message: "Successfully LoggedIn...!",
       _id: user._id,

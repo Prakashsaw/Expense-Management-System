@@ -4,7 +4,7 @@ const transectionSchema = new mongoose.Schema(
   {
     userid: {
       type: String,
-      // required: true,
+      required: true,
     },
     amount: {
       type: Number,

@@ -43,7 +43,7 @@ const Header = () => {
               <li className="nav-item">
                 {" "}
                 <h6 className="nav-link ">
-                  <UserOutlined /> {loginUser  && loginUser.name}
+                  <UserOutlined /> {loginUser && loginUser.name}
                 </h6>{" "}
               </li>
               <li className="nav-item">
