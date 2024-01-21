@@ -38,7 +38,6 @@ const Register = () => {
   return (
     <>
       <div className="register-page">
-        {loading && <Spinner />}
         <div className="row container">
           <h1>Expense Management System</h1>
           <div className="col-md-6">
@@ -109,7 +108,9 @@ const Register = () => {
               )}
 
               <div className="pb-2 mt-3 d-flex justify-content-center">
-                <button className="btn ">Resgiter</button>
+                <button className="btn" disabled={loading}>
+                  {loading ? "Registering you in..." : "Resgiter"}
+                </button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
                 Already Registered?

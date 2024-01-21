@@ -46,7 +46,6 @@ const Login = () => {
   return (
     <>
       <div className="login-page ">
-        {loading && <Spinner />}
         <div className="row container">
           <h1>Expense Management System</h1>
           <div className="col-md-6">
@@ -107,8 +106,10 @@ const Login = () => {
                 />
               )}
 
-              <div className="pb-2 mt-4 d-flex justify-content-center">
-                <button className="btn">Login</button>
+              <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
+                <button className="btn" disabled={loading}>
+                  {loading ? "Getting you in..." : "Login"}
+                </button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
                 Not a user ?<Link to="/register">Regsiter here!</Link>
