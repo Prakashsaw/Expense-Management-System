@@ -33,6 +33,7 @@
   background-color: #344265;
   color: white;
   outline: none;
+  width: 100%;
 }
 
 .login-form input {
@@ -43,13 +44,10 @@
 }
 
 .login-form button:hover {
-  background-color: black;
+  background-color: green;
   color: white;
 }
 
-/* .login-form .ant-form-item-label label {
-  color: #344265 !important;
-} */
 
 .login-form .text {
   color: #3a3465 !important;

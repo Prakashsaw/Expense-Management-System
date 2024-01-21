@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, message } from "antd";
+import { Form, Input, message, Alert } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import "../styles/RegisterPage.css";
+import { getResponseError } from "../utils/getResponseError";
 const Register = () => {
   const img =
     "https://images.unsplash.com/photo-1593538312308-d4c29d8dc7f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [registerError, setRegisterError] = useState(null);
   //from submit
   const submitHandler = async (values) => {
     try {
@@ -22,6 +24,7 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       setLoading(false);
+      setRegisterError(getResponseError(error));
       message.error("Something went wrong");
     }
   };
@@ -41,7 +44,7 @@ const Register = () => {
           <div className="col-md-6">
             <img src={img} alt="register-img" width={"100%"} height="100%" />
           </div>
-          <div className="col-md-4 register-form">
+          <div className="col-md-5 register-form">
             <Form
               layout="vertical"
               initialValues={{
@@ -95,7 +98,17 @@ const Register = () => {
                   placeholder="Please enter your password"
                 />
               </Form.Item>
-              <div className="pb-2 d-flex justify-content-center">
+
+              {registerError && (
+                <Alert
+                  message={registerError}
+                  type="error"
+                  showIcon
+                  style={{ marginBottom: 10 }}
+                />
+              )}
+
+              <div className="pb-2 mt-3 d-flex justify-content-center">
                 <button className="btn ">Resgiter</button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">

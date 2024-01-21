@@ -30,6 +30,7 @@
   background-color: #344265;
   color: white;
   outline: none;
+  width: 100%;
 }
 
 .register-form input {
@@ -40,7 +41,7 @@
 }
 
 .register-form button:hover {
-  background-color: black;
+  background-color: green;
   color: white;
 }
 
