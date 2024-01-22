@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, message, Alert } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Spinner from "../components/Spinner";
 import "../styles/RegisterPage.css";
 import { getResponseError } from "../utils/getResponseError";
 const Register = () => {
