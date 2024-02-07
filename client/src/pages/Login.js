@@ -5,6 +5,7 @@ import axios from "axios";
 import "../styles/Loginpage.css";
 import { getResponseError } from "../utils/getResponseError";
 import { BASE_URL } from "../utils/baseURL";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
 const Login = () => {
   const img =
@@ -76,8 +77,13 @@ const Login = () => {
                 ]}
               >
                 <Input
+                  prefix={<MailOutlined />}
+                  className="pass-input"
                   type="email"
                   placeholder="Please enter your valid email address"
+                  style={{
+                    height: 40,
+                  }}
                 />
               </Form.Item>
               <Form.Item
@@ -91,9 +97,13 @@ const Login = () => {
                 ]}
               >
                 <Input.Password
+                  prefix={<LockOutlined />}
                   className="pass-input"
                   type="password"
                   placeholder="Please enter your password"
+                  style={{
+                    height: 40,
+                  }}
                 />
               </Form.Item>
 
@@ -111,8 +121,13 @@ const Login = () => {
                   {loading ? "Getting you in..." : "Login"}
                 </button>
               </div>
-              <div className="text pt-2 d-flex justify-content-center">
-                Not a user ?<Link to="/register">Regsiter here!</Link>
+              <div className="text pt-2 d-flex justify-content-between">
+                <div className="forgot-password">
+                  <Link to="/forgot-password">Forgot Password?</Link>
+                </div>
+                <div>
+                  Not a user? <Link to="/register">Sign Up here!</Link>
+                </div>
               </div>
             </Form>
           </div>

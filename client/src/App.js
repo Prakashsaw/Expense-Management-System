@@ -3,6 +3,10 @@ import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PageNotFound from "./pages/PageNotFound";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import TermsAndConditions from "./pages/UserAgreement/TermsAndConditions";
+import PrivacyAndPolicy from "./pages/UserAgreement/PrivacyAndPolicy";
 
 function App() {
   return (
@@ -18,6 +22,10 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/terms-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyAndPolicy />} />
         {/* if path is not correct then navigate to page not found page */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

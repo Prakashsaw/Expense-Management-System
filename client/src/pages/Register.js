@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, message, Alert } from "antd";
+import { Form, Input, message, Alert, Checkbox } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/RegisterPage.css";
 import { getResponseError } from "../utils/getResponseError";
 import { BASE_URL } from "../utils/baseURL";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 
 const Register = () => {
   const img =
@@ -50,7 +51,7 @@ const Register = () => {
               onFinish={submitHandler}
               autoComplete="off"
             >
-              <h2>Register</h2>
+              <h2>Sign Up</h2>
 
               <Form.Item
                 label="Name"
@@ -62,7 +63,15 @@ const Register = () => {
                   },
                 ]}
               >
-                <Input type="text" placeholder="Please enter your name" />
+                <Input
+                  prefix={<UserOutlined />}
+                  className="pass-input"
+                  type="text"
+                  placeholder="Please enter your name"
+                  style={{
+                    height: 40,
+                  }}
+                />
               </Form.Item>
               <Form.Item
                 label="Email"
@@ -75,8 +84,13 @@ const Register = () => {
                 ]}
               >
                 <Input
+                  prefix={<MailOutlined />}
+                  className="pass-input"
                   type="email"
                   placeholder="Enter your valid email address"
+                  style={{
+                    height: 40,
+                  }}
                 />
               </Form.Item>
               <Form.Item
@@ -90,10 +104,26 @@ const Register = () => {
                 ]}
               >
                 <Input.Password
+                  prefix={<LockOutlined />}
                   className="pass-input"
                   type="password"
                   placeholder="Please enter your password"
+                  style={{
+                    height: 40,
+                  }}
                 />
+              </Form.Item>
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>
+                  I agree to the{" "}
+                  <Link className="link link1" to="/terms-conditions">
+                    Terms & Conditions
+                  </Link>{" "}
+                  and{" "}
+                  <Link className="link link1" to="/privacy-policy">
+                    Privacy policy
+                  </Link>.
+                </Checkbox>
               </Form.Item>
 
               {registerError && (
@@ -101,17 +131,17 @@ const Register = () => {
                   message={registerError}
                   type="error"
                   showIcon
-                  style={{ marginBottom: 10 }}
+                  style={{ marginTop: 10 }}
                 />
               )}
 
-              <div className="pb-2 mt-3 d-flex justify-content-center">
+              <div className="pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>
-                  {loading ? "Registering you in..." : "Resgiter"}
+                  {loading ? "Registering you in..." : "Sign Up"}
                 </button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
-                Already Registered?
+                Already Registered? 
                 <Link className="link" to="/login">
                   Login here!
                 </Link>
