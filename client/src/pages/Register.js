@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/RegisterPage.css";
 import { getResponseError } from "../utils/getResponseError";
+import { BASE_URL } from "../utils/baseURL";
+
 const Register = () => {
   const img =
     "https://images.unsplash.com/photo-1593538312308-d4c29d8dc7f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
@@ -14,10 +16,7 @@ const Register = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/v1/users/register`,
-        values
-      );
+      await axios.post(`${BASE_URL}/api/v1/users/register`, values);
       message.success("Registration Successfull");
       setLoading(false);
       navigate("/login");

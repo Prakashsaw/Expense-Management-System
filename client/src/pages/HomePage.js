@@ -11,6 +11,7 @@ import axios from "axios";
 import Spinner from "./../components/Spinner";
 import moment from "moment";
 import Analytics from "../components/Analytics";
+import { BASE_URL } from "../utils/baseURL";
 const { RangePicker } = DatePicker;
 
 const HomePage = () => {
@@ -82,7 +83,7 @@ const HomePage = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         setLoading(true);
         const res = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/api/v1/transections/get-transection`,
+          `${BASE_URL}/api/v1/transections/get-transection`,
           {
             userid: user._id,
             frequency,
@@ -103,12 +104,9 @@ const HomePage = () => {
   const handleDelete = async (record) => {
     try {
       setLoading(true);
-      await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/v1/transections/delete-transection`,
-        {
-          transacationId: record._id,
-        }
-      );
+      await axios.post(`${BASE_URL}/api/v1/transections/delete-transection`, {
+        transacationId: record._id,
+      });
       setLoading(false);
       message.success("Transaction Deleted!");
 
@@ -127,29 +125,23 @@ const HomePage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       if (editable) {
-        await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/api/v1/transections/edit-transection`,
-          {
-            payload: {
-              ...values,
-              userId: user._id,
-            },
-            transacationId: editable._id,
-          }
-        );
+        await axios.post(`${BASE_URL}/api/v1/transections/edit-transection`, {
+          payload: {
+            ...values,
+            userId: user._id,
+          },
+          transacationId: editable._id,
+        });
         setLoading(false);
 
         // localStorage.reload();
 
         message.success("Transaction Updated Successfully");
       } else {
-        await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/api/v1/transections/add-transection`,
-          {
-            ...values,
-            userid: user._id,
-          }
-        );
+        await axios.post(`${BASE_URL}/api/v1/transections/add-transection`, {
+          ...values,
+          userid: user._id,
+        });
         setLoading(false);
 
         // localStorage.reload();

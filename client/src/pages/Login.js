@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Loginpage.css";
 import { getResponseError } from "../utils/getResponseError";
+import { BASE_URL } from "../utils/baseURL";
 
 const Login = () => {
   const img =
@@ -17,7 +18,7 @@ const Login = () => {
       setLoading(true);
 
       const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/v1/users/login`,
+        `${BASE_URL}/api/v1/users/login`,
         values
       );
       setLoading(false);
