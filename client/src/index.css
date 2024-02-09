@@ -59,3 +59,8 @@
 .page-not-found {
   font-weight: bold;
 }
+
+.email-sent-page {
+  padding-top: 30px;
+  margin-left: 40%;
+}

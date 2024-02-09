@@ -122,11 +122,11 @@ const Login = () => {
                 </button>
               </div>
               <div className="text pt-2 d-flex justify-content-between">
-                <div className="forgot-password">
+                <div>
                   <Link to="/forgot-password">Forgot Password?</Link>
                 </div>
                 <div>
-                  Not a user? <Link to="/register">Sign Up here!</Link>
+                  Not a user? <Link to="/register">SignUp here!</Link>
                 </div>
               </div>
             </Form>

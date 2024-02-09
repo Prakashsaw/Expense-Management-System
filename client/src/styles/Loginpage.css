@@ -1,10 +1,8 @@
 .login-page {
-  height: 100vh !important;
   width: 100vw !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
 }
 
@@ -49,7 +47,14 @@
   color: white;
 }
 
-
 .login-form .text {
   color: #3a3465 !important;
+}
+
+.login-form .btn {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #344265;
+  color: white;
+  outline: none;
 }

@@ -55,3 +55,11 @@
 .link1:hover {
   text-decoration: underline;
 }
+
+.register-form .btn {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #344265;
+  color: white;
+  outline: none;
+}

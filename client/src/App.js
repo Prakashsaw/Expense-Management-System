@@ -7,6 +7,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import TermsAndConditions from "./pages/UserAgreement/TermsAndConditions";
 import PrivacyAndPolicy from "./pages/UserAgreement/PrivacyAndPolicy";
+import EmailSent from "./pages/EmailSent";
+import LoginVerification from "./pages/LoginVerification";
 
 function App() {
   return (
@@ -23,9 +25,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password/:_id/:token" element={<ResetPassword />} />
         <Route path="/terms-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyAndPolicy />} />
+        <Route path="/forgot-email-sent" element={<EmailSent />} />
+        <Route path="/login-verification" element={<LoginVerification />} />
         {/* if path is not correct then navigate to page not found page */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -2,16 +2,36 @@ const express = require("express");
 const {
   loginController,
   registerController,
+  sendUserPasswordResetEmail,
+  resetUserPasswordThroughForgotPassword,
+  changePasswordController,
+  loggedUser,
+  changePassword,
 } = require("../controllers/userController");
+const checkUserAuth = require("../middleware/userAuth");
 
 //router object
 const router = express.Router();
 
-//routers
-// POST || LOGIN USER
-router.post("/login", loginController);
-
-//POST || REGISTER USER
+// Public routes
+//POST : REGISTER USER
 router.post("/register", registerController);
+// POST : LOGIN USER
+router.post("/login", loginController);
+// POST : Send reset password email
+router.post("/send-reset-password-email", sendUserPasswordResetEmail);
+// Reset password through forgot password email
+router.post("/reset-password/:_id/:token", resetUserPasswordThroughForgotPassword);
 
+
+// Protected routes
+// All routes after this middleware will be protected
+// Like: Access to dashboard, change password, forgot password, etc
+// POST : CHANGE PASSWORD
+router.post("/change-password", checkUserAuth, changePassword);
+// GET : LOGGED USER / SER PROFILE
+router.get("/logged-user", checkUserAuth, loggedUser);
+
+
+// Export the router
 module.exports = router;

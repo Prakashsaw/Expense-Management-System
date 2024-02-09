@@ -4,7 +4,7 @@
   "description": "expanse tracker app",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon node server.js",
     "server": "nodemon server.js",
     "dev": "nodemon server.js"
   },
@@ -23,6 +23,7 @@
     "mongoose": "^6.6.5",
     "morgan": "^1.10.0",
     "nodemailer": "^4.7.0",
+    "nodemon": "^3.0.3",
     "validator": "^13.11.0"
   }
 }
