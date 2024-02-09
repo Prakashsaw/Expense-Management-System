@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const transporter = require("../config/emailConfig");
+const CLIENT_URL = require("../utils/baseURL");
 
 const createToken = (_id) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
@@ -198,7 +199,7 @@ const sendUserPasswordResetEmail = async (req, res) => {
     const secrete = user._id + process.env.JWT_SECRETE_KEY;
     const token = jwt.sign({ _id: user._id }, secrete, { expiresIn: "60m" });
 
-    const reset_password_link = `http://localhost:3000/reset-password/${user._id}/${token}`;
+    const reset_password_link = `${CLIENT_URL}/reset-password/${user._id}/${token}`;
 
     // Now Send Email
     const info = await transporter.sendMail({
