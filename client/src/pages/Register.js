@@ -13,16 +13,20 @@ const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [registerError, setRegisterError] = useState(null);
+  const [responseMessage, setResponseMessage] = useState(null);
   //from submit
   const submitHandler = async (values) => {
     try {
       setLoading(true);
       await axios.post(`${BASE_URL}/api/v1/users/register`, values);
       message.success("Registration Successfull");
+      setResponseMessage("Successfully Registered. Please check your email for email verification link.");
+      setRegisterError(null);
       setLoading(false);
-      navigate("/login");
+      // navigate("/login");
     } catch (error) {
       setLoading(false);
+      setResponseMessage(null);
       setRegisterError(getResponseError(error));
       message.error("Something went wrong");
     }
@@ -134,6 +138,12 @@ const Register = () => {
                   style={{ marginTop: 10 }}
                 />
               )}
+              {responseMessage &&(<Alert
+                  message={responseMessage}
+                  type="success"
+                  showIcon
+                  style={{ marginTop: 10 }}
+                />)}
 
               <div className="pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>

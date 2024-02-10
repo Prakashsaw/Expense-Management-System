@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const transporter = require("../config/emailConfig");
 const CLIENT_URL = require("../utils/baseURL");
+const UserTokenModel = require("../models/userTokenModel");
 
 const createToken = (_id) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
@@ -45,7 +46,8 @@ const registerController = async (req, res) => {
     if (!validator.isStrongPassword(password)) {
       return res.status(400).json({
         Status: "failed",
-        message: "Password must be a strong password...",
+        message:
+          "Password must be a strong password which includes capital letters, small letters and numbers...!",
       });
     }
 
@@ -54,6 +56,7 @@ const registerController = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
     const passwordHashingCode = await bcrypt.hash(password, salt);
 
+    // Now create and save the user in database
     const newUser = new userModel({
       name: name,
       email: email,
@@ -63,6 +66,78 @@ const registerController = async (req, res) => {
 
     // For jwt token
     const jwt_token = createToken(newUser._id);
+
+    // Now create model in UserTokenModel for verification of email and save it
+    const userToken = new UserTokenModel({
+      userId: Object(newUser._id),
+      token: jwt_token,
+    });
+    await userToken.save();
+
+    const emailVerificationLink = `${CLIENT_URL}/email-verification/${newUser._id}/${jwt_token}`;
+    // Now Send Email
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: newUser.email,
+      subject: "Please verify your email address",
+      html: `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Email Verification</title>
+                <style>
+                  .btn {
+                    background-color: #04AA6D;
+                    border: none;
+                    color: white;
+                    padding: 8px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 2px 2px; 
+                    border-radius: 5px;
+                  }
+                  .btn a {
+                    color: white;
+                    text-decoration: none;
+                  }
+
+                  .btn:hover {
+                    background-color: green;
+                  }
+
+                </style>
+              </head>
+              <body>
+                <div>
+                  <p>Hi, <span style="font-weight: bold;">${newUser.name}</span>, Welcome to Expanse Management System.</p> 
+
+                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
+                  <p>Please verify your email address.<br>
+                  Select the button to verify your email.</p>
+                  <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
+                  
+                  <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+
+                  <p>Your email address needs to be verified before you can use your account.<br>
+                  Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>
+                  <p>If you need assistance, please contact us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a>.</p>
+                  <p>Thanks & Regards,<br>
+                  Prakash & Company.</p>
+
+                </div>
+              </body>`, // Html Body Ending Here
+    });
+
+    if (!info) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Something went wrong in sending email verification link...!",
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -79,6 +154,47 @@ const registerController = async (req, res) => {
     res.status(400).json({
       status: "failed",
       message: "Unable to register...!",
+    });
+  }
+};
+
+const verifyEmail = async (req, res) => {
+  const { _id, token } = req.params;
+  try {
+    const user = await UserTokenModel.findOne({ userId: _id });
+    if (!user) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired Token...!",
+      });
+    }
+
+    const paramsToken = String(token);
+
+    if (user.token !== paramsToken) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired Token...!",
+      });
+    }
+
+    const result = await userModel.findByIdAndUpdate(_id, {
+      $set: { isVerified: true },
+    });
+
+    // Now delete the token from UserTokenModel
+    await UserTokenModel.findByIdAndDelete(user._id);
+
+    res.status(200).json({
+      status: "success",
+      message: "Email verified successfully",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: "Something went wrong in email verification...!",
     });
   }
 };
@@ -115,6 +231,92 @@ const loginController = async (req, res) => {
 
     // Now start the JWT process here
     const jwt_token = createToken(user._id);
+
+    // If user is not verified then send email verification link again
+    if (!user.isVerified) {
+      const result = await UserTokenModel.findOne({ userId: user._id });
+      if (result) {
+        // Update the token in UserTokenModel
+        const newToken = jwt_token;
+        const updatedToken = await UserTokenModel.findByIdAndUpdate(
+          result._id,
+          {
+            $set: { token: newToken },
+          }
+        );
+      } else {
+        // Now create model in UserTokenModel for verification of email and save it
+        const userToken = new UserTokenModel({
+          userId: Object(user._id),
+          token: jwt_token,
+        });
+        await userToken.save();
+      }
+
+      const emailVerificationLink = `${CLIENT_URL}/email-verification/${user._id}/${jwt_token}`;
+      // Now Send Email
+      const info = await transporter.sendMail({
+        from: process.env.EMAIL_FROM,
+        to: user.email,
+        subject: "Please verify your email address",
+        html: `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Email Verification</title>
+                <style>
+                  .btn {
+                    background-color: #04AA6D;
+                    border: none;
+                    color: white;
+                    padding: 8px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 2px 2px; 
+                    border-radius: 5px;
+                  }
+                  .btn a {
+                    color: white;
+                    text-decoration: none;
+                  }
+
+                  .btn:hover {
+                    background-color: green;
+                  }
+
+                </style>
+              </head>
+              <body>
+                <div>
+                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>, Welcome to Expense Management System.</p> 
+
+                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
+                  <p>Please verify your email address.<br>
+                  Select the button to verify your email.</p>
+                  <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
+                  
+                  <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+
+                  <p>Your email address needs to be verified before you can use your account.<br>
+                  Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>
+                  <p>If you need assistance, please contact us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a>.</p>
+                  <p>Thanks & Regards, <br>
+                  Prakash & Company.</p>
+
+                </div>
+              </body>`, // Html Body Ending Here
+      });
+
+      return res.status(400).json({
+        status: "failed",
+        message: "Email not verified. Please check your email (in spam folder also) and verify your email...!",
+      });
+
+    }
 
     res.status(200).json({
       success: true,
@@ -239,7 +441,7 @@ const sendUserPasswordResetEmail = async (req, res) => {
               </head>
               <body>
                 <div>
-                  <p>Hi, <span style="font-weight: bold;">${user.name}<span>,</p> 
+                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>,</p> 
 
                   <p>You are receiving this because you (or someone else) requested 
                   the reset of your <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.
@@ -251,7 +453,7 @@ const sendUserPasswordResetEmail = async (req, res) => {
                   <p>If this was you, you can safely ignore this email.<br>
                   If not, please reach out to us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a> for help.</p>
 
-                  <p>Thanks,<br>
+                  <p>Thanks & Regards,<br>
                   Prakash & Company.</p>
 
                 </div>
@@ -331,7 +533,7 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
                       <p>If this was you, you can safely ignore this email.<br>
                       If not, please reach out to us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a> for help.</p>
 
-                      <p>Thanks,<br>
+                      <p>Thanks & Regards,<br>
                       Prakash & Company.</p>
 
                     </div>
@@ -354,6 +556,7 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
 
 module.exports = {
   registerController,
+  verifyEmail,
   loginController,
   changePassword,
   sendUserPasswordResetEmail,
