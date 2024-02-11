@@ -5,6 +5,10 @@ const validator = require("validator");
 const transporter = require("../config/emailConfig");
 const CLIENT_URL = require("../utils/baseURL");
 const UserTokenModel = require("../models/userTokenModel");
+const emailVerificationEmail = require("../utils/emailTemplates/emailVerificationEmail");
+const resetPasswordEmail = require("../utils/emailTemplates/resetPasswordEmail");
+const resetPasswordSuccess = require("../utils/emailTemplates/resetPasswordSuccess");
+
 
 const createToken = (_id) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
@@ -80,56 +84,11 @@ const registerController = async (req, res) => {
       from: process.env.EMAIL_FROM,
       to: newUser.email,
       subject: "Please verify your email address",
-      html: `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Email Verification</title>
-                <style>
-                  .btn {
-                    background-color: #04AA6D;
-                    border: none;
-                    color: white;
-                    padding: 8px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 2px 2px; 
-                    border-radius: 5px;
-                  }
-                  .btn a {
-                    color: white;
-                    text-decoration: none;
-                  }
-
-                  .btn:hover {
-                    background-color: green;
-                  }
-
-                </style>
-              </head>
-              <body>
-                <div>
-                  <p>Hi, <span style="font-weight: bold;">${newUser.name}</span>, Welcome to Expanse Management System.</p> 
-
-                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
-                  <p>Please verify your email address.<br>
-                  Select the button to verify your email.</p>
-                  <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
-                  
-                  <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
-
-                  <p>Your email address needs to be verified before you can use your account.<br>
-                  Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>
-                  <p>If you need assistance, please contact us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a>.</p>
-                  <p>Thanks & Regards,<br>
-                  Prakash & Company.</p>
-
-                </div>
-              </body>`, // Html Body Ending Here
+      html: emailVerificationEmail(
+        newUser,
+        emailVerificationLink,
+        process.env.EMAIL_FROM
+      ),
     });
 
     if (!info) {
@@ -206,7 +165,6 @@ const loginController = async (req, res) => {
   try {
     // Ckeck that any field not be empty
     if (!email || !password) {
-      console.log("All fields are required!");
       return res.status(400).json({
         Status: "failed",
         message: "All fields are required...!",
@@ -259,63 +217,18 @@ const loginController = async (req, res) => {
         from: process.env.EMAIL_FROM,
         to: user.email,
         subject: "Please verify your email address",
-        html: `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Email Verification</title>
-                <style>
-                  .btn {
-                    background-color: #04AA6D;
-                    border: none;
-                    color: white;
-                    padding: 8px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 2px 2px; 
-                    border-radius: 5px;
-                  }
-                  .btn a {
-                    color: white;
-                    text-decoration: none;
-                  }
-
-                  .btn:hover {
-                    background-color: green;
-                  }
-
-                </style>
-              </head>
-              <body>
-                <div>
-                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>, Welcome to Expense Management System.</p> 
-
-                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
-                  <p>Please verify your email address.<br>
-                  Select the button to verify your email.</p>
-                  <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
-                  
-                  <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
-
-                  <p>Your email address needs to be verified before you can use your account.<br>
-                  Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>
-                  <p>If you need assistance, please contact us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a>.</p>
-                  <p>Thanks & Regards, <br>
-                  Prakash & Company.</p>
-
-                </div>
-              </body>`, // Html Body Ending Here
+        html: emailVerificationEmail(
+          user,
+          emailVerificationLink,
+          process.env.EMAIL_FROM
+        ),
       });
 
       return res.status(400).json({
         status: "failed",
-        message: "Email not verified. Please check your email (in spam folder also) and verify your email...!",
+        message:
+          "Email not verified. Please check your email (in spam folder also) and verify your email...!",
       });
-
     }
 
     res.status(200).json({
@@ -408,56 +321,11 @@ const sendUserPasswordResetEmail = async (req, res) => {
       from: process.env.EMAIL_FROM,
       to: user.email,
       subject: "Reset your Expense Management System account password",
-      html: `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Password reset</title>
-                <style>
-                  .btn {
-                    background-color: #04AA6D;
-                    border: none;
-                    color: white;
-                    padding: 8px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 2px 2px; 
-                    border-radius: 5px;
-                  }
-                  .btn a {
-                    color: white;
-                    text-decoration: none;
-                  }
-
-                  .btn:hover {
-                    background-color: green;
-                  }
-
-                </style>
-              </head>
-              <body>
-                <div>
-                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>,</p> 
-
-                  <p>You are receiving this because you (or someone else) requested 
-                  the reset of your <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.
-                  <br>
-                  Select the button to reset your password.</p>
-
-                  <button class = "btn"><a href=${reset_password_link}>Reset Password</a></button>
-                  
-                  <p>If this was you, you can safely ignore this email.<br>
-                  If not, please reach out to us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a> for help.</p>
-
-                  <p>Thanks & Regards,<br>
-                  Prakash & Company.</p>
-
-                </div>
-              </body> `, // Html Body Ending Here
+      html: resetPasswordEmail(
+        user,
+        reset_password_link,
+        process.env.EMAIL_FROM
+      ),
     });
 
     res.status(200).json({
@@ -515,29 +383,7 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
       from: process.env.EMAIL_FROM,
       to: user.email,
       subject: "Your password has been changed successfully.",
-      html: `<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Password reset successful</title>
-                  </head>
-                  <body>
-                    <div>
-                      <p>Hi, <span style="font-weight: bold;">${user.name}<span>,</p> 
-
-                      <p>You are receiving this because you (or someone else) have changed the 
-                      password of your <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
-                     
-                      <p>If this was you, you can safely ignore this email.<br>
-                      If not, please reach out to us at <a href="mailto:${process.env.EMAIL_FROM}">email us</a> for help.</p>
-
-                      <p>Thanks & Regards,<br>
-                      Prakash & Company.</p>
-
-                    </div>
-                  </body>`, // Html Body Ending Here
+      html: resetPasswordSuccess(user, process.env.EMAIL_FROM),
     });
 
     res.status(200).json({

@@ -19,11 +19,15 @@ const Register = () => {
     try {
       setLoading(true);
       await axios.post(`${BASE_URL}/api/v1/users/register`, values);
-      message.success("Registration Successfull");
-      setResponseMessage("Successfully Registered. Please check your email for email verification link.");
-      setRegisterError(null);
       setLoading(false);
-      // navigate("/login");
+      message.success("Registration Successfull");
+      setResponseMessage(
+        "Successfully Registered. Please check your email for email verification link."
+      );
+      setRegisterError(null);
+      setTimeout(() => {
+        navigate("/signup-success");
+      }, 1000);
     } catch (error) {
       setLoading(false);
       setResponseMessage(null);
@@ -126,7 +130,8 @@ const Register = () => {
                   and{" "}
                   <Link className="link link1" to="/privacy-policy">
                     Privacy policy
-                  </Link>.
+                  </Link>
+                  .
                 </Checkbox>
               </Form.Item>
 
@@ -138,12 +143,14 @@ const Register = () => {
                   style={{ marginTop: 10 }}
                 />
               )}
-              {responseMessage &&(<Alert
+              {responseMessage && (
+                <Alert
                   message={responseMessage}
                   type="success"
                   showIcon
                   style={{ marginTop: 10 }}
-                />)}
+                />
+              )}
 
               <div className="pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>
@@ -151,7 +158,7 @@ const Register = () => {
                 </button>
               </div>
               <div className="text pt-2 d-flex justify-content-center">
-                Already Registered? 
+                Already Registered?
                 <Link className="link" to="/login">
                   Login here!
                 </Link>

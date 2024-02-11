@@ -123,10 +123,10 @@ const Login = () => {
                 </button>
               </div>
               <div className="text pt-2 d-flex justify-content-between">
-                <div>
+                <div className="text">
                   <Link to="/forgot-password">Forgot Password?</Link>
                 </div>
-                <div>
+                <div className="text">
                   Not a user? <Link to="/register">SignUp here!</Link>
                 </div>
               </div>

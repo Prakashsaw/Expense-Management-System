@@ -47,8 +47,9 @@
   color: white;
 }
 
-.login-form .text {
+.login-form .text{
   color: #3a3465 !important;
+  text-decoration: underline;
 }
 
 .login-form .btn {

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Alert, Form, Input, message } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/ForgotPassword.css";
-import Spinner from "../components/Spinner";
+import "./ForgotPassword.css";
+import Spinner from "../../components/Spinner";
 import axios from "axios";
-import { BASE_URL } from "../utils/baseURL";
-import { getResponseError } from "../utils/getResponseError";
+import { BASE_URL } from "../../utils/baseURL";
+import { getResponseError } from "../../utils/getResponseError";
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -20,6 +20,7 @@ const ForgotPassword = () => {
         `${BASE_URL}/api/v1/users/send-reset-password-email`,
         values
       );
+      setLoading(false);
       message.success("Forgot Password Email sent Successfully...");
       navigate("/forgot-email-sent");
     } catch (error) {

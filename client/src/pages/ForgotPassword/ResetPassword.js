@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Alert, Form, Input, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
-import "../styles/ForgotPassword.css";
+import "./ForgotPassword.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { getResponseError } from "../utils/getResponseError";
+import { getResponseError } from "../../utils/getResponseError";
 import axios from "axios";
-import { BASE_URL } from "../utils/baseURL";
-import Spinner from "../components/Spinner";
+import { BASE_URL } from "../../utils/baseURL";
+import Spinner from "../../components/Spinner";
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -18,11 +18,13 @@ const ResetPassword = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      await axios.post(`${BASE_URL}/api/v1/users/reset-password/${_id}/${token}`, values);
+      await axios.post(
+        `${BASE_URL}/api/v1/users/reset-password/${_id}/${token}`,
+        values
+      );
+      setLoading(false);
       message.success("Password reset Successfully...");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000);
+      navigate("/password-reset-success");
     } catch (error) {
       console.log(error);
       setLoading(false);

@@ -4,7 +4,7 @@ import { BASE_URL } from "../../utils/baseURL";
 import { getResponseError } from "../../utils/getResponseError";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
-import { Alert } from "antd";
+import { Alert, Button } from "antd";
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,10 @@ const EmailVerification = () => {
 
   const navigate = useNavigate();
 
+  const onClickHandler = async () => {
+    navigate("/login");
+  };
+
   useEffect(() => {
     const verifyEmail = async () => {
       try {
@@ -26,10 +30,6 @@ const EmailVerification = () => {
         console.log(data);
         setLoading(false);
         setValidUrl(true);
-
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -41,28 +41,64 @@ const EmailVerification = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="col-md-5">
-          {loading && <Spinner />}
-          {validUrl && (
+      <div>
+        {loading && <Spinner />}
+        {validUrl && (
+          <div>
             <Alert
               message="Email Verified"
-              description="Your email has been verified successfully."
+              description="Your email has been verified successfully. Go to login page and login with your credentials."
               type="success"
               showIcon
-              style={{ marginTop: 10 }}
+              style={{
+                margin: 50,
+                marginLeft: 200,
+                marginRight: 200,
+                padding: 50,
+                borderRadius: 10,
+                backgroundColor: "#f6ffed",
+              }}
             />
-          )}
-          {emailVerifyError && (
+            <Button
+              type="primary"
+              style={{
+                marginLeft: 550,
+                borderRadius: 3,
+              }}
+              onClick={onClickHandler}
+            >
+              Back to Login Page{" "}
+            </Button>
+          </div>
+        )}
+        {emailVerifyError && (
+          <div>
             <Alert
               message={emailVerifyError}
-              description="Please check your email verification link."
+              description="Go to login page and try again for email verification link."
               type="error"
               showIcon
-              style={{ marginTop: 10 }}
+              style={{
+                margin: 50,
+                marginLeft: 200,
+                marginRight: 200,
+                padding: 50,
+                borderRadius: 10,
+                backgroundColor: "#f6ffed",
+              }}
             />
-          )}
-        </div>
+            <Button
+              type="primary"
+              style={{
+                marginLeft: 550,
+                borderRadius: 3,
+              }}
+              onClick={onClickHandler}
+            >
+              Back to Login Page{" "}
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );
