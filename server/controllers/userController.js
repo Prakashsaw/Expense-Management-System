@@ -8,7 +8,7 @@ const UserTokenModel = require("../models/userTokenModel");
 const emailVerificationEmail = require("../utils/emailTemplates/emailVerificationEmail");
 const resetPasswordEmail = require("../utils/emailTemplates/resetPasswordEmail");
 const resetPasswordSuccess = require("../utils/emailTemplates/resetPasswordSuccess");
-
+const changedPasswordSuccess = require("../utils/emailTemplates/changedPasswordSuccess");
 
 const createToken = (_id) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
@@ -259,31 +259,57 @@ const loggedUser = async (req, res) => {
 // MiddlwWare: checkUserAuth is used here
 // This is for if user is logged in then he can reset his password
 const changePassword = async (req, res) => {
-  const { password, confirmPassword } = req.body;
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const { _id } = req.user._id; // by params we get things which is in links
   try {
-    if (!password || !confirmPassword) {
+    if (!oldPassword || !newPassword || !confirmPassword) {
       return res
         .status(400)
         .json({ status: "failed", message: "All fields are required...!" });
     }
 
-    if (password !== confirmPassword) {
+    // Validate user password first
+    const user = await userModel.findById(_id);
+    const validatePassword = await bcrypt.compare(oldPassword, user.password);
+    if (!validatePassword) {
+      return res.status(400).json({
+        Status: "failed",
+        message: "Invalid old password...!",
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
       return res.status(400).json({
         status: "failed",
         message: "Password and confirm password mismatched...!",
       });
     }
 
+    if (oldPassword === newPassword) {
+      return res.status(400).json({
+        status: "failed",
+        message: "oldPassword and newPassword should not be same...!",
+      });
+    }
+
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
-    const newHashPassword = await bcrypt.hash(password, salt);
+    const newHashPassword = await bcrypt.hash(newPassword, salt);
 
     const result = await userModel.findByIdAndUpdate(req.user._id, {
       $set: { password: newHashPassword },
     });
 
+    // Send the mail to user that his password has been changed successfully.
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: user.email,
+      subject: "Your password has been changed successfully.",
+      html: changedPasswordSuccess(user, process.env.EMAIL_FROM),
+    });
+
     res.status(200).json({
       status: "success",
-      message: "User password reset successfully",
+      message: "User password changed successfully",
       result,
     });
   } catch (error) {
@@ -382,7 +408,7 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
     const info = await transporter.sendMail({
       from: process.env.EMAIL_FROM,
       to: user.email,
-      subject: "Your password has been changed successfully.",
+      subject: "Your password has been reset successfully.",
       html: resetPasswordSuccess(user, process.env.EMAIL_FROM),
     });
 

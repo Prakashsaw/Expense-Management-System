@@ -15,7 +15,7 @@ const checkUserAuth = async (req, res, next) => {
       const { _id } = jwt.verify(token, process.env.JWT_SECRETE_KEY);
 
       // Get user from token
-      // Selecting all userDetailes except password so thats why we will do "-password"
+      // Selecting all userDetailes except password so thats why we do "-password"
       req.user = await userModel.findById({ _id }).select("-password");
       next();
     } else {

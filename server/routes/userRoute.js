@@ -33,7 +33,7 @@ router.post(
 // Like: Access to dashboard, change password, forgot password, etc
 // POST : CHANGE PASSWORD
 router.post("/change-password", checkUserAuth, changePassword);
-// GET : LOGGED USER / SER PROFILE
+// GET : LOGGED USER / USER PROFILE
 router.get("/logged-user", checkUserAuth, loggedUser);
 
 // Export the router

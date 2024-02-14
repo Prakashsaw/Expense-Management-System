@@ -1,4 +1,4 @@
-const resetPasswordSuccess = (user, EMAIL_FROM) => {
+const changedPasswordSuccess = (user, EMAIL_FROM) => {
   return `<!DOCTYPE html>
             <html lang="en">
             <head>
@@ -11,7 +11,7 @@ const resetPasswordSuccess = (user, EMAIL_FROM) => {
                 <div>
                     <p>Hi, <span style="font-weight: bold;">${user.name}<span>,</p> 
 
-                    <p>You are receiving this because you (or someone else) have reset the 
+                    <p>You are receiving this because you have changed the 
                     password of your <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
                     
                     <p>If this was you, you can safely ignore this email.<br>
@@ -24,4 +24,4 @@ const resetPasswordSuccess = (user, EMAIL_FROM) => {
             </body>`; // Html Body Ending Here.
 };
 
-module.exports = resetPasswordSuccess;
+module.exports = changedPasswordSuccess;

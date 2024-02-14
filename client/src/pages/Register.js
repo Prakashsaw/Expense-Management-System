@@ -5,7 +5,14 @@ import axios from "axios";
 import "../styles/RegisterPage.css";
 import { getResponseError } from "../utils/getResponseError";
 import { BASE_URL } from "../utils/baseURL";
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  LockOutlined,
+  MailOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import HomeHeader from "../components/Layout/HomeHeader";
+import Footer from "../components/Layout/Footer";
 
 const Register = () => {
   const img =
@@ -39,134 +46,137 @@ const Register = () => {
   //prevent for login user
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      navigate("/");
+      navigate("/user");
     }
   }, [navigate]);
   return (
     <>
-      <div className="register-page">
-        <div className="row container">
-          <h1>Expense Management System</h1>
-          <div className="col-md-6">
-            <img src={img} alt="register-img" width={"100%"} height="100%" />
-          </div>
-          <div className="col-md-5 register-form">
-            <Form
-              layout="vertical"
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={submitHandler}
-              autoComplete="off"
-            >
-              <h2>Sign Up</h2>
+      <HomeHeader />
+      <div className="content container mt-4 layout">
+        <div className="register-page">
+          <div className="row container">
+            <div className="col-md-6">
+              <img src={img} alt="register-img" width={"100%"} height="100%" />
+            </div>
+            <div className="col-md-5 register-form">
+              <Form
+                layout="vertical"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={submitHandler}
+                autoComplete="off"
+              >
+                <h2>Sign Up</h2>
 
-              <Form.Item
-                label="Name"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your name...!",
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined />}
-                  className="pass-input"
-                  type="text"
-                  placeholder="Please enter your name"
-                  style={{
-                    height: 40,
-                  }}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your valid eamil...!",
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<MailOutlined />}
-                  className="pass-input"
-                  type="email"
-                  placeholder="Enter your valid email address"
-                  style={{
-                    height: 40,
-                  }}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Password must be a strong password...!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined />}
-                  className="pass-input"
-                  type="password"
-                  placeholder="Please enter your password"
-                  style={{
-                    height: 40,
-                  }}
-                />
-              </Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>
-                  I agree to the{" "}
-                  <Link className="link link1" to="/terms-conditions">
-                    Terms & Conditions
-                  </Link>{" "}
-                  and{" "}
-                  <Link className="link link1" to="/privacy-policy">
-                    Privacy policy
+                <Form.Item
+                  label="Name"
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your name...!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined />}
+                    className="pass-input"
+                    type="text"
+                    placeholder="Please enter your name"
+                    style={{
+                      height: 40,
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your valid eamil...!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined />}
+                    className="pass-input"
+                    type="email"
+                    placeholder="Enter your valid email address"
+                    style={{
+                      height: 40,
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Password must be a strong password...!",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    prefix={<LockOutlined />}
+                    className="pass-input"
+                    type="password"
+                    placeholder="Please enter your password"
+                    style={{
+                      height: 40,
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>
+                    I agree to the{" "}
+                    <Link className="link link1" to="/terms-conditions">
+                      Terms & Conditions
+                    </Link>{" "}
+                    and{" "}
+                    <Link className="link link1" to="/privacy-policy">
+                      Privacy policy
+                    </Link>
+                    .
+                  </Checkbox>
+                </Form.Item>
+
+                {registerError && (
+                  <Alert
+                    message={registerError}
+                    type="error"
+                    showIcon
+                    style={{ marginTop: 10 }}
+                  />
+                )}
+                {responseMessage && (
+                  <Alert
+                    message={responseMessage}
+                    type="success"
+                    showIcon
+                    style={{ marginTop: 10 }}
+                  />
+                )}
+
+                <div className="pb-0 mt-0 d-flex justify-content-center">
+                  <button className="btn" disabled={loading}>
+                    {loading ? <LoadingOutlined /> : "Sign Up"}
+                  </button>
+                </div>
+                <div className="text pt-2 d-flex justify-content-center">
+                  Already Registered?
+                  <Link className="link" to="/login">
+                    Login here!
                   </Link>
-                  .
-                </Checkbox>
-              </Form.Item>
-
-              {registerError && (
-                <Alert
-                  message={registerError}
-                  type="error"
-                  showIcon
-                  style={{ marginTop: 10 }}
-                />
-              )}
-              {responseMessage && (
-                <Alert
-                  message={responseMessage}
-                  type="success"
-                  showIcon
-                  style={{ marginTop: 10 }}
-                />
-              )}
-
-              <div className="pb-0 mt-0 d-flex justify-content-center">
-                <button className="btn" disabled={loading}>
-                  {loading ? "Registering you in..." : "Sign Up"}
-                </button>
-              </div>
-              <div className="text pt-2 d-flex justify-content-center">
-                Already Registered?
-                <Link className="link" to="/login">
-                  Login here!
-                </Link>
-              </div>
-            </Form>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

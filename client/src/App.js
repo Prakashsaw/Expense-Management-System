@@ -11,21 +11,41 @@ import PrivacyAndPolicy from "./pages/UserAgreement/PrivacyAndPolicy";
 import EmailVerification from "./pages/EmailVerification/EmailVerification";
 import PasswordResetSuccess from "./pages/ForgotPassword/PasswordResetSuccess";
 import SignUpSuccess from "./pages/EmailVerification/SignUpSuccess";
+import UserProfile from "./pages/UserDetails/UserProfile";
+import EditUserProfile from "./pages/UserDetails/EditUserProfile";
+import HomeLayout from "./components/Layout/HomeLayout";
 
 function App() {
   return (
     <>
       <Routes>
         <Route
-          path="/"
+          path="/user"
           element={
             <ProtectedRoutes>
               <HomePage />
             </ProtectedRoutes>
           }
         />
+        <Route
+          path="/user/user-profile"
+          element={
+            <ProtectedRoutes>
+              <UserProfile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/user/edit-user-profile"
+          element={
+            <ProtectedRoutes>
+              <EditUserProfile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/" element={<HomeLayout />} />
         <Route path="/register" element={<Register />} />
-        <Route path="signup-success" element={<SignUpSuccess />} />
+        <Route path="/signup-success" element={<SignUpSuccess />} />
         <Route
           path="/email-verification/:_id/:token"
           element={<EmailVerification />}
@@ -51,7 +71,7 @@ export function ProtectedRoutes(props) {
   if (localStorage.getItem("user")) {
     return props.children;
   } else {
-    return <Navigate to="/login" />;
+    return <HomeLayout />;
   }
 }
 

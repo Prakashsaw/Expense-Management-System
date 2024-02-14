@@ -1,67 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  UserOutlined,
-  DownOutlined,
-  EditOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
-import { Button, Dropdown, message } from "antd";
-import "../../styles/HeaderStyles.css";
-const Header = () => {
-  const [loginUser, setLoginUser] = useState("");
-  const navigate = useNavigate();
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
-    if (user) {
-      setLoginUser(user);
-    }
-  }, []);
+import { Button } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../styles/HomeHeader.css";
 
-  const logoutHandler = () => {
-    localStorage.removeItem("user");
-    message.success("Logout Successfully");
-    navigate("/");
-  };
-
-  const handleMenuClick = (e) => {
-    console.log("click", e);
-  };
-  const items = [
-    {
-      label: <Link to="/user/user-profile">My Profile</Link>,
-      key: "1",
-      icon: <UserOutlined />,
-      link: "/login",
-    },
-    {
-      label: <Link to="/user/edit-user-profile">Edit Profile</Link>,
-      key: "2",
-      icon: <EditOutlined />,
-    },
-    {
-      type: "divider",
-    },
-    {
-      label: (
-        <button
-          className="btn btn-danger"
-          style={{ paddingTop: "2px", paddingBottom: "2px" }}
-          onClick={logoutHandler}
-        >
-          Logout
-        </button>
-      ),
-      key: "3",
-      icon: <LogoutOutlined />,
-    },
-  ];
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
-
+const HomeHeader = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark sticky-top">
@@ -72,7 +14,7 @@ const Header = () => {
           height="40"
           style={{ borderRadius: "50%", marginLeft: "10px" }}
         />
-        <Link className="navbar-brand" to="/user">
+        <Link className="navbar-brand" to="/">
           Expense Management System
         </Link>
         <div className="container-fluid">
@@ -82,22 +24,19 @@ const Header = () => {
           >
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-link">
-                <Button className="user-home-btn">
-                  <Link to="/user">Home</Link>
+                <Button className="home-btn">
+                  <Link to="/">Home</Link>
                 </Button>
               </li>
-              <li className="nav-item">
-                {" "}
-                <h6 className="nav-link ">
-                  <Dropdown.Button
-                    menu={menuProps}
-                    placement="bottom"
-                    // icon={<UserOutlined />}
-                    icon={<DownOutlined />}
-                  >
-                    {loginUser && loginUser.name}
-                  </Dropdown.Button>
-                </h6>{" "}
+              <li className="nav-link">
+                <Button className="login-btn">
+                  <Link to="/login">Login</Link>
+                </Button>
+              </li>
+              <li className="nav-link">
+                <Button className="register-btn">
+                  <Link to="/register">Sign Up</Link>
+                </Button>
               </li>
             </ul>
           </div>
@@ -107,4 +46,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomeHeader;

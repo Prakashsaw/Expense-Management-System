@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
 }
 .register-form {
   background-color: #b9bcccb6;

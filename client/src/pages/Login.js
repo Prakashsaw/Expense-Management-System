@@ -5,7 +5,9 @@ import axios from "axios";
 import "../styles/Loginpage.css";
 import { getResponseError } from "../utils/getResponseError";
 import { BASE_URL } from "../utils/baseURL";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { LoadingOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import HomeHeader from "../components/Layout/HomeHeader";
+import Footer from "../components/Layout/Footer";
 
 const Login = () => {
   const img =
@@ -19,7 +21,7 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const {data}  = await axios.post(
+      const { data } = await axios.post(
         `${BASE_URL}/api/v1/users/login`,
         values
       );
@@ -29,7 +31,7 @@ const Login = () => {
         "user",
         JSON.stringify({ ...data.user, password: "" })
       );
-      navigate("/");
+      navigate("/user");
     } catch (error) {
       setLoading(false);
 
@@ -42,98 +44,101 @@ const Login = () => {
   //prevent for login user
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      navigate("/");
+      navigate("/user");
     }
   }, [navigate]);
   return (
     <>
-      <div className="login-page ">
-        <div className="row container">
-          <h1>Expense Management System</h1>
-          <div className="col-md-6">
-            <img src={img} alt="login-img" width={"100%"} height="100%" />
-          </div>
-          <div className="col-md-5 login-form">
-            <Form
-              layout="vertical"
-              initialValues={{
-                remember: true,
-              }}
-              style={{
-                maxWidth: 600,
-              }}
-              onFinish={submitHandler}
-              autoComplete="off"
-            >
-              <h2>Login</h2>
-
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your valid email...!",
-                  },
-                ]}
+      <HomeHeader />
+      <div className="content container mt-4 layout">
+        <div className="login-page ">
+          <div className="row container">
+            <div className="col-md-6">
+              <img src={img} alt="login-img" width={"100%"} height="100%" />
+            </div>
+            <div className="col-md-5 login-form">
+              <Form
+                layout="vertical"
+                initialValues={{
+                  remember: true,
+                }}
+                style={{
+                  maxWidth: 600,
+                }}
+                onFinish={submitHandler}
+                autoComplete="off"
               >
-                <Input
-                  prefix={<MailOutlined />}
-                  className="pass-input"
-                  type="email"
-                  placeholder="Please enter your valid email address"
-                  style={{
-                    height: 40,
-                  }}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your password...!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined />}
-                  className="pass-input"
-                  type="password"
-                  placeholder="Please enter your password"
-                  style={{
-                    height: 40,
-                  }}
-                />
-              </Form.Item>
+                <h2>Login</h2>
 
-              {loginError && (
-                <Alert
-                  message={loginError}
-                  type="error"
-                  showIcon
-                  style={{ marginBottom: 10 }}
-                />
-              )}
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your valid email...!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined />}
+                    className="pass-input"
+                    type="email"
+                    placeholder="Please enter your valid email address"
+                    style={{
+                      height: 40,
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your password...!",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    prefix={<LockOutlined />}
+                    className="pass-input"
+                    type="password"
+                    placeholder="Please enter your password"
+                    style={{
+                      height: 40,
+                    }}
+                  />
+                </Form.Item>
 
-              <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
-                <button className="btn" disabled={loading}>
-                  {loading ? "Getting you in..." : "Login"}
-                </button>
-              </div>
-              <div className="text pt-2 d-flex justify-content-between">
-                <div className="text">
-                  <Link to="/forgot-password">Forgot Password?</Link>
+                {loginError && (
+                  <Alert
+                    message={loginError}
+                    type="error"
+                    showIcon
+                    style={{ marginBottom: 10 }}
+                  />
+                )}
+
+                <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
+                  <button className="btn" disabled={loading}>
+                    {loading ? <LoadingOutlined /> : "Login"}
+                  </button>
                 </div>
-                <div className="text">
-                  Not a user? <Link to="/register">SignUp here!</Link>
+                <div className="text pt-2 d-flex justify-content-between">
+                  <div className="text">
+                    <Link to="/forgot-password">Forgot Password?</Link>
+                  </div>
+                  <div className="text">
+                    Not a user? <Link to="/register">SignUp here!</Link>
+                  </div>
                 </div>
-              </div>
-            </Form>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

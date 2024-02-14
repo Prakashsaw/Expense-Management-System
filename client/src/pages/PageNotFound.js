@@ -9,6 +9,7 @@ const PageNotFound = () => {
   const onClickHandler = async () => {
     navigate("/login");
   };
+
   return (
     <>
       <div className="page-not-found">

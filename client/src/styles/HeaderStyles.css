@@ -2,12 +2,12 @@
   background-color: #6f4e3742 !important;
 } */
 
-
 .navbar .navbar-brand {
   /* color: #6f4e37 !important; */
   color: lightcyan !important;
   font-weight: bold;
   font-size: 1.5rem;
+  margin-left: 10px;
 }
 
 .nav-link {
@@ -18,4 +18,57 @@
 .navbar h6 {
   margin-top: 0px;
   margin-right: 20px;
+}
+
+.navbar .nav-item {
+  margin-right: 20px;
+}
+
+.navbar .nav-link .user-home-btn {
+  background: rgb(40, 39, 39);
+  color: white;
+}
+
+.navbar .nav-link .user-home-btn:hover {
+  background: rgb(70, 68, 68);
+  color: white;
+}
+
+@media screen and (max-width: 768px){
+  .navbar .navbar-brand {
+    font-size: 1.2rem;
+  }
+  .nav-link {
+    font-size: 1rem;
+  }
+  .navbar .nav-link .user-home-btn {
+    background: rgb(40, 39, 39);
+    color: white;
+  }
+  .navbar .nav-link .user-home-btn:hover {
+    background: rgb(70, 68, 68);
+    color: white;
+  }
+}
+
+@media screen and (max-width: 576px){
+  .navbar .navbar-brand {
+    font-size: 1rem;
+  }
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  .navbar .nav-link .user-home-btn {
+    background: rgb(40, 39, 39);
+    color: white;
+  }
+  .navbar .nav-link .user-home-btn:hover {
+    background: rgb(70, 68, 68);
+    color: white;
+  }
+
+  .navbar .nav-link .user-home-btn {
+    background: rgb(40, 39, 39);
+    color: white;
+  }
 }

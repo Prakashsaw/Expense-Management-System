@@ -1,0 +1,53 @@
+
+.navbar .navbar-brand {
+  /* color: #6f4e37 !important; */
+  color: lightcyan !important;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+
+.nav-link {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.navbar h6 {
+  margin-top: 0px;
+  margin-right: 20px;
+}
+
+.navbar .nav-item {
+  margin-right: 20px;
+}
+
+.navbar .nav-link .login-btn {
+  background: #2196f3;
+  color: white;
+  margin-left: "10px";
+}
+
+.navbar .nav-link .login-btn:hover {
+  background: #125dce;
+  color: white;
+}
+
+.navbar .nav-link .register-btn {
+  background: #e3f2fd;
+  color: black;
+}
+
+.navbar .nav-link .register-btn:hover {
+  background: #cbdcf5;
+  color: black;
+}
+
+.navbar .nav-link .home-btn {
+    background: rgb(40, 39, 39);
+    color: white;
+}
+
+.navbar .nav-link .home-btn:hover {
+    background: rgb(70, 68, 68);
+    color: white;
+}

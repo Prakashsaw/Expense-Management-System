@@ -1,5 +1,5 @@
 const emailVerificationEmail = (user, emailVerificationLink, EMAIL_FROM) => {
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
@@ -34,7 +34,7 @@ const emailVerificationEmail = (user, emailVerificationLink, EMAIL_FROM) => {
                 <div>
                   <p>Hi, <span style="font-weight: bold;">${user.name}</span>, Welcome to Expanse Management System.</p> 
 
-                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>
+                  <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> App.</p>
                   <p>Please verify your email address.<br>
                   Select the button to verify your email.</p>
                   <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
