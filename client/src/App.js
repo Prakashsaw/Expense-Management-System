@@ -71,7 +71,7 @@ export function ProtectedRoutes(props) {
   if (localStorage.getItem("user")) {
     return props.children;
   } else {
-    return <HomeLayout />;
+    return <Navigate to="/" />;
   }
 }
 
