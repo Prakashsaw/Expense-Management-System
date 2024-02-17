@@ -102,7 +102,9 @@ const ForgotPassword = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="fixed-bottom">
+        <Footer />
+      </div>
     </>
   );
 };
