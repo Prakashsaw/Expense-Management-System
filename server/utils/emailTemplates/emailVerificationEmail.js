@@ -38,8 +38,6 @@ const emailVerificationEmail = (user, emailVerificationLink, EMAIL_FROM) => {
                   <p>Please verify your email address.<br>
                   Select the button to verify your email.</p>
                   <button class = "btn"><a href=${emailVerificationLink}>Verify Email</a></button>
-                  
-                  <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
 
                   <p>Your email address needs to be verified before you can use your account.<br>
                   Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>

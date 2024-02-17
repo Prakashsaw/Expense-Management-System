@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import "./App.css";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,9 +13,7 @@ import PasswordResetSuccess from "./pages/ForgotPassword/PasswordResetSuccess";
 import SignUpSuccess from "./pages/EmailVerification/SignUpSuccess";
 import UserProfile from "./pages/UserDetails/UserProfile";
 import EditUserProfile from "./pages/UserDetails/EditUserProfile";
-import HomeLayout from "./components/Layout/HomeLayout";
-import Header from "./components/Navbar/Header";
-import Header2 from "./components/Navbar2/Header2";
+import Home from "./components/Layout/Home";
 
 function App() {
   return (
@@ -46,9 +43,7 @@ function App() {
             </ProtectedRoutes>
           }
         />
-        <Route path="/header" element={<Header />} />
-        <Route path="/header2" element={<Header2 />} />
-        <Route path="/" element={<HomeLayout />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signup-success" element={<SignUpSuccess />} />
         <Route
@@ -67,7 +62,6 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyAndPolicy />} />
         {/* if path is not correct then navigate to page not found page */}
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/home-layout" element={<HomeLayout />} />
       </Routes>
     </>
   );

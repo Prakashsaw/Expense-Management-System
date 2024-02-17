@@ -5,6 +5,7 @@ import { getResponseError } from "../../utils/getResponseError";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
 import { Alert, Button } from "antd";
+import "./EmailVerification.css";
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -41,10 +42,10 @@ const EmailVerification = () => {
 
   return (
     <>
-      <div>
-        {loading && <Spinner />}
-        {validUrl && (
-          <div>
+      <div className="content container mt-4 layout">
+        <div className="email-verify-page ">
+          {loading && <Spinner />}
+          {validUrl && (
             <Alert
               message="Email Verified"
               description="Your email has been verified successfully. Go to login page and login with your credentials."
@@ -59,20 +60,8 @@ const EmailVerification = () => {
                 backgroundColor: "#f6ffed",
               }}
             />
-            <Button
-              type="primary"
-              style={{
-                marginLeft: 550,
-                borderRadius: 3,
-              }}
-              onClick={onClickHandler}
-            >
-              Back to Login Page{" "}
-            </Button>
-          </div>
-        )}
-        {emailVerifyError && (
-          <div>
+          )}
+          {emailVerifyError && (
             <Alert
               message={emailVerifyError}
               description="Go to login page and try again for email verification link."
@@ -87,18 +76,18 @@ const EmailVerification = () => {
                 backgroundColor: "#f6ffed",
               }}
             />
-            <Button
-              type="primary"
-              style={{
-                marginLeft: 550,
-                borderRadius: 3,
-              }}
-              onClick={onClickHandler}
-            >
-              Back to Login Page{" "}
-            </Button>
-          </div>
-        )}
+          )}
+          <Button
+            type="primary"
+            style={{
+              marginLeft: 0,
+              borderRadius: 3,
+            }}
+            onClick={onClickHandler}
+          >
+            Back to Login Page{" "}
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -11,8 +11,8 @@ import {
   MailOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import HomeHeader from "../components/Layout/HomeHeader";
 import Footer from "../components/Layout/Footer";
+import Header1 from "../components/Layout/Header1";
 
 const Register = () => {
   const img =
@@ -51,7 +51,7 @@ const Register = () => {
   }, [navigate]);
   return (
     <>
-      <HomeHeader />
+      <Header1 />
       <div className="content container mt-4 layout">
         <div className="register-page">
           <div className="row container">

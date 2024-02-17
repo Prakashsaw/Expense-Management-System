@@ -1,4 +1,3 @@
-
 .navbar .navbar-brand {
   /* color: #6f4e37 !important; */
   color: lightcyan !important;
@@ -22,32 +21,32 @@
 }
 
 .navbar .nav-link .login-btn {
-  background: #2196f3;
-  color: white;
+  background: #e3f2fd;
+  color: black;
   margin-left: "10px";
 }
 
 .navbar .nav-link .login-btn:hover {
-  background: #125dce;
-  color: white;
-}
-
-.navbar .nav-link .register-btn {
   background: #e3f2fd;
   color: black;
 }
 
+.navbar .nav-link .register-btn {
+  background: #2196f3;
+  color: white;
+}
+
 .navbar .nav-link .register-btn:hover {
-  background: #cbdcf5;
-  color: black;
+  background: #125dce;
+  color: white;
 }
 
 .navbar .nav-link .home-btn {
-    background: rgb(40, 39, 39);
-    color: white;
+  background: rgb(40, 39, 39);
+  color: white;
 }
 
 .navbar .nav-link .home-btn:hover {
-    background: rgb(70, 68, 68);
-    color: white;
+  background: rgb(70, 68, 68);
+  color: white;
 }

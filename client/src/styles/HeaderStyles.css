@@ -34,7 +34,7 @@
   color: white;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .navbar .navbar-brand {
     font-size: 1.2rem;
   }
@@ -51,7 +51,7 @@
   }
 }
 
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
   .navbar .navbar-brand {
     font-size: 1rem;
   }

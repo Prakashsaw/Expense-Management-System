@@ -6,8 +6,8 @@ import "../styles/Loginpage.css";
 import { getResponseError } from "../utils/getResponseError";
 import { BASE_URL } from "../utils/baseURL";
 import { LoadingOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import HomeHeader from "../components/Layout/HomeHeader";
 import Footer from "../components/Layout/Footer";
+import Header1 from "../components/Layout/Header1";
 
 const Login = () => {
   const img =
@@ -49,7 +49,7 @@ const Login = () => {
   }, [navigate]);
   return (
     <>
-      <HomeHeader />
+      <Header1 />
       <div className="content container mt-4 layout">
         <div className="login-page ">
           <div className="row container">

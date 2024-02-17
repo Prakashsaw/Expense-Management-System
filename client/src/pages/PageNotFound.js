@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Result } from "antd";
 import Footer from "../components/Layout/Footer";
+import Header1 from "../components/Layout/Header1";
 
 const PageNotFound = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const PageNotFound = () => {
 
   return (
     <>
+      <Header1 />
       <div className="page-not-found">
         <Result
           status="404"

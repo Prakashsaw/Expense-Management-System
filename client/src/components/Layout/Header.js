@@ -6,7 +6,7 @@ import {
   EditOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, message } from "antd";
+import { Dropdown, message } from "antd";
 import "../../styles/HeaderStyles.css";
 const Header = () => {
   const [loginUser, setLoginUser] = useState("");
@@ -69,15 +69,24 @@ const Header = () => {
           Expense Management System
         </Link>
         <div className="container-fluid">
+          <button
+            className="responsive-btn navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon align-end" />
+          </button>
           <div
             className="collapse navbar-collapse"
             id="navbarToggleExternalContent"
           >
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-link">
-                <Button className="user-home-btn">
-                  <Link to="/user">Home</Link>
-                </Button>
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
+              <li className="nav-link ">
+                <Link to="/user">Home</Link>
               </li>
               <li className="nav-item">
                 {" "}
