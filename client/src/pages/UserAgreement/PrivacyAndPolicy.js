@@ -7,7 +7,10 @@ const PrivacyAndPolicy = () => {
     <>
       <Header1 />
       <div>Privacy and Policy</div>
-      <Footer />
+      <div className=""></div>
+      <div className="fixed-bottom">
+        <Footer />
+      </div>
     </>
   );
 };

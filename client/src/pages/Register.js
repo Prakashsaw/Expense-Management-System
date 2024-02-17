@@ -176,9 +176,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className="fixed-bottom">
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 };

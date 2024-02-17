@@ -1,13 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "antd";
 import "../../styles/HomeHeader.css";
+
 const Header1 = () => {
+    const navigate = useNavigate();
+    //prevent for loggedIn user
+    useEffect(() => {
+      if (localStorage.getItem("user")) {
+        navigate("/user");
+      }
+    }, [navigate]);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark sticky-top">
-        <Link className="navbar-brand" to="/user">
+        <Link className="navbar-brand" to="/">
           Expense Management System
         </Link>
         <div className="container-fluid">

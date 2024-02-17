@@ -25,9 +25,7 @@ const PageNotFound = () => {
             </Button>
           }
         />
-        <div className="fixed-bottom">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </>
   );

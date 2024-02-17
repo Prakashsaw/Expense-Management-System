@@ -2,8 +2,10 @@ import React from 'react'
 
 const EditUserProfile = () => {
   return (
-    <div>EditUserProfile</div>
-  )
+    <>
+      <div>Edit User Profile</div>
+    </>
+  );
 }
 
 export default EditUserProfile;

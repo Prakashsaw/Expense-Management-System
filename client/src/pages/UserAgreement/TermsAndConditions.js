@@ -7,7 +7,9 @@ const TermsAndConditions = () => {
     <>
       <Header1 />
       <div>Terms and Conditions</div>
-      <Footer />
+      <div className="fixed-bottom">
+        <Footer />
+      </div>
     </>
   );
 };
