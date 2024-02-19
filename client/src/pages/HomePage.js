@@ -94,7 +94,7 @@ const HomePage = () => {
         setAllTransection(res.data);
         setLoading(false);
       } catch (error) {
-        message.error("Fetch Issue With Transaction");
+        message.error("Fetch Issue With Transactions...!");
       }
     };
     getAllTransactions();
@@ -108,10 +108,13 @@ const HomePage = () => {
         transacationId: record._id,
       });
       setLoading(false);
-      message.success("Transaction Deleted!");
-
       //For auto update on client if any update or edit be done
-      // localStorage.reload();
+      window.location.reload();
+      message.success("Transaction Deleted successfully...!", {
+        duration: 2,
+        position: "top",
+        marginTop: "20",
+      });
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -134,9 +137,13 @@ const HomePage = () => {
         });
         setLoading(false);
 
-        // localStorage.reload();
+        window.location.reload();
 
-        message.success("Transaction Updated Successfully");
+        message.success("Transaction Updated Successfully", {
+          duration: 2,
+          position: "top",
+          marginTop: "20",
+        });
       } else {
         await axios.post(`${BASE_URL}/api/v1/transections/add-transection`, {
           ...values,
@@ -144,9 +151,13 @@ const HomePage = () => {
         });
         setLoading(false);
 
-        // localStorage.reload();
+        window.location.reload();
 
-        message.success("Transaction Added Successfully");
+        message.success("Transaction Added Successfully", {
+          duration: 2,
+          position: "top",
+          marginTop: "20",
+        });
       }
       setShowModal(false);
       setEditable(null);
@@ -162,7 +173,7 @@ const HomePage = () => {
   return (
     <>
       <Layout>
-        {loading && <Spinner />}
+        {/* {loading && <Spinner /> } */}
         <div className="filters">
           <div>
             <h6>Select Frequency</h6>
