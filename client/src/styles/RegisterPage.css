@@ -1,12 +1,21 @@
 .register-page {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
+.register-page img {
+  border-radius: 10px 0px 0px 10px;
+  box-shadow: 1px 1px 8px #344265;
+}
+
 .register-form {
   background-color: #b9bcccb6;
   margin-left: -15px;
   padding: 30px;
+  border-radius: 0px 10px 10px 0px;
+  box-shadow: 1px 1px 8px #344265;
 }
 
 .register-form h2 {
@@ -14,7 +23,10 @@
   font-weight: bold;
   padding-top: 0px;
   color: #344265;
-  text-decoration: underline;
+}
+
+.register-form .header-name {
+  border-bottom: 2px solid #344265;
 }
 
 .register-form a {

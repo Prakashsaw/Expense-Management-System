@@ -20,6 +20,7 @@ const tokenSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// This model used for user's email verification
 const UserTokenModel = mongoose.model("tokens", tokenSchema);
 
 module.exports = UserTokenModel;

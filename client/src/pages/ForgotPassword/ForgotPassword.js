@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Form, Input, message } from "antd";
-import { MailOutlined } from "@ant-design/icons";
+import { LoadingOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./ForgotPassword.css";
 import Spinner from "../../components/Spinner";
@@ -88,9 +88,7 @@ const ForgotPassword = () => {
 
                 <div className="loading-text pb-2 mt-2 d-flex justify-content-center">
                   <button className="btn" disabled={loading}>
-                    {loading
-                      ? "Sending Reset Password Email..."
-                      : "Get Password Reset Link"}
+                    {loading ? <LoadingOutlined /> : "Get Password Reset Link"}
                   </button>
                 </div>
                 <div className="text pt-2 d-flex justify-content-center">

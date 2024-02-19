@@ -27,7 +27,7 @@
 }
 
 .navbar .nav-link .login-btn:hover {
-  background: #e3f2fd;
+  background: #c4d2dc;
   color: black;
 }
 
@@ -41,12 +41,12 @@
   color: white;
 }
 
-.navbar .nav-link .home-btn {
-  background: rgb(40, 39, 39);
+.navbar .user-home-btn a {
   color: white;
+  padding: 10px;
 }
 
-.navbar .nav-link .home-btn:hover {
-  background: rgb(70, 68, 68);
-  color: white;
+.navbar .user-home-btn:hover a {
+  color: #ffefba;
+  border-bottom: 1px solid #ffefba;
 }

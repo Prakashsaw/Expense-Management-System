@@ -18,6 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   //from submit
   const submitHandler = async (values) => {
+    // console.log("values : ",values);
     try {
       setLoading(true);
 
@@ -54,7 +55,7 @@ const Login = () => {
         <div className="login-page ">
           <div className="row container">
             <div className="col-md-6">
-              <img src={img} alt="login-img" width={"100%"} height="100%" />
+              <img src={img} alt="login-img" width={"100%"} height={"100%"} />
             </div>
             <div className="col-md-5 login-form">
               <Form
@@ -68,7 +69,7 @@ const Login = () => {
                 onFinish={submitHandler}
                 autoComplete="off"
               >
-                <h2>Login</h2>
+                <h2 className="header-name">Login</h2>
 
                 <Form.Item
                   label="Email"

@@ -9,6 +9,10 @@ const emailVerificationEmail = require("../utils/emailTemplates/emailVerificatio
 const resetPasswordEmail = require("../utils/emailTemplates/resetPasswordEmail");
 const resetPasswordSuccess = require("../utils/emailTemplates/resetPasswordSuccess");
 const changedPasswordSuccess = require("../utils/emailTemplates/changedPasswordSuccess");
+const UserOTPModel = require("../models/userOTPModel");
+const OTPVerificationEmail = require("../utils/emailTemplates/OTPVerificationEmail");
+const axios = require("axios");
+const UserPhoneNumberModel = require("../models/userPhoneNumberModel");
 
 const createToken = (_id) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
@@ -154,6 +158,124 @@ const verifyEmail = async (req, res) => {
     res.status(400).json({
       status: "failed",
       message: "Something went wrong in email verification...!",
+    });
+  }
+};
+
+// Send Email vefication for OTP verification: Login not required
+const sendEmailForOTPVerification = async (req, res) => {
+  const { email } = req.body;
+  try {
+    if (!email) {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Email field required...!" });
+    }
+
+    const user = await userModel.findOne({ email: email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "User doesn't exist...!" });
+    }
+
+    // Generate OTP: 6 digit random number
+    const OTP = Math.floor(100000 + Math.random() * 900000);
+
+    // Now send the OTP to user's email
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: user.email,
+      subject: "OTP for Email Verification",
+      html: OTPVerificationEmail(user, OTP, process.env.EMAIL_FROM),
+    });
+
+    if (!info) {
+      return res.status(400).json({
+        status: "failed",
+        message:
+          "Something went wrong in sending OTP for email verification...!",
+      });
+    }
+
+    const userOTP = await UserOTPModel.findOne({ userId: user._id });
+    // If user is already created then update the OTP in database
+    if (userOTP) {
+      const updatedOTP = await UserOTPModel.findByIdAndUpdate(userOTP._id, {
+        $set: { otp: String(OTP) },
+      });
+    } else {
+      // Now create model in UserOTPModel for verification of email and save it
+      const newUserOTP = new UserOTPModel({
+        userId: Object(user._id),
+        otp: String(OTP),
+      });
+      await newUserOTP.save();
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "OTP sent successfully. Please Check Your Email...!",
+      "Sent Email Info": info,
+      email: user.email,
+      _id: user._id,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: "Something went wrong in sending OTP for email verification...!",
+    });
+  }
+};
+
+//Verify Email through OTP: Login not required
+const verifyEmailThroughOTP = async (req, res) => {
+  const { _id } = req.params;
+  const { otp } = req.body;
+  try {
+    const user = await userModel.findById({ _id: _id });
+    if (!user) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired OTP...!",
+      });
+    }
+
+    const userOTP = await UserOTPModel.findOne({ userId: _id });
+    if (!userOTP) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired OTP...!",
+      });
+    }
+
+    const OTP = String(otp);
+    if (userOTP.otp !== OTP) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired OTP, Problem in otp...!",
+      });
+    }
+
+    const result = await userModel.findByIdAndUpdate(_id, {
+      $set: { isVerified: true },
+    }); // Update the isVerified field in userModel
+
+    // Now delete the OTP from UserOTPModel
+    await UserOTPModel.findByIdAndDelete(userOTP._id);
+
+    res.status(200).json({
+      status: "success",
+      message:
+        "Email verification through OTP has been verified successfully...!",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: "Something went wrong in email verification through OTP...!",
     });
   }
 };
@@ -426,6 +548,137 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
   }
 };
 
+// Fot OTP Verification through Mobile Number
+const sendOTPForMobileVerification = async (req, res) => {
+  const { phoneNumber } = req.body;
+
+  try {
+    if (!phoneNumber) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Phone number field required...!",
+      });
+    }
+
+    // Generate OTP: 6 digit random number
+    const OTP = Math.floor(100000 + Math.random() * 900000);
+
+    // Now check that user with this mobile number already exist or not
+    const user = await UserPhoneNumberModel.findOne({
+      phoneNumber: phoneNumber,
+    });
+
+    // If user with this mobile number already exist then update the OTP in database
+    // and then sent SMS for OTP verification.
+    // If user is not created then create the user and save the OTP in database
+    // and then sent SMS for OTP verification.
+    if (user) {
+      // Now send the OTP to user's mobile number
+      // const info = await sendSMS(mobileNumber, OTP);
+      const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
+        params: {
+          authorization: process.env.FAST2SMS_API_KEY,
+          variables_values: `${OTP}`,
+          route: "otp",
+          numbers: Number(phoneNumber),
+        },
+      });
+
+      console.log("SMS Response: ", response);
+
+      const updatedOTP = await UserPhoneNumberModel.findByIdAndUpdate(
+        user._id,
+        {
+          $set: { otp: String(OTP) },
+        }
+      );
+
+      res.json({
+        success: true,
+        message:
+          "OTP sent successfully. Check your phone and verify with your OTP...!",
+      });
+    } else {
+      // Now send the OTP to user's mobile number
+      // const info = await sendSMS(mobileNumber, OTP);
+      const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
+        params: {
+          authorization: process.env.FAST2SMS_API_KEY,
+          variables_values: `${OTP}`,
+          route: "otp",
+          numbers: Number(phoneNumber),
+        },
+      });
+
+      console.log("SMS Response: ", response);
+
+      // Now create model in UserMobileNumberModel for verification of mobile number and save it
+      const newUserPhoneNumber = new UserPhoneNumberModel({
+        phoneNumber: phoneNumber,
+        otp: String(OTP),
+      });
+      await newUserPhoneNumber.save();
+
+      res.json({
+        success: true,
+        message:
+          "OTP sent successfully. Check your phone and verify with your OTP...!",
+        phoneNumber: phoneNumber,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message:
+        "Something went wrong in sending OTP for phone number verification...!",
+    });
+  }
+};
+
+// Verify Mobile Number through OTP: Login not required
+const verifyMobileNumberThroughOTP = async (req, res) => {
+  const { phoneNumber } = req.body;
+  const { otp } = req.body;
+  try {
+    const user = await UserPhoneNumberModel.findOne({
+      phoneNumber: phoneNumber,
+    });
+    if (!user) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired OTP...!",
+      });
+    }
+
+    if (user.otp !== String(otp)) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid or Expired OTP...!",
+      });
+    }
+
+    // Update the OTP in data base with null and isVerified to true.
+    user.otp = "null";
+    user.isVerified = true;
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message:
+        "Phone number verification through OTP has been verified successfully...!",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message:
+        "Something went wrong in phone number verification through OTP...!",
+    });
+  }
+};
+
 module.exports = {
   registerController,
   verifyEmail,
@@ -434,4 +687,8 @@ module.exports = {
   sendUserPasswordResetEmail,
   loggedUser,
   resetUserPasswordThroughForgotPassword,
+  sendEmailForOTPVerification,
+  verifyEmailThroughOTP,
+  sendOTPForMobileVerification,
+  verifyMobileNumberThroughOTP,
 };

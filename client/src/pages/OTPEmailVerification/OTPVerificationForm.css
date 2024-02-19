@@ -1,67 +1,69 @@
-.login-page {
+.otp-verification-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.login-page img {
-  border-radius: 10px 0px 0px 10px;
-  box-shadow: 1px 1px 8px #344265;
-}
-.login-form {
+.otp-verification-form {
   background-color: #b9bcccb6;
-  margin-left: -15px;
   padding: 30px;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 10px;
   box-shadow: 1px 1px 8px #344265;
 }
 
-.login-form h2 {
+.otp-verification-form h3 {
   text-align: center;
   font-weight: bold;
   margin: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   color: #344265;
 }
 
-.login-form .header-name {
-  border-bottom: 2px solid #344265;
+.otp-verification-form p {
+  text-align: center;
+  color: rgb(71, 68, 68);
+  /* margin-bottom: 30px; */
+  font-family: "Roboto", sans-serif;
 }
 
-.login-form a {
+.otp-verification-form a {
   color: blue !important;
 }
 
-.login-form a:hover {
+.otp-verification-form a:hover {
   color: black !important;
 }
 
-.login-form button {
+.otp-verification-form button {
   background-color: #344265;
   color: white;
   outline: none;
   width: 100%;
 }
 
-.login-form input {
+.otp-verification-form input {
   border-radius: 5px;
 }
-.login-form .pass-input {
+.otp-verification-form .pass-input {
   border-radius: 5px;
 }
 
-.login-form button:hover {
+.otp-verification-form button:hover {
   background-color: green;
   color: white;
 }
 
-.login-form .text {
+.otp-verification-form .text {
   color: #3a3465 !important;
-  text-decoration: underline;
 }
 
-.login-form .btn {
-  margin-top: 10px;
+.loading-text {
+  margin-top: 20px;
+}
+
+.otp-verification-form .btn {
   width: 100%;
   background-color: #344265;
   color: white;

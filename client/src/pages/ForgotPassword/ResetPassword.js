@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Form, Input, message } from "antd";
-import { LockOutlined } from "@ant-design/icons";
+import { LoadingOutlined, LockOutlined } from "@ant-design/icons";
 import "./ForgotPassword.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getResponseError } from "../../utils/getResponseError";
@@ -111,7 +111,7 @@ const ResetPassword = () => {
 
                 <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
                   <button className="btn" disabled={loading}>
-                    {loading ? "Resetting your Password..." : "Reset Password"}
+                    {loading ? <LoadingOutlined /> : "Reset Password"}
                   </button>
                 </div>
               </Form>

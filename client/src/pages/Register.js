@@ -67,7 +67,7 @@ const Register = () => {
                 onFinish={submitHandler}
                 autoComplete="off"
               >
-                <h2>Sign Up</h2>
+                <h2 className="header-name">Sign Up</h2>
 
                 <Form.Item
                   label="Name"

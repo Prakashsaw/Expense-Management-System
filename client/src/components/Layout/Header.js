@@ -4,7 +4,7 @@ import {
   UserOutlined,
   DownOutlined,
   EditOutlined,
-  LogoutOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
 import { Dropdown, message } from "antd";
 import "../../styles/HeaderStyles.css";
@@ -25,9 +25,6 @@ const Header = () => {
     navigate("/");
   };
 
-  const handleMenuClick = (e) => {
-    console.log("click", e);
-  };
   const items = [
     {
       label: <Link to="/user/user-profile">My Profile</Link>,
@@ -54,12 +51,11 @@ const Header = () => {
         </button>
       ),
       key: "3",
-      icon: <LogoutOutlined />,
+      icon: <PoweroffOutlined />, //<LogoutOutlined />,
     },
   ];
   const menuProps = {
     items,
-    onClick: handleMenuClick,
   };
 
   return (
@@ -85,7 +81,7 @@ const Header = () => {
             id="navbarToggleExternalContent"
           >
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
-              <li className="nav-link ">
+              <li className="nav-link user-home-btn">
                 <Link to="/user">Home</Link>
               </li>
               <li className="nav-item">

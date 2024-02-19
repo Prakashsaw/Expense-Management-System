@@ -7,7 +7,12 @@ const {
   loggedUser,
   changePassword,
   verifyEmail,
+  sendEmailForOTPVerification,
+  verifyEmailThroughOTP,
+  sendOTPForMobileVerification,
+  verifyMobileNumberThroughOTP,
 } = require("../controllers/userController");
+
 const checkUserAuth = require("../middleware/userAuth");
 
 //router object
@@ -27,6 +32,16 @@ router.post(
   "/reset-password/:_id/:token",
   resetUserPasswordThroughForgotPassword
 );
+
+// OTP Verification through email
+router.post("/send-email-otp", sendEmailForOTPVerification);
+// verify OTP
+router.post("/verify-email-otp/:_id", verifyEmailThroughOTP);
+
+// OTP Verification through mobile number
+router.post("/send-phone-otp", sendOTPForMobileVerification);
+// verify OTP
+router.post("/verify-phone-otp", verifyMobileNumberThroughOTP);
 
 // Protected routes
 // All routes after this middleware will be protected

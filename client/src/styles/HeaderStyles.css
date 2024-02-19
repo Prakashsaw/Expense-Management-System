@@ -24,14 +24,14 @@
   margin-right: 20px;
 }
 
-.navbar .nav-link .user-home-btn {
-  background: rgb(40, 39, 39);
+.navbar .user-home-btn a {
   color: white;
+  padding: 10px;
 }
 
-.navbar .nav-link .user-home-btn:hover {
-  background: rgb(70, 68, 68);
-  color: white;
+.navbar .user-home-btn a:hover {
+  color: #ffefba;
+  border-bottom: 1px solid #ffefba;
 }
 
 @media screen and (max-width: 768px) {

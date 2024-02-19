@@ -14,6 +14,9 @@ import SignUpSuccess from "./pages/EmailVerification/SignUpSuccess";
 import UserProfile from "./pages/UserDetails/UserProfile";
 import EditUserProfile from "./pages/UserDetails/EditUserProfile";
 import Home from "./components/Layout/Home";
+import SendOTPAndVerifyEmail from "./pages/OTPEmailVerification/SendOTPAndVerifyEmail";
+import SendOTPAndVerifyPhone from "./pages/OTPPhoneVerification/SendOTPAndVerifyPhone";
+import OTPVerifiedSuccess from "./pages/OTPEmailVerification/OTPVerifiedSuccess";
 
 function App() {
   return (
@@ -60,6 +63,17 @@ function App() {
         />
         <Route path="/terms-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyAndPolicy />} />
+        {/* send otp and verify email */}
+        <Route
+          path="/email-otp-verification"
+          element={<SendOTPAndVerifyEmail />}
+        />
+        {/* Send OTP and verify phone */}
+        <Route
+          path="/phone-otp-verification"
+          element={<SendOTPAndVerifyPhone />}
+        />
+        <Route path="/otp-verified-success" element={<OTPVerifiedSuccess />} />
         {/* if path is not correct then navigate to page not found page */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

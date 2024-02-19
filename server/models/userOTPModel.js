@@ -20,6 +20,7 @@ const userOTPSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// This model used for user's email verification through sending OTP on email.
 const UserOTPModel = mongoose.model("userotps", userOTPSchema);
 
 module.exports = UserOTPModel;

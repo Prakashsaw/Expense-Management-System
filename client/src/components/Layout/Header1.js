@@ -5,13 +5,13 @@ import { Button } from "antd";
 import "../../styles/HomeHeader.css";
 
 const Header1 = () => {
-    const navigate = useNavigate();
-    //prevent for loggedIn user
-    useEffect(() => {
-      if (localStorage.getItem("user")) {
-        navigate("/user");
-      }
-    }, [navigate]);
+  const navigate = useNavigate();
+  //prevent for loggedIn user
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate("/user");
+    }
+  }, [navigate]);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark sticky-top">
@@ -35,7 +35,7 @@ const Header1 = () => {
             id="navbarToggleExternalContent"
           >
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
-              <li className="nav-item nav-link ">
+              <li className="nav-link user-home-btn ">
                 <Link to="/">Home</Link>
               </li>
               <li className="nav-item">
