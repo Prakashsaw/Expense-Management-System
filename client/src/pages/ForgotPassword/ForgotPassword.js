@@ -87,9 +87,11 @@ const ForgotPassword = () => {
                   {loading ? <LoadingOutlined /> : "Get Password Reset Link"}
                 </button>
               </div>
-              <div className="text pt-2 d-flex justify-content-center">
+              <div className="link1  pt-2 d-flex justify-content-center">
                 Remember your password?
-                <Link to="/login">Login here!</Link>
+                <Link to="/login">
+                  Login!
+                </Link>
               </div>
             </Form>
           </div>

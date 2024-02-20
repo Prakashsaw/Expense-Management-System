@@ -1,6 +1,8 @@
 .register-content {
   height: 100vh;
   width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .register-page {
   display: flex;
@@ -8,6 +10,7 @@
   align-items: center;
   justify-content: center;
   height: 96vh;
+  /* width: 95%; */
 }
 
 .register-form {
@@ -64,6 +67,11 @@
   text-decoration: underline;
 }
 .link1:hover {
+  text-decoration: underline;
+}
+
+.register-form .text {
+  color: #3a3465 !important;
   text-decoration: underline;
 }
 

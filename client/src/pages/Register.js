@@ -159,11 +159,11 @@ const Register = () => {
                   {loading ? <LoadingOutlined /> : "Sign Up"}
                 </button>
               </div>
-              <div className="text pt-2 d-flex justify-content-center">
-                Already Registered?
-                <Link className="link" to="/login">
-                  Login here!
-                </Link>
+              <div className="pt-2 d-flex justify-content-center">
+                <div className="text">
+                  Already Registered?
+                  <Link to="/login">Login!</Link>
+                </div>
               </div>
             </Form>
           </div>

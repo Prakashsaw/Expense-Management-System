@@ -120,7 +120,7 @@ const Login = () => {
                   {loading ? <LoadingOutlined /> : "Login"}
                 </button>
               </div>
-              <div className="text pt-2 d-flex justify-content-center">
+              <div className="pt-2 d-flex justify-content-center">
                 <div className="text">
                   Not a user? <Link to="/register">SignUp!</Link>
                 </div>
