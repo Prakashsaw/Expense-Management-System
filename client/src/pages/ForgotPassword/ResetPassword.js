@@ -40,7 +40,6 @@ const ResetPassword = () => {
       <Header1 />
       <div className="content container mt-4 layout">
         <div className="forgot-password-page ">
-          <div className="container align-item-center">
             {loading && <Spinner />}
             <div className="col-md-5 forgot-password-form">
               <Form
@@ -116,7 +115,6 @@ const ResetPassword = () => {
                 </div>
               </Form>
             </div>
-          </div>
         </div>
       </div>
       <Footer />

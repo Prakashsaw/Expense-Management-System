@@ -21,23 +21,24 @@
 }
 
 .navbar .nav-link .login-btn {
-  background: #e3f2fd;
+  background: #c4d2dc;
   color: black;
   margin-left: "10px";
 }
 
 .navbar .nav-link .login-btn:hover {
-  background: #c4d2dc;
+  background: #e3f2fd;
   color: black;
 }
 
 .navbar .nav-link .register-btn {
-  background: #2196f3;
+  background: #0e4fb0;
+  border: 1px solid #0e4fb0;
   color: white;
 }
 
 .navbar .nav-link .register-btn:hover {
-  background: #125dce;
+  background: #1376da;
   color: white;
 }
 
