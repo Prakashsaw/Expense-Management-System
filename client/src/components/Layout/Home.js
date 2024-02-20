@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import "./Home.css";
 
 const Home = () => {
+  const img =
+    "https://www.codingnepalweb.com/demos/create-responsive-website-html-css/hero-bg.png";
   const navigate = useNavigate();
   //prevent for login user
   useEffect(() => {
@@ -21,11 +23,8 @@ const Home = () => {
             <div className="hero">
               <h2>Welcome to Expense Management System</h2>
               <p>
-                {/* Join us in the exciting world of programming and turn your ideas
-                into reality. Unlock the world of endless possibilities - learn
-                to code and shape the digital future with us. */}
                 Welcone to the{" "}
-                <span className="app-name">Expense management System App</span>.
+                <span className="app-name">Expense management System </span>App.
                 This app helps you to manage your expenses and income. You can
                 track your expenses and income, add new expenses and income,
                 update and delete expenses and income. You can also see the
@@ -44,10 +43,7 @@ const Home = () => {
               </div>
             </div>
             <div className="img">
-              <img
-                src="https://www.codingnepalweb.com/demos/create-responsive-website-html-css/hero-bg.png"
-                alt="hero"
-              />
+              <img src={img} alt="hero" />
             </div>
           </section>
         </div>

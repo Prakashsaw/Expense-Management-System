@@ -1,20 +1,19 @@
+.register-content {
+  height: 100vh;
+  width: 100%;
+}
 .register-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.register-page img {
-  border-radius: 10px 0px 0px 10px;
-  box-shadow: 1px 1px 8px #344265;
+  height: 96vh;
 }
 
 .register-form {
   background-color: #b9bcccb6;
-  margin-left: -15px;
   padding: 30px;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 10px;
   box-shadow: 1px 1px 8px #344265;
 }
 
@@ -58,6 +57,7 @@
 
 .register-form .text {
   color: #3a3465 !important;
+  text-decoration: underline;
 }
 
 .link1 {
@@ -68,7 +68,7 @@
 }
 
 .register-form .btn {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   background-color: #344265;
   color: white;

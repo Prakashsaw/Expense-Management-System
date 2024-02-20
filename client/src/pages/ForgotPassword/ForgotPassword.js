@@ -35,67 +35,64 @@ const ForgotPassword = () => {
   return (
     <>
       <Header1 />
-      <div className="content container mt-4 layout">
+      <div className="forgot-password-content mt-4 layout">
         <div className="forgot-password-page ">
-            {loading && <Spinner />}
-            <div className="col-md-5 forgot-password-form">
-              <Form
-                layout="vertical"
-                initialValues={{
-                  remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
-                }}
-                onFinish={submitHandler}
-                autoComplete="off"
+          {loading && <Spinner />}
+          <div className="col-md-5 forgot-password-form">
+            <Form
+              layout="vertical"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={submitHandler}
+              autoComplete="off"
+            >
+              <h3>Reset Password?</h3>
+              <p>
+                Please enter your email address you use to sign in. You will
+                receive a link to create a new password via email.
+              </p>
+
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your valid email...!",
+                  },
+                ]}
               >
-                <h3>Reset Password?</h3>
-                <p>
-                  Please enter your email address you use to sign in. You will
-                  receive a link to create a new password via email.
-                </p>
+                <Input
+                  prefix={<MailOutlined />}
+                  className="pass-input"
+                  type="email"
+                  placeholder="Email"
+                  style={{
+                    height: 40,
+                  }}
+                />
+              </Form.Item>
+              {forgotPasswordError && (
+                <Alert
+                  message={forgotPasswordError}
+                  type="error"
+                  showIcon
+                  style={{ marginBottom: 15 }}
+                />
+              )}
 
-                <Form.Item
-                  label="Email"
-                  name="email"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your valid email...!",
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<MailOutlined />}
-                    className="pass-input"
-                    type="email"
-                    placeholder="Email"
-                    style={{
-                      height: 40,
-                    }}
-                  />
-                </Form.Item>
-                {forgotPasswordError && (
-                  <Alert
-                    message={forgotPasswordError}
-                    type="error"
-                    showIcon
-                    style={{ marginBottom: 15 }}
-                  />
-                )}
-
-                <div className="loading-text pb-2 mt-2 d-flex justify-content-center">
-                  <button className="btn" disabled={loading}>
-                    {loading ? <LoadingOutlined /> : "Get Password Reset Link"}
-                  </button>
-                </div>
-                <div className="text pt-2 d-flex justify-content-center">
-                  Remember your password?
-                  <Link to="/login">Login here!</Link>
-                </div>
-              </Form>
-            </div>
+              <div className="pb-2 mt-2 d-flex justify-content-center">
+                <button className="btn" disabled={loading}>
+                  {loading ? <LoadingOutlined /> : "Get Password Reset Link"}
+                </button>
+              </div>
+              <div className="text pt-2 d-flex justify-content-center">
+                Remember your password?
+                <Link to="/login">Login here!</Link>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
       <Footer />

@@ -1,8 +1,14 @@
+.send-otp-content {
+  height: 100vh;
+  width: 100%;
+}
+
 .otp-verification-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 80vh;
 }
 
 .otp-verification-form {
@@ -24,7 +30,6 @@
 .otp-verification-form p {
   text-align: center;
   color: rgb(71, 68, 68);
-  /* margin-bottom: 30px; */
   font-family: "Roboto", sans-serif;
 }
 

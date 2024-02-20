@@ -38,83 +38,80 @@ const ResetPassword = () => {
   return (
     <>
       <Header1 />
-      <div className="content container mt-4 layout">
+      <div className="forgot-password-content mt-4 layout">
         <div className="forgot-password-page ">
-            {loading && <Spinner />}
-            <div className="col-md-5 forgot-password-form">
-              <Form
-                layout="vertical"
-                initialValues={{
-                  remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
-                }}
-                onFinish={submitHandler}
-                autoComplete="off"
+          {loading && <Spinner />}
+          <div className="col-md-5 forgot-password-form">
+            <Form
+              layout="vertical"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={submitHandler}
+              autoComplete="off"
+            >
+              <h3>Reset Password</h3>
+              <p>
+                Please enter your new password below.<br></br> Fields marked
+                with (*) are required.
+              </p>
+
+              <Form.Item
+                label="New Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter new password here...!",
+                  },
+                ]}
               >
-                <h3>Reset Password</h3>
-                <p>
-                  Please enter your new password below.<br></br> Fields marked
-                  with (*) are required.
-                </p>
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  className="pass-input"
+                  type="password"
+                  placeholder="New Password"
+                  style={{
+                    height: 40,
+                  }}
+                />
+              </Form.Item>
+              <Form.Item
+                label="Re-enter Your New Password"
+                name="confirmPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter confirm password...!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  className="pass-input"
+                  type="password"
+                  placeholder="Re-enter New password"
+                  style={{
+                    height: 40,
+                  }}
+                />
+              </Form.Item>
+              {resetPasswordError && (
+                <Alert
+                  message={resetPasswordError}
+                  type="error"
+                  showIcon
+                  style={{ marginBottom: 10 }}
+                />
+              )}
 
-                <Form.Item
-                  label="New Password"
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter new password here...!",
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    prefix={<LockOutlined />}
-                    className="pass-input"
-                    type="password"
-                    placeholder="New Password"
-                    style={{
-                      height: 40,
-                    }}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Re-enter Your New Password"
-                  name="confirmPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter confirm password...!",
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    prefix={<LockOutlined />}
-                    className="pass-input"
-                    type="password"
-                    placeholder="Re-enter New password"
-                    style={{
-                      height: 40,
-                    }}
-                  />
-                </Form.Item>
-                {resetPasswordError && (
-                  <Alert
-                    message={resetPasswordError}
-                    type="error"
-                    showIcon
-                    style={{ marginBottom: 10 }}
-                  />
-                )}
-
-                <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
-                  <button className="btn" disabled={loading}>
-                    {loading ? <LoadingOutlined /> : "Reset Password"}
-                  </button>
-                </div>
-              </Form>
-            </div>
+              <div className="loading-text pb-2 mt-4 d-flex justify-content-center">
+                <button className="btn" disabled={loading}>
+                  {loading ? <LoadingOutlined /> : "Reset Password"}
+                </button>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
       <Footer />

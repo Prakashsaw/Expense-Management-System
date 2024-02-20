@@ -1,8 +1,4 @@
-import {
-  KeyOutlined,
-  LoadingOutlined,
-  PhoneFilled,
-} from "@ant-design/icons";
+import { LoadingOutlined, LockOutlined, PhoneFilled } from "@ant-design/icons";
 import { Alert, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -63,7 +59,7 @@ const SendOTPAndVerifyPhone = () => {
 
   return (
     <>
-      <div className="content container mt-5 layout">
+      <div className="send-otp-content mt-5 layout">
         <div className="otp-verification-page ">
           {/* {loading && <Spinner />} */}
           <div className="col-md-5 otp-verification-form">
@@ -72,9 +68,6 @@ const SendOTPAndVerifyPhone = () => {
                 layout="vertical"
                 initialValues={{
                   remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
                 }}
                 onFinish={submitHandlerForVerifyOTP}
                 autoComplete="off"
@@ -116,7 +109,7 @@ const SendOTPAndVerifyPhone = () => {
                   ]}
                 >
                   <Input
-                    prefix={<KeyOutlined />}
+                    prefix={<LockOutlined />}
                     className="pass-input"
                     type="number"
                     placeholder="OTP"
@@ -152,9 +145,6 @@ const SendOTPAndVerifyPhone = () => {
                 layout="vertical"
                 initialValues={{
                   remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
                 }}
                 onFinish={submitHandlerForSendOTP}
                 autoComplete="off"

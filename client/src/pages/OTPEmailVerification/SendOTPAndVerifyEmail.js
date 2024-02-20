@@ -1,4 +1,4 @@
-import { KeyOutlined, LoadingOutlined, MailOutlined } from "@ant-design/icons";
+import { LoadingOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Alert, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -62,7 +62,7 @@ const SendOTPAndVerifyEmail = () => {
 
   return (
     <>
-      <div className="content container mt-5 layout">
+      <div className="send-otp-content mt-5 layout">
         <div className="otp-verification-page ">
           {/* {loading && <Spinner />} */}
           <div className="col-md-5 otp-verification-form">
@@ -71,9 +71,6 @@ const SendOTPAndVerifyEmail = () => {
                 layout="vertical"
                 initialValues={{
                   remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
                 }}
                 onFinish={submitHandlerForVerifyOTP}
                 autoComplete="off"
@@ -115,7 +112,7 @@ const SendOTPAndVerifyEmail = () => {
                   ]}
                 >
                   <Input
-                    prefix={<KeyOutlined />}
+                    prefix={<LockOutlined />}
                     className="pass-input"
                     type="number"
                     placeholder="OTP"
@@ -151,9 +148,6 @@ const SendOTPAndVerifyEmail = () => {
                 layout="vertical"
                 initialValues={{
                   remember: true,
-                }}
-                style={{
-                  maxWidth: 600,
                 }}
                 onFinish={submitHandlerForSendOTP}
                 autoComplete="off"

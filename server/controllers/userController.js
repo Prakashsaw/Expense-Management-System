@@ -98,7 +98,8 @@ const registerController = async (req, res) => {
     if (!info) {
       return res.status(400).json({
         status: "failed",
-        message: "Something went wrong in sending email verification link...!",
+        message:
+          "Something went wrong in sending email for email verification link...!",
       });
     }
 
@@ -107,9 +108,6 @@ const registerController = async (req, res) => {
       newUser,
       Status: "Success",
       message: "Successfully Registered...!",
-      _id: newUser._id,
-      name,
-      email,
       jwt_token,
     });
   } catch (error) {
@@ -358,9 +356,6 @@ const loginController = async (req, res) => {
       user,
       Status: "Success",
       message: "Successfully LoggedIn...!",
-      _id: user._id,
-      name: user.name,
-      email,
       jwt_token,
     });
   } catch (error) {
@@ -382,7 +377,7 @@ const loggedUser = async (req, res) => {
 // This is for if user is logged in then he can reset his password
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
-  const { _id } = req.user._id; // by params we get things which is in links
+  const { _id } = req.user._id;
   try {
     if (!oldPassword || !newPassword || !confirmPassword) {
       return res

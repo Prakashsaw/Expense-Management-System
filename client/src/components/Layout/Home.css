@@ -75,16 +75,30 @@
   background-color: #0f5fb0;
   color: white;
 }
-/* .hero-section .buttons a:hover {
-  background-color: #47b2e4;
-  border: 1px solid white;
-  color: white;
-} */
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 830px) {
+  .hero-section .hero {
+    max-width: 80%;
+  }
+
+  .hero-section img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .hero-section .hero {
+    max-width: 95%;
+  }
+
+  .hero-section img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 330px) {
   .hero-section .hero {
     max-width: 100%;
-    text-align: center;
   }
 
   .hero-section img {
