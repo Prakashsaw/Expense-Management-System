@@ -1,5 +1,5 @@
 .register-content {
-  height: 100vh;
+  height: 120vh;
   width: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -9,12 +9,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 96vh;
-  /* width: 95%; */
+  height: 110vh;
 }
 
 .register-form {
-  background-color: #b9bcccb6;
+  background-color: white;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 1px 1px 8px #344265;
@@ -82,3 +81,74 @@
   color: white;
   outline: none;
 }
+
+.register-form .line {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  margin: 36px 0;
+  background-color: black;
+}
+.register-form .line::before {
+  content: "OR";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  padding: 0 15px;
+}
+
+.register-form .goole img {
+  width: 5px;
+  height: 5px;
+  object-fit: cover;
+}
+
+/* .register-form .goole .google-btn {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #344265;
+  color: white;
+  outline: none;
+} */
+
+/* .media-options {
+  border-radius: 5px;
+  border: 1px solid #bdbaba;
+}
+*/
+
+/* .media-options a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+} */
+
+/* .media-options a img {
+  width: 20px;
+  height: 20px;
+  position: relative; 
+   right: 5rem;
+  margin-right: 100px;
+} */
+
+/* img.google-img {
+  position: relative;
+  right: 100px;
+} */
+
+/* img.google-img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+} */
+
+/* a.google span {
+  font-weight: 500;
+  opacity: 0.6;
+  color: #232836;
+  margin-right: 100px;
+}  */

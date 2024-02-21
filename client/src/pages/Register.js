@@ -41,6 +41,10 @@ const Register = () => {
     }
   };
 
+  const googleButtonHandler = async () => {
+    navigate("/");
+  };
+
   //prevent for login user
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -166,6 +170,33 @@ const Register = () => {
                 </div>
               </div>
             </Form>
+            <div className="line"></div>
+
+            <div className="google pb-0 mt-0 d-flex justify-content-center">
+              {/* <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzo_lM3Cydaq2bXh74xFEZ9QytOmwfqEZbTkbLml9iFUSxsfeC3HO8DDDjyzrdXJ-FGzA&usqp=CAU"
+                alt="google-img"
+                // className="google-img"
+              /> */}
+              <button
+                className="btn"
+                disabled={loading}
+                onClick={googleButtonHandler}
+              >
+                {loading ? <LoadingOutlined /> : "SignUp with Google"}
+              </button>
+            </div>
+
+            {/* <div className="media-options">
+              <a href="/google-login" className="field google">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzo_lM3Cydaq2bXh74xFEZ9QytOmwfqEZbTkbLml9iFUSxsfeC3HO8DDDjyzrdXJ-FGzA&usqp=CAU"
+                  alt="google-img"
+                  // className="google-img"
+                />
+                <span>Login with Google</span>
+              </a>
+            </div> */}
           </div>
         </div>
       </div>
