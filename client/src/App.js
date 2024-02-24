@@ -17,6 +17,7 @@ import SendOTPAndVerifyEmail from "./pages/OTPEmailVerification/SendOTPAndVerify
 import SendOTPAndVerifyPhone from "./pages/OTPPhoneVerification/SendOTPAndVerifyPhone";
 import OTPVerifiedSuccess from "./pages/OTPEmailVerification/OTPVerifiedSuccess";
 import ChangePassword from "./pages/UserDetails/ChangePassword";
+import ContactUs from "./pages/UserDetails/ContactUs";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
           element={<SendOTPAndVerifyPhone />}
         />
         <Route path="/otp-verified-success" element={<OTPVerifiedSuccess />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         {/* if path is not correct then navigate to page not found page */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

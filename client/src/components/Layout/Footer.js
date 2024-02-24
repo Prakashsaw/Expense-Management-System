@@ -9,7 +9,7 @@ const Footer = () => {
           All rights reserved &copy; 2024 Prakash & Company Pvt Ltd.
         </h4>
         <p className="text-center mt-3">
-          <Link to="/about">About</Link>|<Link to="/contact">Contact</Link>|
+          <Link to="/about-us">About</Link>|<Link to="/contact-us">Contact</Link>|
           <Link to="/privacy-policy">Privacy Policy</Link>
         </p>
       </div>

@@ -32,7 +32,7 @@ const emailVerificationEmail = (user, emailVerificationLink, EMAIL_FROM) => {
             </head>
             <body>
                 <div>
-                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>, Welcome to Expanse Management System.</p> 
+                  <p>Hi, <span style="font-weight: bold;">${user.name}</span>, Welcome to Expense Management System.</p> 
 
                   <p>Thank you for registering on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> App.</p>
                   <p>Please verify your email address.<br>

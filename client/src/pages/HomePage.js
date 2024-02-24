@@ -174,140 +174,142 @@ const HomePage = () => {
     <>
       <Layout>
         {loading && <Spinner />}
-        <div className="filters">
-          <div>
-            <h6>Select Frequency</h6>
-            <Select
-              value={frequency}
-              onChange={(values) => setFrequency(values)}
-            >
-              <Select.Option value="7">LAST 1 Week</Select.Option>
-              <Select.Option value="30">LAST 1 Month</Select.Option>
-              <Select.Option value="365">LAST 1 Year</Select.Option>
-              <Select.Option value="custom">Custom</Select.Option>
-            </Select>
-            {frequency === "custom" && (
-              <RangePicker
-                value={selectedDate}
-                onChange={(values) => setSelectedate(values)}
+        <div className="transaction-page">
+          <div className="filters">
+            <div>
+              <h6>Select Frequency</h6>
+              <Select
+                value={frequency}
+                onChange={(values) => setFrequency(values)}
+              >
+                <Select.Option value="7">LAST 1 Week</Select.Option>
+                <Select.Option value="30">LAST 1 Month</Select.Option>
+                <Select.Option value="365">LAST 1 Year</Select.Option>
+                <Select.Option value="custom">Custom</Select.Option>
+              </Select>
+              {frequency === "custom" && (
+                <RangePicker
+                  value={selectedDate}
+                  onChange={(values) => setSelectedate(values)}
+                />
+              )}
+            </div>
+            <div className="filter-tab ">
+              <h6>Select Type</h6>
+              <Select value={type} onChange={(values) => setType(values)}>
+                <Select.Option value="all">ALL</Select.Option>
+                <Select.Option value="Income">INCOME</Select.Option>
+                <Select.Option value="Expense">EXPENSE</Select.Option>
+              </Select>
+            </div>
+            <div className="switch-icons">
+              <UnorderedListOutlined
+                className={`mx-2 ${
+                  viewData === "table" ? "active-icon" : "inactive-icon"
+                }`}
+                onClick={() => setViewData("table")}
               />
-            )}
-          </div>
-          <div className="filter-tab ">
-            <h6>Select Type</h6>
-            <Select value={type} onChange={(values) => setType(values)}>
-              <Select.Option value="all">ALL</Select.Option>
-              <Select.Option value="Income">INCOME</Select.Option>
-              <Select.Option value="Expense">EXPENSE</Select.Option>
-            </Select>
-          </div>
-          <div className="switch-icons">
-            <UnorderedListOutlined
-              className={`mx-2 ${
-                viewData === "table" ? "active-icon" : "inactive-icon"
-              }`}
-              onClick={() => setViewData("table")}
-            />
-            <AreaChartOutlined
-              className={`mx-2 ${
-                viewData === "analytics" ? "active-icon" : "inactive-icon"
-              }`}
-              onClick={() => setViewData("analytics")}
-            />
-          </div>
-          <div>
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowModal(true)}
-            >
-              Add New
-            </button>
-          </div>
-        </div>
-        <div className="content">
-          {viewData === "table" ? (
-            <Table columns={columns} dataSource={allTransection} />
-          ) : (
-            <Analytics allTransection={allTransection} />
-          )}
-        </div>
-        <Modal
-          title={editable ? "Edit Transaction" : "Add Transection"}
-          open={showModal}
-          onCancel={() => setShowModal(false)}
-          footer={false}
-        >
-          <Form
-            layout="vertical"
-            onFinish={handleSubmit}
-            initialValues={editable}
-          >
-            <Form.Item label="Amount" name="amount">
-              <Input type="text" required />
-            </Form.Item>
-            <Form.Item label="Type" name="type">
-              <Select>
-                <Select.Option value="Income">Income</Select.Option>
-                <Select.Option value="Expense">Expense</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="Category" name="category">
-              <Select>
-                <Select.Option value="Income in Salary">
-                  Income in Salary
-                </Select.Option>
-                <Select.Option value="Income in Part Time">
-                  Income in Part Time
-                </Select.Option>
-                <Select.Option value="Income in Project">
-                  Income in Project
-                </Select.Option>
-                <Select.Option value="Income in Freelancing">
-                  Income in Freelancing
-                </Select.Option>
-                <Select.Option value="Expense in Tip">
-                  Expense in Tip
-                </Select.Option>
-                <Select.Option value="Expense in Stationary">
-                  Expense in Stationary
-                </Select.Option>
-                <Select.Option value="Expense in Food">
-                  Expense in Food
-                </Select.Option>
-                <Select.Option value="Expense in Movie">
-                  Expense in Movie
-                </Select.Option>
-                <Select.Option value="Expense in Bills">
-                  Expense in Bills
-                </Select.Option>
-                <Select.Option value="Expense in Medical">
-                  Expense in Medical
-                </Select.Option>
-                <Select.Option value="Expense in Fees">
-                  Expense in Fees
-                </Select.Option>
-                <Select.Option value="Expense in TAX">
-                  Expense in TAX
-                </Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="Date" name="date">
-              <Input type="date" />
-            </Form.Item>
-            <Form.Item label="Refrence" name="refrence">
-              <Input type="text" required />
-            </Form.Item>
-            <Form.Item label="Description" name="description">
-              <Input type="text" required />
-            </Form.Item>
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-primary">
-                {" "}
-                SAVE
+              <AreaChartOutlined
+                className={`mx-2 ${
+                  viewData === "analytics" ? "active-icon" : "inactive-icon"
+                }`}
+                onClick={() => setViewData("analytics")}
+              />
+            </div>
+            <div>
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(true)}
+              >
+                Add New
               </button>
             </div>
-          </Form>
-        </Modal>
+          </div>
+          <div className="content">
+            {viewData === "table" ? (
+              <Table columns={columns} dataSource={allTransection} />
+            ) : (
+              <Analytics allTransection={allTransection} />
+            )}
+          </div>
+          <Modal
+            title={editable ? "Edit Transaction" : "Add Transection"}
+            open={showModal}
+            onCancel={() => setShowModal(false)}
+            footer={false}
+          >
+            <Form
+              layout="vertical"
+              onFinish={handleSubmit}
+              initialValues={editable}
+            >
+              <Form.Item label="Amount" name="amount">
+                <Input type="text" required />
+              </Form.Item>
+              <Form.Item label="Type" name="type">
+                <Select>
+                  <Select.Option value="Income">Income</Select.Option>
+                  <Select.Option value="Expense">Expense</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="Category" name="category">
+                <Select>
+                  <Select.Option value="Income in Salary">
+                    Income in Salary
+                  </Select.Option>
+                  <Select.Option value="Income in Part Time">
+                    Income in Part Time
+                  </Select.Option>
+                  <Select.Option value="Income in Project">
+                    Income in Project
+                  </Select.Option>
+                  <Select.Option value="Income in Freelancing">
+                    Income in Freelancing
+                  </Select.Option>
+                  <Select.Option value="Expense in Tip">
+                    Expense in Tip
+                  </Select.Option>
+                  <Select.Option value="Expense in Stationary">
+                    Expense in Stationary
+                  </Select.Option>
+                  <Select.Option value="Expense in Food">
+                    Expense in Food
+                  </Select.Option>
+                  <Select.Option value="Expense in Movie">
+                    Expense in Movie
+                  </Select.Option>
+                  <Select.Option value="Expense in Bills">
+                    Expense in Bills
+                  </Select.Option>
+                  <Select.Option value="Expense in Medical">
+                    Expense in Medical
+                  </Select.Option>
+                  <Select.Option value="Expense in Fees">
+                    Expense in Fees
+                  </Select.Option>
+                  <Select.Option value="Expense in TAX">
+                    Expense in TAX
+                  </Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="Date" name="date">
+                <Input type="date" />
+              </Form.Item>
+              <Form.Item label="Refrence" name="refrence">
+                <Input type="text" required />
+              </Form.Item>
+              <Form.Item label="Description" name="description">
+                <Input type="text" required />
+              </Form.Item>
+              <div className="d-flex justify-content-end">
+                <button type="submit" className="btn btn-primary">
+                  {" "}
+                  SAVE
+                </button>
+              </div>
+            </Form>
+          </Modal>
+        </div>
       </Layout>
     </>
   );

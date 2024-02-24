@@ -9,7 +9,7 @@ const OTPVerificationEmail = (user, OTP, EMAIL_FROM) => {
             </head>
             <body>
                 <div>
-                    <p>Hi, <span style="font-weight: bold;">${user.name}!</span>, Welcome to Expanse Management System.</p> 
+                    <p>Hi, <span style="font-weight: bold;">${user.name}!</span>, Welcome to Expense Management System.</p> 
 
                     <p>You are receiving this because you have created the 
                     new user account on <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a>.<br>

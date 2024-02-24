@@ -3,13 +3,21 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-.content {
-  height: 100%;
+#root {
+  overflow: hidden;
 }
 
+/* .content {
+  height: 100%;
+} */
+
 /* transection page */
-.filters {
+.transaction-page {
+  width: 100%;
+  height: 100vh;
+}
+
+.transaction-page .filters {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,7 +27,7 @@
   background-color: gray;
 }
 
-/* transection page */
+/* transection page css end */
 
 /* antd icons */
 
