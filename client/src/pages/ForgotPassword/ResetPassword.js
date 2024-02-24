@@ -19,6 +19,17 @@ const ResetPassword = () => {
 
   const submitHandler = async (values) => {
     try {
+      if (values.password.length < 8) {
+        setResetPasswordError("Password must be atleast 8 characters long...!");
+        return;
+      }
+      if (values.password !== values.confirmPassword) {
+        setResetPasswordError(
+          "Password and confirm password should be same...!"
+        );
+        return;
+      }
+
       setLoading(true);
       await axios.post(
         `${BASE_URL}/api/v1/users/reset-password/${_id}/${token}`,

@@ -22,6 +22,25 @@ const Register = () => {
   //from submit
   const submitHandler = async (values) => {
     try {
+      // validate all frontend validation
+      // Email validation
+      if (!values.email.includes("@") || !values.email.includes(".")) {
+        setRegisterError(
+          "Please enter a valid email address. Include '@' and ' . '"
+        );
+        return;
+      }
+      // Password validation
+      if (values.password.length < 8) {
+        setRegisterError("Password must be atleast 8 characters long...!");
+        return;
+      }
+
+      if (values.password !== values.confirmPassword) {
+        setRegisterError("Password and confirm password should be same...!");
+        return;
+      }
+
       setLoading(true);
       await axios.post(`${BASE_URL}/api/v1/users/register`, values);
       setLoading(false);
@@ -41,9 +60,9 @@ const Register = () => {
     }
   };
 
-  const googleButtonHandler = async () => {
-    navigate("/");
-  };
+  // const googleButtonHandler = async () => {
+  //   navigate("/");
+  // };
 
   //prevent for login user
   useEffect(() => {
@@ -100,7 +119,7 @@ const Register = () => {
                 <Input
                   prefix={<MailOutlined />}
                   className="pass-input"
-                  type="email"
+                  type="text"
                   placeholder="Enter your valid email address"
                   style={{
                     height: 40,
@@ -121,12 +140,33 @@ const Register = () => {
                   prefix={<LockOutlined />}
                   className="pass-input"
                   type="password"
-                  placeholder="Please enter your password"
+                  placeholder="Create password"
                   style={{
                     height: 40,
                   }}
                 />
               </Form.Item>
+              <Form.Item
+                label="Confirn Password"
+                name="confirmPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Password must be a strong password...!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  className="pass-input"
+                  type="password"
+                  placeholder="Re-enter password"
+                  style={{
+                    height: 40,
+                  }}
+                />
+              </Form.Item>
+
               <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>
                   I agree to the{" "}
@@ -158,7 +198,7 @@ const Register = () => {
                 />
               )}
 
-              <div className="pb-0 mt-0 d-flex justify-content-center">
+              <div className="button pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>
                   {loading ? <LoadingOutlined /> : "Sign Up"}
                 </button>
@@ -170,33 +210,14 @@ const Register = () => {
                 </div>
               </div>
             </Form>
+
             <div className="line"></div>
 
-            <div className="google pb-0 mt-0 d-flex justify-content-center">
-              {/* <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzo_lM3Cydaq2bXh74xFEZ9QytOmwfqEZbTkbLml9iFUSxsfeC3HO8DDDjyzrdXJ-FGzA&usqp=CAU"
-                alt="google-img"
-                // className="google-img"
-              /> */}
-              <button
-                className="btn"
-                disabled={loading}
-                onClick={googleButtonHandler}
-              >
-                {loading ? <LoadingOutlined /> : "SignUp with Google"}
-              </button>
-            </div>
-
-            {/* <div className="media-options">
-              <a href="/google-login" className="field google">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzo_lM3Cydaq2bXh74xFEZ9QytOmwfqEZbTkbLml9iFUSxsfeC3HO8DDDjyzrdXJ-FGzA&usqp=CAU"
-                  alt="google-img"
-                  // className="google-img"
-                />
-                <span>Login with Google</span>
-              </a>
-            </div> */}
+            <button className="login-with-google-btn" disabled={loading}>
+              {" "}
+              {/*onClick={loginwithgoogle}*/}
+              {loading ? <LoadingOutlined /> : "SignUp with Google"}
+            </button>
           </div>
         </div>
       </div>

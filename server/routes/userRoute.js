@@ -11,6 +11,7 @@ const {
   verifyEmailThroughOTP,
   sendOTPForMobileVerification,
   verifyMobileNumberThroughOTP,
+  updateUserProfile,
 } = require("../controllers/userController");
 
 const checkUserAuth = require("../middleware/userAuth");
@@ -45,7 +46,9 @@ router.post("/verify-phone-otp", verifyMobileNumberThroughOTP);
 
 // Protected routes
 // All routes after this middleware will be protected
-// Like: Access to dashboard, change password, forgot password, etc
+// Like: Access to dashboard, update user profile, change password etc
+// POST : CHANGE USER PROFILE
+router.post("/update-user-profile", checkUserAuth, updateUserProfile);
 // POST : CHANGE PASSWORD
 router.post("/change-password", checkUserAuth, changePassword);
 // GET : LOGGED USER / USER PROFILE

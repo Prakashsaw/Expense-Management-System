@@ -8,12 +8,12 @@ import {
 } from "@ant-design/icons";
 import { Dropdown, message } from "antd";
 import "../../styles/HeaderStyles.css";
+import logo from "../../../src/Images/logo.png";
 const Header = () => {
   const [loginUser, setLoginUser] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
     if (user) {
       setLoginUser(user);
     }
@@ -33,7 +33,7 @@ const Header = () => {
       link: "/login",
     },
     {
-      label: <Link to="/user/edit-user-profile">Edit Profile</Link>,
+      label: <Link to="/user/change-password">Change Password</Link>,
       key: "2",
       icon: <EditOutlined />,
     },
@@ -51,7 +51,7 @@ const Header = () => {
         </button>
       ),
       key: "3",
-      icon: <PoweroffOutlined />, //<LogoutOutlined />,
+      icon: <PoweroffOutlined />,
     },
   ];
   const menuProps = {
@@ -62,6 +62,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-dark sticky-top">
         <Link className="navbar-brand" to="/user">
+          <img src={logo} alt="logo" />
           Expense Management System
         </Link>
         <div className="container-fluid">

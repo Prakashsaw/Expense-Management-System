@@ -8,10 +8,10 @@ import {
 } from "@ant-design/icons";
 import Layout from "./../components/Layout/Layout";
 import axios from "axios";
-import Spinner from "./../components/Spinner";
 import moment from "moment";
 import Analytics from "../components/Analytics";
 import { BASE_URL } from "../utils/baseURL";
+import Spinner from "../components/Spinner";
 const { RangePicker } = DatePicker;
 
 const HomePage = () => {
@@ -173,7 +173,7 @@ const HomePage = () => {
   return (
     <>
       <Layout>
-        {/* {loading && <Spinner /> } */}
+        {loading && <Spinner />}
         <div className="filters">
           <div>
             <h6>Select Frequency</h6>

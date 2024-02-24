@@ -12,11 +12,11 @@ import EmailVerification from "./pages/EmailVerification/EmailVerification";
 import PasswordResetSuccess from "./pages/ForgotPassword/PasswordResetSuccess";
 import SignUpSuccess from "./pages/EmailVerification/SignUpSuccess";
 import UserProfile from "./pages/UserDetails/UserProfile";
-import EditUserProfile from "./pages/UserDetails/EditUserProfile";
 import Home from "./components/Layout/Home";
 import SendOTPAndVerifyEmail from "./pages/OTPEmailVerification/SendOTPAndVerifyEmail";
 import SendOTPAndVerifyPhone from "./pages/OTPPhoneVerification/SendOTPAndVerifyPhone";
 import OTPVerifiedSuccess from "./pages/OTPEmailVerification/OTPVerifiedSuccess";
+import ChangePassword from "./pages/UserDetails/ChangePassword";
 
 function App() {
   return (
@@ -39,10 +39,10 @@ function App() {
           }
         />
         <Route
-          path="/user/edit-user-profile"
+          path="/user/change-password"
           element={
             <ProtectedRoutes>
-              <EditUserProfile />
+              <ChangePassword />
             </ProtectedRoutes>
           }
         />

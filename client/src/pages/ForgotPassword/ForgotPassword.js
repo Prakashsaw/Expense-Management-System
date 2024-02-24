@@ -17,6 +17,13 @@ const ForgotPassword = () => {
 
   const submitHandler = async (values) => {
     try {
+      // Email validation
+      if (!values.email.includes("@") || !values.email.includes(".")) {
+        setForgotPasswordError(
+          "Please enter a valid email address. Include '@' and ' . '"
+        );
+        return;
+      }
       setLoading(true);
       await axios.post(
         `${BASE_URL}/api/v1/users/send-reset-password-email`,
@@ -66,7 +73,7 @@ const ForgotPassword = () => {
                 <Input
                   prefix={<MailOutlined />}
                   className="pass-input"
-                  type="email"
+                  type="text"
                   placeholder="Email"
                   style={{
                     height: 40,
@@ -89,9 +96,7 @@ const ForgotPassword = () => {
               </div>
               <div className="link1  pt-2 d-flex justify-content-center">
                 Remember your password?
-                <Link to="/login">
-                  Login!
-                </Link>
+                <Link to="/login">Login!</Link>
               </div>
             </Form>
           </div>

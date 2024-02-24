@@ -16,8 +16,15 @@ const Login = () => {
   const navigate = useNavigate();
   //from submit
   const submitHandler = async (values) => {
-    // console.log("values : ",values);
     try {
+      // If email is not in correct format, show error message
+      if (!values.email.includes("@") || !values.email.includes(".")) {
+        setLoginError(
+          "Please enter a valid email address. Include '@' and ' . '"
+        );
+        return;
+      }
+
       setLoading(true);
 
       const { data } = await axios.post(
@@ -26,10 +33,8 @@ const Login = () => {
       );
       setLoading(false);
       message.success("login success");
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...data.user, password: "" })
-      );
+      console.log("user", JSON.stringify({ ...data.user }));
+      localStorage.setItem("user", JSON.stringify({ ...data.user }));
       navigate("/user");
     } catch (error) {
       setLoading(false);
@@ -75,7 +80,7 @@ const Login = () => {
                 <Input
                   prefix={<MailOutlined />}
                   className="pass-input"
-                  type="email"
+                  type="text"
                   placeholder="Please enter your valid email address"
                   style={{
                     height: 40,
@@ -115,7 +120,7 @@ const Login = () => {
               <div className="text">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>
-              <div className="pb-0 mt-0 d-flex justify-content-center">
+              <div className="button pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>
                   {loading ? <LoadingOutlined /> : "Login"}
                 </button>
@@ -125,7 +130,13 @@ const Login = () => {
                   Not a user? <Link to="/register">SignUp!</Link>
                 </div>
               </div>
+              <div className="line"></div>
             </Form>
+            <button className="login-with-google-btn">
+              {" "}
+              {/*onClick={loginwithgoogle}*/}
+              {loading ? <LoadingOutlined /> : "Login with Google"}
+            </button>
           </div>
         </div>
       </div>

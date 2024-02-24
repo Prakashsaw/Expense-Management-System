@@ -5,20 +5,36 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "name is required"],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, "email is required and should be unique"],
+      required: true,
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "password is required"],
+      required: true,
     },
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    phoneNumber: {
+      type: String,
+      default: "Not Provided",
+    },
+    address: {
+      type: String,
+      default: "Not Provided",
+    },
+    birthDate: {
+      type: String,
+      default: "Not Provided",
+    },
+    favouriteSport: {
+      type: String,
+      default: "Not Provided",
     },
   },
   { timestamps: true }

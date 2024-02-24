@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Button } from "antd";
 import "../../styles/HomeHeader.css";
+import logo from "../../../src/Images/logo.png";
 
 const Header1 = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Header1 = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-dark sticky-top">
         <Link className="navbar-brand" to="/">
+          <img src={logo} alt="logo" />
           Expense Management System
         </Link>
         <div className="container-fluid">

@@ -1,113 +1,153 @@
-.user-profile-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.profile-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
-.user-container {
-  position: relative;
+.change-profile-container {
   max-width: 700px;
   width: 100%;
-  background: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-.user-container header {
-  font-size: 1.5rem;
-  color: #333;
-  font-weight: 500;
-  text-align: center;
-}
-.user-container .form {
-  margin-top: 30px;
-}
-.user-container .form .input-box {
-  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 8px #344265;
   margin-top: 20px;
 }
-.user-container .input-box label {
-  color: #333;
-}
-.user-container .form :where(.input-box input, .select-box) {
+.change-profile-container .title {
+  font-size: 25px;
+  font-weight: 500;
   position: relative;
-  height: 50px;
+}
+.change-profile-container .title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+.change-profile-container .content form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+.change-profile-container form .user-details .input-box {
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+.change-profile-container form .input-box span.details {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.change-profile-container .user-details .input-box input {
+  height: 45px;
   width: 100%;
   outline: none;
-  font-size: 1rem;
-  color: #707070;
-  margin-top: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 0 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
 }
-.user-container .input-box input:focus {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+.change-profile-container .user-details .input-box input:focus,
+.user-details .input-box input:valid {
+  border-color: #9b59b6;
 }
-.user-container .form .column {
+.change-profile-container form .gender-details .gender-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.change-profile-container form .category {
   display: flex;
-  column-gap: 15px;
+  width: 80%;
+  margin: 14px 0;
+  justify-content: space-between;
 }
-.user-container .form .gender-box {
-  margin-top: 20px;
-}
-.gender-box h3 {
-  color: #333;
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 8px;
-}
-.form :where(.gender-option, .gender) {
+.change-profile-container form .category label {
   display: flex;
   align-items: center;
-  column-gap: 50px;
-  flex-wrap: wrap;
-}
-.form .gender {
-  column-gap: 5px;
-}
-.gender input {
-  accent-color: rgb(130, 106, 251);
-}
-.form :where(.gender input, .gender label) {
   cursor: pointer;
 }
-.gender label {
-  color: #707070;
+.change-profile-container form .category label .dot {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
 }
-.address :where(input, .select-box) {
-  margin-top: 15px;
+#dot-1:checked ~ .category label .one,
+#dot-2:checked ~ .category label .two,
+#dot-3:checked ~ .category label .three {
+  background: #9b59b6;
+  border-color: #d9d9d9;
 }
-.select-box select {
+.change-profile-container form input[type="radio"] {
+  display: none;
+}
+.change-profile-container form .button {
+  height: 45px;
+  margin: 35px 0;
+}
+.change-profile-container form .button input {
   height: 100%;
   width: 100%;
-  outline: none;
+  border-radius: 5px;
   border: none;
-  color: #707070;
-  font-size: 1rem;
-}
-.form button {
-  height: 55px;
-  width: 100%;
   color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
-  margin-top: 30px;
-  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  background: rgb(130, 106, 251);
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
-.form button:hover {
-  background: rgb(88, 56, 250);
+.change-profile-container form .button input:hover {
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
-/*Responsive*/
-@media screen and (max-width: 500px) {
-  .form .column {
-    flex-wrap: wrap;
+
+.change-profile-container .content .button button {
+  background-color: #344265;
+  color: white;
+  outline: none;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.change-profile-container .content .button button:hover {
+  background-color: green;
+  color: white;
+}
+
+@media (max-width: 584px) {
+  .change-profile-container {
+    max-width: 100%;
   }
-  .form :where(.gender-option, .gender) {
-    row-gap: 15px;
+  .change-profile-container form .user-details .input-box {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .change-profile-container form .category {
+    width: 100%;
+  }
+  .change-profile-container .content form .user-details {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .change-profile-container .user-details::-webkit-scrollbar {
+    width: 5px;
+  }
+}
+@media (max-width: 459px) {
+  .change-profile-container .content .category {
+    flex-direction: column;
   }
 }
