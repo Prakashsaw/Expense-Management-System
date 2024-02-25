@@ -7,12 +7,12 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 
-const connectDB = require("./config/connectDB");
+const connectDb = require("./config/connectDb");
 // config dot env file
 dotenv.config();
 
 //databse call
-connectDB();
+connectDb();
 
 //rest object
 const app = express();

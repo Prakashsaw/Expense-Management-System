@@ -38,7 +38,7 @@ const ContactUs = () => {
               <div className="topic-text">Send Us Message</div>
               <p>
                 If you have any work from me or any types of quries related to
-                this application, Expense Managrmrnt System, you can send me
+                this application, Expense Management System, you can send me
                 message. It's my pleasure to help you and reach out to you.
               </p>
               <form onSubmit={handleFormSubmit}>

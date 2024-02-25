@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const colors = require("colors");
-const connectDB = async () => {
+const connectDb = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
     console.log(`MongoDB Connection Established...`.bgCyan.white);
@@ -9,4 +9,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+module.exports = connectDb;

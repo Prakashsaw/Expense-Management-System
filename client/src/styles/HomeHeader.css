@@ -56,3 +56,45 @@
   color: #ffefba;
   border-bottom: 1px solid #ffefba;
 }
+
+@media screen and (max-width: 768px) {
+  .navbar .navbar-brand {
+    font-size: 1.3rem;
+  }
+  .navbar img {
+    width: 30px;
+  }
+  .navbar .nav-link {
+    font-size: 1rem;
+  }
+  .navbar .nav-item {
+    margin-right: 10px;
+  }
+  .navbar .nav-link .login-btn {
+    margin-left: 0px;
+  }
+  .navbar .user-home-btn a {
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .navbar .navbar-brand {
+    font-size: 1.2rem;
+  }
+  .navbar img {
+    width: 25px;
+  }
+  .navbar .nav-link {
+    font-size: 0.9rem;
+  }
+  .navbar .nav-item {
+    margin-right: 5px;
+  }
+  .navbar .nav-link .login-btn {
+    margin-left: 0px;
+  }
+  .navbar .user-home-btn a {
+    padding: 5px;
+  }
+}
