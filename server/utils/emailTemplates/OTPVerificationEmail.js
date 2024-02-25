@@ -21,7 +21,7 @@ const OTPVerificationEmail = (user, OTP, EMAIL_FROM) => {
                     For any query please reach out to us at <a href="mailto:${EMAIL_FROM}">email us</a>.</p>
 
                     <p>Thanks & Regards,<br>
-                    Prakash & Company.</p>
+                    Prakash & Company Pvt. Ltd.</p>
 
                 </div>
             </body>`; // Html Body Ending Here.

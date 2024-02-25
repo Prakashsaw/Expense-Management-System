@@ -56,6 +56,10 @@
   font-size: 14px;
   color: #8f8f97;
 }
+.about-content .left-side .icons svg {
+  font-size: 20px;
+  color: #3e2093;
+}
 .about-container .about-content .right-side {
   width: 75%;
   margin-left: 75px;
@@ -88,23 +92,22 @@
 .about-content .right-side .input-box textarea {
   padding-top: 6px;
 }
+
 .about-content .right-side .button {
   display: inline-block;
   margin-top: 12px;
 }
-.about-content .right-side .button input[type="submit"] {
-  color: #fff;
-  font-size: 18px;
+
+.about-content .button button {
+  background-color: #344265;
+  color: white;
   outline: none;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  background: #3e2093;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  width: 100%;
 }
-.about-content .button input[type="submit"]:hover {
-  background: #5029bc;
+
+.about-content .button button:hover {
+  background-color: green;
+  color: white;
 }
 
 @media (max-width: 950px) {

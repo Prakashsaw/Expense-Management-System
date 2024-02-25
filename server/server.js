@@ -41,6 +41,9 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 //transections routes
 app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
+// user information/help routes
+app.use("/api/v1/user-information", require("./routes/userInfoRoutes"));
+
 //port
 const PORT = 8080 || process.env.PORT;
 

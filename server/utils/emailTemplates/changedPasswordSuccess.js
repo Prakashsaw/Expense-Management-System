@@ -18,7 +18,7 @@ const changedPasswordSuccess = (user, EMAIL_FROM) => {
                     If not, please reach out to us at <a href="mailto:${EMAIL_FROM}">email us</a> for help.</p>
 
                     <p>Thanks & Regards,<br>
-                    Prakash & Company.</p>
+                    Prakash & Company Pvt. Ltd.</p>
 
                 </div>
             </body>`; // Html Body Ending Here.

@@ -1,11 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ContactUs.css";
 import Footer from "../../components/Layout/Footer";
 import Header1 from "../../components/Layout/Header1";
+import { Alert, message } from "antd";
+import { getResponseError } from "../../utils/getResponseError";
+import axios from "axios";
+import { BASE_URL } from "../../utils/baseURL";
+import {
+  HomeOutlined,
+  LoadingOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 const ContactUs = () => {
-  const handleFormSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [messageSendingError, setMessageSendingError] = useState(null);
+  const [responseMessage, setResponseMessage] = useState(null);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
     e.preventDefault();
-    console.log("Message sent successfully...!");
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setResponseMessage(null);
+      console.log("formData: ", formData);
+      // validate form data
+      if (!formData.name || !formData.email || !formData.message) {
+        setMessageSendingError("All fields are required.");
+        return;
+      }
+      // validate email format
+      if (
+        !/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+          formData.email
+        )
+      ) {
+        setMessageSendingError("Invalid email. Please enter valid email.");
+        return;
+      }
+
+      setLoading(true);
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/user-information/contact-us`,
+        formData
+      );
+      setLoading(false);
+      setMessageSendingError(null);
+      console.log("response.data:", response.data);
+      setResponseMessage(
+        "Message sent successfully. We will reach out to you soon."
+      );
+      message.success(
+        "Message sent successfully. We will reach out to you soon."
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setResponseMessage(null);
+      setMessageSendingError(getResponseError(error));
+      console.log(error);
+      message.error(
+        "Something went wrong in sending message. Please try again."
+      );
+    }
   };
 
   return (
@@ -16,22 +85,36 @@ const ContactUs = () => {
           <div className="about-content">
             <div className="left-side">
               <div className="address details">
-                <i className="fas fa-map-marker-alt" />
+                <div className="icons">
+                  <HomeOutlined />
+                </div>
                 <div className="topic">Address</div>
                 <div className="text-one">Daltonganj, Palamu</div>
                 <div className="text-two">Jharkhand, 822126.</div>
               </div>
               <div className="phone details">
-                <i className="fas fa-phone-alt" />
+                <div className="icons">
+                  <PhoneOutlined />
+                </div>
                 <div className="topic">Phone</div>
                 <div className="text-one">+91 8873323323</div>
                 <div className="text-two">+91 8873323323</div>
               </div>
               <div className="email details">
-                <i className="fas fa-envelope" />
+                <div className="icons">
+                  <MailOutlined />
+                </div>
                 <div className="topic">Email</div>
-                <div className="text-one">prakash8873saw@gmail.com</div>
-                <div className="text-two">info.prakash.company@gmail.com</div>
+                <div className="text-one">
+                  <a href="mailto:prakash8873saw@gmail.com">
+                    prakash8873saw@gmail.com
+                  </a>
+                </div>
+                <div className="text-two">
+                  <a href="mailto:info.prakash.company@gmail.com">
+                    info.prakash.company@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
             <div className="right-side">
@@ -48,7 +131,7 @@ const ContactUs = () => {
                     id="name"
                     name="name"
                     placeholder="Enter your name"
-                    required
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="input-box">
@@ -57,7 +140,7 @@ const ContactUs = () => {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    required
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="input-box message-box">
@@ -65,12 +148,31 @@ const ContactUs = () => {
                     id="message"
                     name="message"
                     placeholder="Enter your message"
-                    required
                     defaultValue={""}
+                    onChange={handleChange}
                   />
                 </div>
-                <div className="button">
-                  <input type="submit" defaultValue="Send Now" />
+
+                {messageSendingError && (
+                  <Alert
+                    message={messageSendingError}
+                    type="error"
+                    showIcon
+                    style={{ marginBottom: 10 }}
+                  />
+                )}
+                {responseMessage && (
+                  <Alert
+                    message={responseMessage}
+                    type="success"
+                    showIcon
+                    style={{ marginTop: 10 }}
+                  />
+                )}
+                <div className="button pb-0 mt-0 d-flex justify-content-center">
+                  <button className="btn" type="submit" disabled={loading}>
+                    {loading ? <LoadingOutlined /> : "Send Now"}
+                  </button>
                 </div>
               </form>
             </div>

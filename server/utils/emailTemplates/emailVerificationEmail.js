@@ -43,7 +43,7 @@ const emailVerificationEmail = (user, emailVerificationLink, EMAIL_FROM) => {
                   Your verification link will expire in <span style="font-weight: bold;">10 min.</span></p>
                   <p>If you need assistance, please contact us at <a href="mailto:${EMAIL_FROM}">email us</a>.</p>
                   <p>Thanks & Regards,<br>
-                  Prakash & Company.</p>
+                  Prakash & Company Pvt. Ltd.</p>
 
                 </div>
             </body>`; // Html Body Ending Here

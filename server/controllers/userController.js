@@ -105,7 +105,7 @@ const registerController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      newUser: { name: newUser.name, token: jwt_token },
+      newUser: { _id: newUser._id, name: newUser.name, token: jwt_token },
       Status: "Success",
       message: "Successfully Registered...!",
     });
@@ -352,7 +352,7 @@ const loginController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      user: { name: user.name, token: jwt_token },
+      user: { _id: user._id, name: user.name, token: jwt_token },
       Status: "Success",
       message: "Successfully LoggedIn...!",
     });
