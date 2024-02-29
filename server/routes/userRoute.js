@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  loginController,
   registerController,
   sendUserPasswordResetEmail,
   resetUserPasswordThroughForgotPassword,
@@ -12,6 +11,7 @@ const {
   sendOTPForMobileVerification,
   verifyMobileNumberThroughOTP,
   updateUserProfile,
+  loginControllerThroughEmail,
 } = require("../controllers/userController");
 
 const checkUserAuth = require("../middleware/userAuth");
@@ -25,7 +25,7 @@ router.post("/register", registerController);
 // POST: Verify email
 router.post("/verify-email/:_id/:token", verifyEmail);
 // POST : LOGIN USER
-router.post("/login", loginController);
+router.post("/login", loginControllerThroughEmail);
 // POST : Send reset password email
 router.post("/send-reset-password-email", sendUserPasswordResetEmail);
 // Reset password through forgot password email

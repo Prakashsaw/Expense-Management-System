@@ -163,10 +163,6 @@ const ChangePassword = () => {
                   style={{ marginTop: 10 }}
                 />
               )}
-
-              <div className="text">
-                <Link to="/forgot-password">Forgot Password?</Link>
-              </div>
               <div className="button pb-0 mt-0 d-flex justify-content-center">
                 <button className="btn" disabled={loading}>
                   {loading ? <LoadingOutlined /> : "Submit"}

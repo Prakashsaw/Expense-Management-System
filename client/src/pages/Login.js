@@ -45,6 +45,12 @@ const Login = () => {
     }
   };
 
+  const handleClickLoginWithGoogle = async () => {
+    alert(
+      "Working on Login with Google Authentication. Soon this feature will be available."
+    );
+  };
+
   //prevent for login user
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -132,10 +138,11 @@ const Login = () => {
               </div>
               <div className="line"></div>
             </Form>
-            <button className="login-with-google-btn">
-              {" "}
-              {/*onClick={loginwithgoogle}*/}
-              {loading ? <LoadingOutlined /> : "Login with Google"}
+            <button
+              className="login-with-google-btn"
+              onClick={handleClickLoginWithGoogle}
+            >
+              Login with Google
             </button>
           </div>
         </div>

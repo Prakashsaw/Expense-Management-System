@@ -166,7 +166,7 @@ const ContactUs = () => {
                     message={responseMessage}
                     type="success"
                     showIcon
-                    style={{ marginTop: 10 }}
+                    style={{ marginBottom: 10 }}
                   />
                 )}
                 <div className="button pb-0 mt-0 d-flex justify-content-center">

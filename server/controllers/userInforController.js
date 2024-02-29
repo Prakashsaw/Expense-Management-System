@@ -35,7 +35,10 @@ const contactUsMessageController = async (req, res) => {
 
     // send an email for confirmation
     const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
+      from: {
+        name: "Expense Management System",
+        address: process.env.EMAIL_FROM,
+      },
       to: updatedUser.email,
       subject: "Your contact us message sent successfully.",
       html: contactUsMessageSentSuccess(updatedUser, process.env.EMAIL_FROM),

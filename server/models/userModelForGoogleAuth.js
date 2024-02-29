@@ -6,7 +6,7 @@ const userSchemaForGoogleAuth = new mongoose.Schema(
       type: String,
       required: true,
     },
-    displayName: {
+    name: {
       type: String,
       required: true,
     },

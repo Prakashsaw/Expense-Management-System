@@ -11,7 +11,6 @@ import axios from "axios";
 import moment from "moment";
 import Analytics from "../components/Analytics";
 import { BASE_URL } from "../utils/baseURL";
-import Spinner from "../components/Spinner";
 const { RangePicker } = DatePicker;
 
 const HomePage = () => {
@@ -75,28 +74,28 @@ const HomePage = () => {
   ];
 
   //getall transactions
-
+  const getAllTransactions = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setLoading(true);
+      const res = await axios.post(
+        `${BASE_URL}/api/v1/transections/get-transection`,
+        {
+          userid: user._id,
+          frequency,
+          selectedDate,
+          type,
+        }
+      );
+      setAllTransection(res.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      message.error("Fetch Issue With Transactions...!");
+    }
+  };
   //useEffect Hook
   useEffect(() => {
-    const getAllTransactions = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        setLoading(true);
-        const res = await axios.post(
-          `${BASE_URL}/api/v1/transections/get-transection`,
-          {
-            userid: user._id,
-            frequency,
-            selectedDate,
-            type,
-          }
-        );
-        setAllTransection(res.data);
-        setLoading(false);
-      } catch (error) {
-        message.error("Fetch Issue With Transactions...!");
-      }
-    };
     getAllTransactions();
   }, [frequency, selectedDate, type, setAllTransection]);
 
@@ -109,7 +108,7 @@ const HomePage = () => {
       });
       setLoading(false);
       //For auto update on client if any update or edit be done
-      window.location.reload();
+      getAllTransactions();
       message.success("Transaction Deleted successfully...!", {
         duration: 2,
         position: "top",
@@ -137,10 +136,9 @@ const HomePage = () => {
         });
         setLoading(false);
 
-        window.location.reload();
+        getAllTransactions();
 
         message.success("Transaction Updated Successfully", {
-          duration: 2,
           position: "top",
           marginTop: "20",
         });
@@ -151,19 +149,15 @@ const HomePage = () => {
         });
         setLoading(false);
 
-        window.location.reload();
+        getAllTransactions();
 
         message.success("Transaction Added Successfully", {
-          duration: 2,
           position: "top",
           marginTop: "20",
         });
       }
       setShowModal(false);
       setEditable(null);
-
-      //For auto update on client if any update or edit be done
-      // localStorage.reload();
     } catch (error) {
       setLoading(false);
       message.error("Please fill all fields");
@@ -173,7 +167,6 @@ const HomePage = () => {
   return (
     <>
       <Layout>
-        {loading && <Spinner />}
         <div className="transaction-page">
           <div className="filters">
             <div>
@@ -219,7 +212,10 @@ const HomePage = () => {
             <div>
               <button
                 className="btn btn-primary"
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setEditable(null);
+                  setShowModal(true);
+                }}
               >
                 Add New
               </button>
@@ -236,6 +232,7 @@ const HomePage = () => {
             title={editable ? "Edit Transaction" : "Add Transection"}
             open={showModal}
             onCancel={() => setShowModal(false)}
+            destroyOnClose={true}
             footer={false}
           >
             <Form
@@ -302,7 +299,11 @@ const HomePage = () => {
                 <Input type="text" required />
               </Form.Item>
               <div className="d-flex justify-content-end">
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={loading}
+                >
                   {" "}
                   SAVE
                 </button>

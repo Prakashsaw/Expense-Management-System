@@ -9,6 +9,7 @@ import {
   LoadingOutlined,
   LockOutlined,
   MailOutlined,
+  PhoneFilled,
   UserOutlined,
 } from "@ant-design/icons";
 import Footer from "../components/Layout/Footer";
@@ -60,9 +61,11 @@ const Register = () => {
     }
   };
 
-  // const googleButtonHandler = async () => {
-  //   navigate("/");
-  // };
+  const handleClickSignUpWithGoogle = async () => {
+    alert(
+      "Working on SignUp with Google Authentication. Soon this feature will be available."
+    );
+  };
 
   //prevent for login user
   useEffect(() => {
@@ -127,6 +130,26 @@ const Register = () => {
                 />
               </Form.Item>
               <Form.Item
+                label="Phone Number (Optional)"
+                name="phoneNumber"
+                rules={[
+                  {
+                    required: false,
+                    message: "Enter your phone number...!",
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<PhoneFilled />}
+                  className="pass-input"
+                  type="number"
+                  placeholder="Phone Number"
+                  style={{
+                    height: 40,
+                  }}
+                />
+              </Form.Item>
+              <Form.Item
                 label="Password"
                 name="password"
                 rules={[
@@ -147,7 +170,7 @@ const Register = () => {
                 />
               </Form.Item>
               <Form.Item
-                label="Confirn Password"
+                label="Confirm Password"
                 name="confirmPassword"
                 rules={[
                   {
@@ -213,10 +236,11 @@ const Register = () => {
 
             <div className="line"></div>
 
-            <button className="login-with-google-btn" disabled={loading}>
-              {" "}
-              {/*onClick={loginwithgoogle}*/}
-              {loading ? <LoadingOutlined /> : "SignUp with Google"}
+            <button
+              className="login-with-google-btn"
+              onClick={handleClickSignUpWithGoogle}
+            >
+              SignUp with Google
             </button>
           </div>
         </div>
