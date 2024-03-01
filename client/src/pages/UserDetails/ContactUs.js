@@ -147,7 +147,7 @@ const ContactUs = () => {
                   <textarea
                     id="message"
                     name="message"
-                    placeholder="Enter your message"
+                    placeholder="How can we help you?..."
                     defaultValue={""}
                     onChange={handleChange}
                   />

@@ -7,14 +7,14 @@
   overflow: hidden;
 }
 
-.content {
+/* .content {
   height: 100%;
-}
+} */
 
 /* transection page */
 .transaction-page {
   width: 100%;
-  height: 100vh;
+  height: 113vh;
 }
 
 .transaction-page .filters {
@@ -25,6 +25,25 @@
   box-shadow: 0 0 3px gray;
   margin-bottom: 10px;
   background-color: gray;
+}
+
+@media screen and (max-width: 768px) {
+  .transaction-page {
+    width: 120%;
+    height: 160vh;
+  }
+  .transaction-page .content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .transaction-page {
+    width: 160%;
+    height: 160vh;
+  }
+  
 }
 
 /* transection page css end */

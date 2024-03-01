@@ -25,6 +25,13 @@ const HomePage = () => {
 
   //table data
   const columns = [
+    // Serial number is added to the table
+    {
+      title: "S.No",
+      dataIndex: "sno",
+      key: "sno",
+      render: (text, record, index) => index + 1,
+    },
     {
       id: "1",
       title: "Date(yyyy-mm-dd)",
@@ -57,12 +64,14 @@ const HomePage = () => {
       render: (text, record) => (
         <div>
           <EditOutlined
+            style={{ color: "green" }}
             onClick={() => {
               setEditable(record);
               setShowModal(true);
             }}
           />
           <DeleteOutlined
+            style={{ color: "red" }}
             className="mx-2"
             onClick={() => {
               handleDelete(record);
@@ -101,6 +110,18 @@ const HomePage = () => {
 
   //delete handler
   const handleDelete = async (record) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this transaction?",
+      okText: "Delete",
+      okType: "danger",
+      onOk: () => {
+        deleteTransaction(record);
+      },
+      onCancel: () => {},
+    });
+  };
+
+  const deleteTransaction = async (record) => {
     try {
       setLoading(true);
       await axios.post(`${BASE_URL}/api/v1/transections/delete-transection`, {
