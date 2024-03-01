@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, message, Modal, Select, Table, DatePicker } from "antd";
+import {
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Table,
+  DatePicker,
+  Alert,
+} from "antd";
 import {
   UnorderedListOutlined,
   AreaChartOutlined,
@@ -11,6 +20,7 @@ import axios from "axios";
 import moment from "moment";
 import Analytics from "../components/Analytics";
 import { BASE_URL } from "../utils/baseURL";
+import { getResponseError } from "../utils/getResponseError";
 const { RangePicker } = DatePicker;
 
 const HomePage = () => {
@@ -22,6 +32,7 @@ const HomePage = () => {
   const [type, setType] = useState("all");
   const [viewData, setViewData] = useState("table");
   const [editable, setEditable] = useState(null);
+  const [trasactionError, setTrasactionError] = useState(null);
 
   //table data
   const columns = [
@@ -85,21 +96,31 @@ const HomePage = () => {
   //getall transactions
   const getAllTransactions = async () => {
     try {
+      setTrasactionError(null);
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       const res = await axios.post(
         `${BASE_URL}/api/v1/transections/get-transection`,
         {
-          userid: user._id,
+          // userid: user._id,
           frequency,
           selectedDate,
           type,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).token
+            }`,
+          },
         }
       );
       setAllTransection(res.data);
       setLoading(false);
+      setTrasactionError(null);
     } catch (error) {
       setLoading(false);
+      setTrasactionError(getResponseError(error));
       message.error("Fetch Issue With Transactions...!");
     }
   };
@@ -124,9 +145,20 @@ const HomePage = () => {
   const deleteTransaction = async (record) => {
     try {
       setLoading(true);
-      await axios.post(`${BASE_URL}/api/v1/transections/delete-transection`, {
-        transacationId: record._id,
-      });
+      await axios.post(
+        `${BASE_URL}/api/v1/transections/delete-transection`,
+        {
+          transacationId: record._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).token
+            }`,
+          },
+        }
+      );
+
       setLoading(false);
       //For auto update on client if any update or edit be done
       getAllTransactions();
@@ -138,6 +170,7 @@ const HomePage = () => {
     } catch (error) {
       setLoading(false);
       console.log(error);
+      setTrasactionError(getResponseError(error));
       message.error("Unable to delete");
     }
   };
@@ -148,13 +181,23 @@ const HomePage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       if (editable) {
-        await axios.post(`${BASE_URL}/api/v1/transections/edit-transection`, {
-          payload: {
+        await axios.post(
+          `${BASE_URL}/api/v1/transections/edit-transection`,
+          {
             ...values,
-            userId: user._id,
+            // payload: {
+            //   userId: user._id,
+            // },
+            transacationId: editable._id,
           },
-          transacationId: editable._id,
-        });
+          {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).token
+              }`,
+            },
+          }
+        );
         setLoading(false);
 
         getAllTransactions();
@@ -164,10 +207,19 @@ const HomePage = () => {
           marginTop: "20",
         });
       } else {
-        await axios.post(`${BASE_URL}/api/v1/transections/add-transection`, {
-          ...values,
-          userid: user._id,
-        });
+        await axios.post(
+          `${BASE_URL}/api/v1/transections/add-transection`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).token
+              }`,
+            },
+          }
+        );
         setLoading(false);
 
         getAllTransactions();
@@ -181,14 +233,25 @@ const HomePage = () => {
       setEditable(null);
     } catch (error) {
       setLoading(false);
+      setTrasactionError(getResponseError(error));
       message.error("Please fill all fields");
     }
   };
+
+  console.log("trasactionError: ", trasactionError);
 
   return (
     <>
       <Layout>
         <div className="transaction-page">
+          {trasactionError && (
+            <Alert
+              message={trasactionError}
+              type="error"
+              showIcon
+              style={{ marginBottom: 10 }}
+            />
+          )}
           <div className="filters">
             <div>
               <h6>Select Frequency</h6>

@@ -5,19 +5,20 @@ const {
   editTransection,
   deleteTransection,
 } = require("../controllers/transectionCtrl");
+const checkUserAuth = require("../middleware/userAuth");
 
 //router object
 const router = express.Router();
 
 //routes
 //add transection POST Method
-router.post("/add-transection", addTransection);
+router.post("/add-transection", checkUserAuth, addTransection);
 //Edit transection POST Method
-router.post("/edit-transection", editTransection);
+router.post("/edit-transection", checkUserAuth, editTransection);
 //Delete transection POST Method
-router.post("/delete-transection", deleteTransection);
+router.post("/delete-transection", checkUserAuth, deleteTransection);
 
 //Get all transections
-router.post("/get-transection", getAllTransection);
+router.post("/get-transection", checkUserAuth, getAllTransection);
 
 module.exports = router;

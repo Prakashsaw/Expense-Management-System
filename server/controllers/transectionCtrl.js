@@ -16,7 +16,7 @@ const getAllTransection = async (req, res) => {
               $lte: selectedDate[1],
             },
           }),
-      userid: req.body.userid,
+      userid: req.user._id,
       ...(type !== "all" && { type }),
     });
     res.status(200).json(transections);
@@ -36,10 +36,23 @@ const deleteTransection = async (req, res) => {
   }
 };
 const editTransection = async (req, res) => {
+  const { amount, type, category, refrence, description, date } = req.body;
+  const { transacationId } = req.body;
   try {
     await transectionModel.findOneAndUpdate(
-      { _id: req.body.transacationId },
-      req.body.payload
+      { _id: transacationId },
+      // req.body.payload
+      {
+        $set: {
+          userid: req.user._id,
+          amount: amount,
+          type: type,
+          category: category,
+          refrence: refrence,
+          description: description,
+          date: date,
+        },
+      }
     );
     res.status(200).send("Edit SUccessfully");
   } catch (error) {
@@ -49,9 +62,18 @@ const editTransection = async (req, res) => {
 };
 
 const addTransection = async (req, res) => {
+  const { amount, type, category, refrence, description, date } = req.body;
   try {
     // const newTransection = new transectionModel(req.body);
-    const newTransection = new transectionModel(req.body);
+    const newTransection = new transectionModel({
+      userid: req.user._id,
+      amount: amount,
+      type: type,
+      category: category,
+      refrence: refrence,
+      description: description,
+      date: date,
+    });
     await newTransection.save();
     res.status(201).send("Transection Created");
   } catch (error) {

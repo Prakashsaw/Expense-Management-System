@@ -27,23 +27,30 @@
   background-color: gray;
 }
 
+@media screen and (max-width: 1000px) {
+  .transaction-page {
+    height: 140vh;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .transaction-page {
-    width: 120%;
     height: 160vh;
   }
   .transaction-page .content {
-    width: 100%;
+    width: 120%;
     height: 100%;
   }
 }
 
 @media screen and (max-width: 500px) {
   .transaction-page {
-    width: 160%;
     height: 160vh;
   }
-  
+  .transaction-page .content {
+    width: 160%;
+    height: 100%;
+  }
 }
 
 /* transection page css end */

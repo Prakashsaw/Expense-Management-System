@@ -1,5 +1,5 @@
 .profile-container {
-  height: 100vh;
+  height: 115vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,6 +125,12 @@
 .change-profile-container .content .button button:hover {
   background-color: green;
   color: white;
+}
+
+.change-profile-container .text {
+  color: #3a3465 !important;
+  text-decoration: underline;
+  margin-top: -20px;
 }
 
 @media (max-width: 584px) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Layout/Header";
 import "./UserProfile.css";
 import Footer from "../../components/Layout/Footer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getResponseError } from "../../utils/getResponseError";
 import { Alert, message } from "antd";
 import axios from "axios";
@@ -227,10 +227,14 @@ const UserProfile = () => {
                     className="btn"
                     type="submit"
                     disabled={loading}
-                    // onClick={handleFormSubmit}
                   >
                     {loading ? <LoadingOutlined /> : "Update Profile"}
                   </button>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <div className="text">
+                    Don't want to update ? <Link to="/user">Home</Link>
+                  </div>
                 </div>
               </form>
             </div>
