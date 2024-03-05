@@ -9,7 +9,7 @@ const resetPasswordSuccess = (user, EMAIL_FROM) => {
             </head>
             <body>
                 <div>
-                    <p>Hi, <span style="font-weight: bold;">${user.name}<span>,</p> 
+                    <p>Hi, <span style="font-weight: bold;">${user.name}</span>,</p> 
 
                     <p>You are receiving this because you (or someone else) have reset the 
                     password of your <a href="https://expense-management-system-prakash.netlify.app/"> Expense Management System </a> user account.</p>

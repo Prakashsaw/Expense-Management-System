@@ -4,7 +4,7 @@ const {
   getAllTransection,
   editTransection,
   deleteTransection,
-} = require("../controllers/transectionCtrl");
+} = require("../controllers/transactionController");
 const checkUserAuth = require("../middleware/userAuth");
 
 //router object

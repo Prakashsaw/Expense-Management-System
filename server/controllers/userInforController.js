@@ -16,6 +16,7 @@ const contactUsMessageController = async (req, res) => {
     if (user) {
       // then update the user with new message
       await ContactUsMessageModel.findOneAndUpdate(
+        { name },
         { email },
         { message },
         { new: true }

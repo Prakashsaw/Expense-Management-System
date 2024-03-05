@@ -97,12 +97,10 @@ const HomePage = () => {
   const getAllTransactions = async () => {
     try {
       setTrasactionError(null);
-      const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       const res = await axios.post(
         `${BASE_URL}/api/v1/transections/get-transection`,
         {
-          // userid: user._id,
           frequency,
           selectedDate,
           type,
@@ -178,16 +176,12 @@ const HomePage = () => {
   // form handling
   const handleSubmit = async (values) => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       if (editable) {
         await axios.post(
           `${BASE_URL}/api/v1/transections/edit-transection`,
           {
             ...values,
-            // payload: {
-            //   userId: user._id,
-            // },
             transacationId: editable._id,
           },
           {
