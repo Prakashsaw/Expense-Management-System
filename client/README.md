@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# Expense Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+* Create a web-based expense management system to help users track and manage their financial transactions.
+* User Login and SignUp functionality with full validation(email validation through sending email), bcrypt passsword in backend, JWT token for secure user authentication.
+* Feature of forgot password with sending email for reset password link using nodemailer.
+* Record and categorize expenses on weekly, monthly and yearly, Expense analytics and visualizations in graphs and charts, user can edit and delete transactions.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Tech Stack
 
-### `npm start`
+**Frontend:** React.js, Bootstrap, Ant Design, CSS.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Backend:** Node.js, Express.js.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Database:** MongoDB.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Run Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Step:1-** Clone the project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  git clone https://github.com/Prakashsaw/Expense-Management-System.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Step:2-** Go to the project directory
 
-### `npm run eject`
+```bash
+  cd Expense-Management-System
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Step:3-** Install all the dependencies in client and server folders one by one.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Installl dependencies for client
+```bash
+  cd client/
+  npm install
+```
+* Installl dependencies for server
+```bash
+  cd server/
+  npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Step:4-** Make .env file in your server folder which will contain all your development environment variables with private keys
+```bash
+  MONGO_URL =
+  PORT =
+  BCRYPT_SALT =
+  JWT_SECRETE_KEY =
+  EXPIRE_IN =
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  EMAIL_HOST =
+  EMAIL_PORT =
+  EMAIL_USER =
+  EMAIL_PASS =
+  EMAIL_FROM =
 
-## Learn More
+  FAST2SMS_API_KEY =
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Step:5-** Start client and server in seperate two terminal
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Start the client
+```bash
+  //open new terminal
+  cd client
+  npm run start
+```
 
-### Code Splitting
+* Start the server
+```bash
+  //open new terminal
+  cd server
+  npm run start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Step:6-** Now Expense Management System App is running in your local system.
 
-### Analyzing the Bundle Size
+## Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Login and Registration with full user validation.
 
-### Making a Progressive Web App
+#### Validate user email with sending email for confirmation you email with link then user email have been verified.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### User authentication and authorization using JWT token for secure user authentication.
 
-### Advanced Configuration
+#### Forgot password features when user don't remember their password.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### User can Update their profile details after loggedin and also able to change the password.
 
-### Deployment
+#### User can add their transaction, edit transaction, delete transaction with confirmmation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### User can view their finantial transaction in weekly, monthly and yealy basis (filterration).
 
-### `npm run build` fails to minify
+#### User can view transaction history by selecting custom dates.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### User can filter their transaction by category like by all expense, all expenses and both income and expenses.
+
+#### User can vier expenses analytics and visualizations in graphs and charts.
+
+
+## Made By
+- [@Prakashsaw](https://github.com/Prakashsaw)

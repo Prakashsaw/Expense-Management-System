@@ -21,12 +21,12 @@ const checkUserAuth = async (req, res, next) => {
     } else {
       res
         .status(401)
-        .send({ status: "failed", message: "Unauthorized User, No token...!" });
+        .send({ status: "failed", message: "Unauthorized User, Login again...!" });
     }
   } catch (error) {
     res.status(401).send({
       status: "failed",
-      message: "Unauthorized User, No token...!",
+      message: "Unauthorized User, Login again...!",
     });
   }
 };
