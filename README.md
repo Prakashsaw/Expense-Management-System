@@ -9,9 +9,9 @@
 
 ## Tech Stack
 
-**Frontend:** React.js, Bootstrap, Ant Design, css
+**Frontend:** React.js, Bootstrap, Ant Design, CSS.
 
-**Backend:** Node.js, Express.js
+**Backend:** Node.js, Express.js.
 
 **Database:** MongoDB.
 
