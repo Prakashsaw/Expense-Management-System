@@ -77,7 +77,7 @@
   nodemon index.js
 ```
 
-**Step:6-** Now your Expense Management System App is running in your local host.
+**Step:6-** Now Expense Management System App is running in your local system.
 
 ## Features
 
