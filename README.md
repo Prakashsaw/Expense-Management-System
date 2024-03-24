@@ -1,8 +1,10 @@
 # Expense Management System
 
 ## Description
-* Create a web-based expense management system to help users track and manage their financial
-transactions.
+* Create a web-based expense management system to help users track and manage their financial transactions.
+* User Login and SignUp functionality with full validation(email validation through sending email), bcrypt passsword in backend, JWT token for secure user authentication.
+* Feature of forgot password with sending email for reset password link using nodemailer.
+* Record and categorize expenses on weekly, monthly and yearly, Expense analytics and visualizations in graphs and charts, user can edit and delete transactions.
 
 
 ## Tech Stack
