@@ -22,16 +22,16 @@
 **Step:1-** Clone the project
 
 ```bash
-  git clone https://github.com/Prakashsaw/Real-Time-Chat-App.git
+  git clone https://github.com/Prakashsaw/Expense-Management-System.git
 ```
 
 **Step:2-** Go to the project directory
 
 ```bash
-  cd Real-Time-Chat-App
+  cd Expense-Management-System
 ```
 
-**Step:3-** Install dependencies in all folders like client, server and socket one by one
+**Step:3-** Install all the dependencies in client and server folders one by one.
 
 * Installl dependencies for client
 ```bash
@@ -43,19 +43,25 @@
   cd server/
   npm install
 ```
-* Installl dependencies for socket
+
+**Step:4-** Make .env file in your server folder which will contain all your development environment variables with private keys
 ```bash
-  cd socket/
-  npm install
+  MONGO_URL =
+  PORT =
+  BCRYPT_SALT =
+  JWT_SECRETE_KEY =
+  EXPIRE_IN =
+
+  EMAIL_HOST =
+  EMAIL_PORT =
+  EMAIL_USER =
+  EMAIL_PASS =
+  EMAIL_FROM =
+
+  FAST2SMS_API_KEY =
 ```
 
-**Step:4-** Make .env file in server folder which contain yours development database keys of MongoDB and JWT secrete key
-```bash
-  ATLAS_URI = 
-  JWT_SECRET_KEY =
-```
-
-**Step:5-** Start these all three client, server and socket in three seperate terminals
+**Step:5-** Start client and server in seperate two terminal
 
 * Start the client
 ```bash
@@ -70,32 +76,30 @@
   cd server
   nodemon index.js
 ```
-* Start the socket
-```bash
-  //open new terminal
-  cd socket
-  nodemon index.js
-```
 
-**Step:6-** Now your Chatting app is running in your local host.
+**Step:6-** Now your Expense Management System App is running in your local host.
 
 ## Features
 
-#### Login/Registration
+#### Login and Registration with full user validation.
 
-#### Authenticaton
+#### Validate user email with sending email for confirmation you email with link then user email have been verified.
 
-#### Real Time Chatting with Typing indicators
+#### User authentication and authorization using JWT token for secure user authentication.
 
-#### Active users Indicator (when user is online)
+#### Forgot password features when user don't remember their password.
 
-#### One to One chat
+#### User can Update their profile details after loggedin and also able to change the password.
 
-#### Create Group Chats
+#### User can add their transaction, edit transaction, delete transaction with confirmmation.
 
-#### Notifications icon
+#### User can view their finantial transaction in weekly, monthly and yealy basis (filterration).
 
-#### Add or Remove users from group
+#### User can view transaction history by selecting custom dates.
+
+#### User can filter their transaction by category like by all expense, all expenses and both income and expenses.
+
+#### User can vier expenses analytics and visualizations in graphs and charts.
 
 
 ## Made By
