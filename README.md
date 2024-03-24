@@ -1,5 +1,14 @@
 # Expense Management System
 
+## GitHub Repo Link: 
+```bash 
+  https://github.com/Prakashsaw/Expense-Management-System
+```
+## Live Demo URL: 
+```bash 
+  https://expense-management-system-prakash.netlify.app/
+```
+
 ## Description
 * Create a web-based expense management system to help users track and manage their financial transactions.
 * User Login and SignUp functionality with full validation(email validation through sending email), bcrypt passsword in backend, JWT token for secure user authentication.
