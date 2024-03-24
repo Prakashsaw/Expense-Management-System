@@ -67,14 +67,14 @@
 ```bash
   //open new terminal
   cd client
-  npm run dev
+  npm run start
 ```
 
 * Start the server
 ```bash
   //open new terminal
   cd server
-  nodemon index.js
+  npm run start
 ```
 
 **Step:6-** Now Expense Management System App is running in your local system.
