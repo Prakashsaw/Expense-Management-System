@@ -83,23 +83,23 @@
 
 #### Login and Registration with full user validation.
 
-#### Validate user email with sending email for confirmation you email with link then user email have been verified.
+#### Validate user email with sending email for email confirmation link email then user email have been verified.
 
 #### User authentication and authorization using JWT token for secure user authentication.
 
-#### Forgot password features when user don't remember their password.
+#### Forgot password features when user don't remembered their password.
 
-#### User can Update their profile details after loggedin and also able to change the password.
+#### User can Update their profile details after loggedIn and also able to change their password as well.
 
-#### User can add their transaction, edit transaction, delete transaction with confirmmation.
+#### User can add their transaction, edit transaction, delete transaction with confirmation.
 
 #### User can view their finantial transaction in weekly, monthly and yealy basis (filterration).
 
-#### User can view transaction history by selecting custom dates.
+#### User can view transaction history by selecting custom dates also.
 
-#### User can filter their transaction by category like by all expense, all expenses and both income and expenses.
+#### User can filter their transaction by category like by all income, all expenses and both income and expenses.
 
-#### User can vier expenses analytics and visualizations in graphs and charts.
+#### User can view expense analytics and visualizations in graphs and charts.
 
 
 ## Made By
