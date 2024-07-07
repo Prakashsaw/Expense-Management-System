@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 //schema design
 const userSchema = new mongoose.Schema(
   {
+    expenseAppUserId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,

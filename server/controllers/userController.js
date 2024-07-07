@@ -14,10 +14,16 @@ const OTPVerificationEmail = require("../utils/emailTemplates/OTPVerificationEma
 const axios = require("axios");
 const UserPhoneNumberModel = require("../models/userPhoneNumberModel");
 
-const createToken = (_id) => {
+const { customAlphabet } = require("nanoid");
+const alphabet =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+const createToken = (expenseAppUserId) => {
   const jwtSecreteKey = process.env.JWT_SECRETE_KEY;
 
-  return jwt.sign({ _id }, jwtSecreteKey, { expiresIn: process.env.EXPIRE_IN });
+  return jwt.sign({ expenseAppUserId }, jwtSecreteKey, {
+    expiresIn: process.env.EXPIRE_IN,
+  });
 };
 
 //Register Callback: Login not required
@@ -64,8 +70,13 @@ const registerController = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
     const passwordHashingCode = await bcrypt.hash(password, salt);
 
+    // Generate a Nano ID for user
+    const nanoid = customAlphabet(alphabet, 10); // 10 is the length of the Nano ID
+    const nanoId = nanoid();
+
     // Now create and save the user in database
     const newUser = new userModel({
+      expenseAppUserId: nanoId,
       name: name,
       email: email,
       phoneNumber: phoneNumber,
@@ -74,16 +85,16 @@ const registerController = async (req, res) => {
     await newUser.save();
 
     // For jwt token
-    const jwt_token = createToken(newUser._id);
+    const jwt_token = createToken(newUser.expenseAppUserId);
 
     // Now create model in UserTokenModel for verification of email and save it
     const userToken = new UserTokenModel({
-      userId: Object(newUser._id),
+      expenseAppUserId: newUser.expenseAppUserId,
       token: jwt_token,
     });
     await userToken.save();
 
-    const emailVerificationLink = `${CLIENT_URL}/email-verification/${newUser._id}/${jwt_token}`;
+    const emailVerificationLink = `${CLIENT_URL}/email-verification/${newUser.expenseAppUserId}/${jwt_token}`;
     // Now Send Email
     const info = await transporter.sendMail({
       from: {
@@ -109,7 +120,12 @@ const registerController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      newUser: { _id: newUser._id, name: newUser.name, token: jwt_token },
+      newUser: {
+        expenseAppUserId: newUser.expenseAppUserId,
+        name: newUser.name,
+        token: jwt_token,
+        isVerified: newUser.isVerified,
+      },
       Status: "Success",
       message: "Successfully Registered...!",
     });
@@ -123,13 +139,15 @@ const registerController = async (req, res) => {
 };
 
 const verifyEmail = async (req, res) => {
-  const { _id, token } = req.params;
+  const { expenseAppUserId, token } = req.params;
   try {
-    const user = await UserTokenModel.findOne({ userId: _id });
+    const user = await UserTokenModel.findOne({
+      expenseAppUserId: expenseAppUserId,
+    });
     if (!user) {
       return res.status(400).json({
         status: "failed",
-        message: "Invalid or Expired Token...!",
+        message: "Invalid or Expired Token (Token not found)...!",
       });
     }
 
@@ -142,12 +160,17 @@ const verifyEmail = async (req, res) => {
       });
     }
 
-    const result = await userModel.findByIdAndUpdate(_id, {
-      $set: { isVerified: true },
-    });
+    const result = await userModel.findOneAndUpdate(
+      { expenseAppUserId: expenseAppUserId },
+      {
+        $set: { isVerified: true },
+      }
+    );
 
     // Now delete the token from UserTokenModel
-    await UserTokenModel.findByIdAndDelete(user._id);
+    await UserTokenModel.findOneAndDelete({
+      expenseAppUserId: user.expenseAppUserId,
+    });
 
     res.status(200).json({
       status: "success",
@@ -202,16 +225,21 @@ const sendEmailForOTPVerification = async (req, res) => {
       });
     }
 
-    const userOTP = await UserOTPModel.findOne({ userId: user._id });
+    const userOTP = await UserOTPModel.findOne({
+      expenseAppUserId: user.expenseAppUserId,
+    });
     // If user is already created then update the OTP in database
     if (userOTP) {
-      const updatedOTP = await UserOTPModel.findByIdAndUpdate(userOTP._id, {
-        $set: { otp: String(OTP) },
-      });
+      const updatedOTP = await UserOTPModel.findByIdAndUpdate(
+        userOTP.expenseAppUserId,
+        {
+          $set: { otp: String(OTP) },
+        }
+      );
     } else {
       // Now create model in UserOTPModel for verification of email and save it
       const newUserOTP = new UserOTPModel({
-        userId: Object(user._id),
+        expenseAppUserId: user.expenseAppUserId,
         otp: String(OTP),
       });
       await newUserOTP.save();
@@ -222,7 +250,7 @@ const sendEmailForOTPVerification = async (req, res) => {
       message: "OTP sent successfully. Please Check Your Email...!",
       "Sent Email Info": info,
       email: user.email,
-      _id: user._id,
+      expenseAppUserId: user.expenseAppUserId,
     });
   } catch (error) {
     console.log(error);
@@ -235,10 +263,12 @@ const sendEmailForOTPVerification = async (req, res) => {
 
 //Verify Email through OTP: Login not required
 const verifyEmailThroughOTP = async (req, res) => {
-  const { _id } = req.params;
+  const { expenseAppUserId } = req.params;
   const { otp } = req.body;
   try {
-    const user = await userModel.findById({ _id: _id });
+    const user = await userModel.findOne({
+      expenseAppUserId: expenseAppUserId,
+    });
     if (!user) {
       return res.status(400).json({
         status: "failed",
@@ -246,7 +276,9 @@ const verifyEmailThroughOTP = async (req, res) => {
       });
     }
 
-    const userOTP = await UserOTPModel.findOne({ userId: _id });
+    const userOTP = await UserOTPModel.findOne({
+      expenseAppUserId: expenseAppUserId,
+    });
     if (!userOTP) {
       return res.status(400).json({
         status: "failed",
@@ -255,6 +287,8 @@ const verifyEmailThroughOTP = async (req, res) => {
     }
 
     const OTP = String(otp);
+    // console.log("OTP: ", OTP);
+    // console.log("userOTP: ", userOTP.otp);
     if (userOTP.otp !== OTP) {
       return res.status(400).json({
         status: "failed",
@@ -262,12 +296,17 @@ const verifyEmailThroughOTP = async (req, res) => {
       });
     }
 
-    const result = await userModel.findByIdAndUpdate(_id, {
-      $set: { isVerified: true },
-    }); // Update the isVerified field in userModel
+    const result = await userModel.findOneAndUpdate(
+      { expenseAppUserId: expenseAppUserId },
+      {
+        $set: { isVerified: true },
+      }
+    ); // Update the isVerified field in userModel
 
     // Now delete the OTP from UserOTPModel
-    await UserOTPModel.findByIdAndDelete(userOTP._id);
+    await UserOTPModel.findOneAndDelete({
+      expenseAppUserId: userOTP.expenseAppUserId,
+    });
 
     res.status(200).json({
       status: "success",
@@ -314,16 +353,18 @@ const loginControllerThroughEmail = async (req, res) => {
     }
 
     // Now start the JWT process here
-    const jwt_token = createToken(user._id);
+    const jwt_token = createToken(user.expenseAppUserId);
 
     // If user is not verified then send email verification link again
     if (!user.isVerified) {
-      const result = await UserTokenModel.findOne({ userId: user._id });
+      const result = await UserTokenModel.findOne({
+        expenseAppUserId: user.expenseAppUserId,
+      });
       if (result) {
         // Update the token in UserTokenModel
         const newToken = jwt_token;
-        const updatedToken = await UserTokenModel.findByIdAndUpdate(
-          result._id,
+        const updatedToken = await UserTokenModel.findOneAndUpdate(
+          { expenseAppUserId: user.expenseAppUserId },
           {
             $set: { token: newToken },
           }
@@ -331,13 +372,13 @@ const loginControllerThroughEmail = async (req, res) => {
       } else {
         // Now create model in UserTokenModel for verification of email and save it
         const userToken = new UserTokenModel({
-          userId: Object(user._id),
+          expenseAppUserId: user.expenseAppUserId,
           token: jwt_token,
         });
         await userToken.save();
       }
 
-      const emailVerificationLink = `${CLIENT_URL}/email-verification/${user._id}/${jwt_token}`;
+      const emailVerificationLink = `${CLIENT_URL}/email-verification/${user.expenseAppUserId}/${jwt_token}`;
       // Now Send Email
       const info = await transporter.sendMail({
         from: {
@@ -362,7 +403,12 @@ const loginControllerThroughEmail = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      user: { _id: user._id, name: user.name, token: jwt_token },
+      user: {
+        expenseAppUserId: user.expenseAppUserId,
+        name: user.name,
+        token: jwt_token,
+        isVerified: user.isVerified,
+      },
       Status: "Success",
       message: "Successfully LoggedIn...!",
     });
@@ -418,18 +464,23 @@ const updateUserProfile = async (req, res) => {
       });
     }
 
-    await userModel.findByIdAndUpdate(req.user._id, {
-      $set: {
-        name: name,
-        email: email,
-        phoneNumber: String(phoneNumber),
-        address: address,
-        birthDate: String(birthDate),
-        favouriteSport: favouriteSport,
-      },
-    });
+    await userModel.findOneAndUpdate(
+      { expenseAppUserId: req.user.expenseAppUserId },
+      {
+        $set: {
+          name: name,
+          email: email,
+          phoneNumber: String(phoneNumber),
+          address: address,
+          birthDate: String(birthDate),
+          favouriteSport: favouriteSport,
+        },
+      }
+    );
 
-    const updateUser = await userModel.findById(req.user._id);
+    const updateUser = await userModel.findOne({
+      expenseAppUserId: req.user.expenseAppUserId,
+    });
 
     res.status(200).json({
       status: "success",
@@ -464,7 +515,9 @@ const changePassword = async (req, res) => {
       });
     }
     // Validate user password first
-    const user = await userModel.findById(req.user._id);
+    const user = await userModel.findOne({
+      expenseAppUserId: req.user.expenseAppUserId,
+    });
     const validatePassword = await bcrypt.compare(oldPassword, user.password);
     if (!validatePassword) {
       return res.status(400).json({
@@ -490,9 +543,12 @@ const changePassword = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
     const newHashPassword = await bcrypt.hash(newPassword, salt);
 
-    const result = await userModel.findByIdAndUpdate(req.user._id, {
-      $set: { password: newHashPassword },
-    });
+    const result = await userModel.findOneAndUpdate(
+      { expenseAppUserId: req.user.expenseAppUserId },
+      {
+        $set: { password: newHashPassword },
+      }
+    );
 
     // Send the mail to user that his password has been changed successfully.
     const info = await transporter.sendMail({
@@ -535,10 +591,16 @@ const sendUserPasswordResetEmail = async (req, res) => {
         .status(400)
         .json({ status: "failed", message: "User doesn't exist...!" });
     }
-    const secrete = user._id + process.env.JWT_SECRETE_KEY;
-    const token = jwt.sign({ _id: user._id }, secrete, { expiresIn: "60m" });
+    const secrete = user.expenseAppUserId + process.env.JWT_SECRETE_KEY;
+    const token = jwt.sign(
+      { expenseAppUserId: user.expenseAppUserId },
+      secrete,
+      {
+        expiresIn: "60m",
+      }
+    );
 
-    const reset_password_link = `${CLIENT_URL}/reset-password/${user._id}/${token}`;
+    const reset_password_link = `${CLIENT_URL}/reset-password/${user.expenseAppUserId}/${token}`;
 
     // Now Send Email
     const info = await transporter.sendMail({
@@ -571,7 +633,7 @@ const sendUserPasswordResetEmail = async (req, res) => {
 
 const resetUserPasswordThroughForgotPassword = async (req, res) => {
   const { password, confirmPassword } = req.body;
-  const { _id, token } = req.params; // by params we get things which is in links
+  const { expenseAppUserId, token } = req.params; // by params we get things which is in links
   try {
     if (!password || !confirmPassword) {
       return res
@@ -586,9 +648,11 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
       });
     }
 
-    const user = await userModel.findById(_id);
+    const user = await userModel.findOne({
+      expenseAppUserId: expenseAppUserId,
+    });
 
-    const new_secrete = user._id + process.env.JWT_SECRETE_KEY;
+    const new_secrete = user.expenseAppUserId + process.env.JWT_SECRETE_KEY;
     const payload = jwt.verify(token, new_secrete);
 
     if (!payload) {
@@ -602,9 +666,12 @@ const resetUserPasswordThroughForgotPassword = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
     const newHashPassword = await bcrypt.hash(password, salt);
 
-    const result = await userModel.findByIdAndUpdate(user._id, {
-      $set: { password: newHashPassword },
-    });
+    const result = await userModel.findOneAndUpdate(
+      { expenseAppUserId: user.expenseAppUserId },
+      {
+        $set: { password: newHashPassword },
+      }
+    );
 
     const info = await transporter.sendMail({
       from: {
@@ -657,14 +724,32 @@ const sendOTPForMobileVerification = async (req, res) => {
     if (user) {
       // Now send the OTP to user's mobile number
       // const info = await sendSMS(mobileNumber, OTP);
-      const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
-        params: {
-          authorization: process.env.FAST2SMS_API_KEY,
-          variables_values: `${OTP}`,
-          route: "otp",
-          numbers: Number(phoneNumber),
-        },
-      });
+      // const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
+      //   params: {
+      //     authorization: process.env.FAST2SMS_API_KEY,
+      //     variables_values: `${OTP}`,
+      //     route: "otp",
+      //     numbers: Number(phoneNumber),
+      //   },
+      // });
+
+      const messageData = {
+        sender_id: "FSTSMS",
+        message: `Your OTP for phone number verification is ${OTP} - Expense Management System.`,
+        language: "english",
+        route: "q",
+        numbers: phoneNumber,
+      };
+
+      const response = await axios.post(
+        "https://www.fast2sms.com/dev/bulkV2",
+        messageData,
+        {
+          headers: {
+            Authorization: process.env.FAST2SMS_API_KEY,
+          },
+        }
+      );
 
       console.log("SMS Response: ", response);
 
@@ -683,14 +768,32 @@ const sendOTPForMobileVerification = async (req, res) => {
     } else {
       // Now send the OTP to user's mobile number
       // const info = await sendSMS(mobileNumber, OTP);
-      const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
-        params: {
-          authorization: process.env.FAST2SMS_API_KEY,
-          variables_values: `${OTP}`,
-          route: "otp",
-          numbers: Number(phoneNumber),
-        },
-      });
+      // const response = await axios.get("https://www.fast2sms.com/dev/bulkV2", {
+      //   params: {
+      //     authorization: process.env.FAST2SMS_API_KEY,
+      //     variables_values: `${OTP}`,
+      //     route: "otp",
+      //     numbers: Number(phoneNumber),
+      //   },
+      // });
+
+      const messageData = {
+        sender_id: "FSTSMS",
+        message: `Your OTP for phone number verification is ${OTP} - Expense Management System.`,
+        language: "english",
+        route: "q",
+        numbers: phoneNumber,
+      };
+
+      const response = await axios.post(
+        "https://www.fast2sms.com/dev/bulkV2",
+        messageData,
+        {
+          headers: {
+            Authorization: process.env.FAST2SMS_API_KEY,
+          },
+        }
+      );
 
       console.log("SMS Response: ", response);
 

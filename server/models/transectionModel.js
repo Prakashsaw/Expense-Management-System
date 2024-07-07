@@ -2,9 +2,15 @@ const mongoose = require("mongoose");
 
 const transectionSchema = new mongoose.Schema(
   {
-    userid: {
+    expenseAppUserId: {
       type: String,
       required: true,
+      ref: "users",
+    },
+    transactionId: {
+      type: String,
+      required: true,
+      unique: true,
     },
     amount: {
       type: Number,

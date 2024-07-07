@@ -113,7 +113,8 @@ const HomePage = () => {
           },
         }
       );
-      setAllTransection(res.data);
+      console.log("res:", res);
+      setAllTransection(res.data.transactions);
       setLoading(false);
       setTrasactionError(null);
     } catch (error) {
@@ -143,11 +144,10 @@ const HomePage = () => {
   const deleteTransaction = async (record) => {
     try {
       setLoading(true);
+      const transactionId = record.transactionId;
       await axios.post(
-        `${BASE_URL}/api/v1/transections/delete-transection`,
-        {
-          transacationId: record._id,
-        },
+        `${BASE_URL}/api/v1/transections/delete-transection/${transactionId}`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${
@@ -178,11 +178,11 @@ const HomePage = () => {
     try {
       setLoading(true);
       if (editable) {
+        const transactionId = editable.transactionId;
         await axios.post(
-          `${BASE_URL}/api/v1/transections/edit-transection`,
+          `${BASE_URL}/api/v1/transections/edit-transection/${transactionId}`,
           {
             ...values,
-            transacationId: editable._id,
           },
           {
             headers: {

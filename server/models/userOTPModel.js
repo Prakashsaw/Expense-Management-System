@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const userOTPSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
+    expenseAppUserId: {
+      type: String,
       required: true,
       ref: "users",
     },

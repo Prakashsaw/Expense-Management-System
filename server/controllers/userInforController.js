@@ -1,6 +1,9 @@
 const transporter = require("../config/emailConfig");
 const ContactUsMessageModel = require("../models/contactUsMessageModel");
 const contactUsMessageSentSuccess = require("../utils/emailTemplates/contactUsMessageSent");
+const { customAlphabet } = require("nanoid");
+const alphabet =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 const contactUsMessageController = async (req, res) => {
   const { name, email, message } = req.body;
@@ -14,16 +17,17 @@ const contactUsMessageController = async (req, res) => {
     const user = await ContactUsMessageModel.findOne({ email });
 
     if (user) {
-      // then update the user with new message
-      await ContactUsMessageModel.findOneAndUpdate(
-        { name },
-        { email },
-        { message },
-        { new: true }
-      );
+      user.name = name;
+      user.email = email;
+      user.message = message;
+      await user.save();
     } else {
-      // create new user
+      // const nanoId = nanoid(10);
+      const nanoid = customAlphabet(alphabet, 10); // 10 is the length of the Nano ID
+      const nanoId = nanoid();
+      console.log("contactUsUserId: ", nanoId);
       const newUser = new ContactUsMessageModel({
+        contactUsUserId: nanoId,
         name,
         email,
         message,

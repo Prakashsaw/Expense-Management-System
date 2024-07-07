@@ -13,7 +13,10 @@ const EmailVerification = () => {
   const [validUrl, setValidUrl] = useState(false);
 
   const params = useParams();
-  const { _id, token } = params;
+  const { expenseAppUserId, token } = params;
+
+  // console.log("expenseAppUserId", expenseAppUserId);
+  // console.log("token", token);
 
   const navigate = useNavigate();
 
@@ -26,7 +29,7 @@ const EmailVerification = () => {
       try {
         setLoading(true);
         const data = await axios.post(
-          `${BASE_URL}/api/v1/users/verify-email/${_id}/${token}`
+          `${BASE_URL}/api/v1/users/verify-email/${expenseAppUserId}/${token}`
         );
         console.log(data);
         setLoading(false);
@@ -38,7 +41,7 @@ const EmailVerification = () => {
       }
     };
     verifyEmail();
-  }, [_id, token, navigate]);
+  }, [expenseAppUserId, token, navigate]);
 
   return (
     <>

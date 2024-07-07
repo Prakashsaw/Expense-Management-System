@@ -41,7 +41,7 @@ const resetPasswordEmail = (user, resetPasswordLink, EMAIL_FROM) => {
 
                     <button class = "btn"><a href=${resetPasswordLink}>Reset Password</a></button>
                     
-                    <p>If this was you, you can safely ignore this email.<br>
+                    <p>If this was you, you can continue with the reset password link.<br>
                     If not, please reach out to us at <a href="mailto:${EMAIL_FROM}">email us</a> for help.</p>
 
                     <p>Thanks & Regards,<br>

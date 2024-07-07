@@ -51,13 +51,16 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/signup-success" element={<SignUpSuccess />} />
         <Route
-          path="/email-verification/:_id/:token"
+          path="/email-verification/:expenseAppUserId/:token"
           element={<EmailVerification />}
         />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/forgot-email-sent" element={<EmailSent />} />
-        <Route path="/reset-password/:_id/:token" element={<ResetPassword />} />
+        <Route
+          path="/reset-password/:expenseAppUserId/:token"
+          element={<ResetPassword />}
+        />
         <Route
           path="/password-reset-success"
           element={<PasswordResetSuccess />}

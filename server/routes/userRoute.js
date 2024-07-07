@@ -20,24 +20,24 @@ const checkUserAuth = require("../middleware/userAuth");
 const router = express.Router();
 
 // Public routes
-//POST : REGISTER USER
+// POST : REGISTER USER
 router.post("/register", registerController);
 // POST: Verify email
-router.post("/verify-email/:_id/:token", verifyEmail);
+router.post("/verify-email/:expenseAppUserId/:token", verifyEmail);
 // POST : LOGIN USER
 router.post("/login", loginControllerThroughEmail);
 // POST : Send reset password email
 router.post("/send-reset-password-email", sendUserPasswordResetEmail);
 // Reset password through forgot password email
 router.post(
-  "/reset-password/:_id/:token",
+  "/reset-password/:expenseAppUserId/:token",
   resetUserPasswordThroughForgotPassword
 );
 
 // OTP Verification through email
 router.post("/send-email-otp", sendEmailForOTPVerification);
 // verify OTP
-router.post("/verify-email-otp/:_id", verifyEmailThroughOTP);
+router.post("/verify-email-otp/:expenseAppUserId", verifyEmailThroughOTP);
 
 // OTP Verification through mobile number
 router.post("/send-phone-otp", sendOTPForMobileVerification);

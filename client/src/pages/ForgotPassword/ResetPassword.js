@@ -15,7 +15,7 @@ const ResetPassword = () => {
   const [resetPasswordError, setResetPasswordError] = useState(null);
   const navigate = useNavigate();
   const params = useParams();
-  const { _id, token } = params;
+  const { expenseAppUserId, token } = params;
 
   const submitHandler = async (values) => {
     try {
@@ -32,7 +32,7 @@ const ResetPassword = () => {
 
       setLoading(true);
       await axios.post(
-        `${BASE_URL}/api/v1/users/reset-password/${_id}/${token}`,
+        `${BASE_URL}/api/v1/users/reset-password/${expenseAppUserId}/${token}`,
         values
       );
       setLoading(false);

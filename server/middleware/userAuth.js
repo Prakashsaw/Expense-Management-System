@@ -12,16 +12,24 @@ const checkUserAuth = async (req, res, next) => {
       // console.log("Token:", token);
 
       // Verify Token
-      const { _id } = jwt.verify(token, process.env.JWT_SECRETE_KEY);
+      const { expenseAppUserId } = jwt.verify(
+        token,
+        process.env.JWT_SECRETE_KEY
+      );
 
       // Get user from token
       // Selecting all userDetailes except password so thats why we do "-password"
-      req.user = await userModel.findById({ _id }).select("-password");
+      req.user = await userModel
+        .findOne({ expenseAppUserId : expenseAppUserId})
+        .select("-password");
       next();
     } else {
       res
         .status(401)
-        .send({ status: "failed", message: "Unauthorized User, Login again...!" });
+        .send({
+          status: "failed",
+          message: "Unauthorized User, Login again...!",
+        });
     }
   } catch (error) {
     res.status(401).send({

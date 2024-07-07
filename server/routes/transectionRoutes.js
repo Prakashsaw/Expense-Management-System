@@ -1,9 +1,10 @@
 const express = require("express");
 const {
-  addTransection,
-  getAllTransection,
-  editTransection,
-  deleteTransection,
+  addTransaction,
+  getAllTransaction,
+  editTransaction,
+  deleteTransaction,
+  getOneTransaction,
 } = require("../controllers/transactionController");
 const checkUserAuth = require("../middleware/userAuth");
 
@@ -11,14 +12,23 @@ const checkUserAuth = require("../middleware/userAuth");
 const router = express.Router();
 
 //routes
-//add transection POST Method
-router.post("/add-transection", checkUserAuth, addTransection);
-//Edit transection POST Method
-router.post("/edit-transection", checkUserAuth, editTransection);
-//Delete transection POST Method
-router.post("/delete-transection", checkUserAuth, deleteTransection);
-
 //Get all transections
-router.post("/get-transection", checkUserAuth, getAllTransection);
+router.post("/get-transection", checkUserAuth, getAllTransaction);
+
+// Get one transection
+router.get("/get-one-transection/:transactionId", checkUserAuth, getOneTransaction);
+
+//add transection POST Method
+router.post("/add-transection", checkUserAuth, addTransaction);
+
+//Edit transection POST Method
+router.post("/edit-transection/:transactionId", checkUserAuth, editTransaction);
+
+//Delete transection POST Method
+router.post(
+  "/delete-transection/:transactionId",
+  checkUserAuth,
+  deleteTransaction
+);
 
 module.exports = router;

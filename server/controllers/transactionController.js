@@ -1,9 +1,13 @@
 const transectionModel = require("../models/transectionModel");
 const moment = require("moment");
-const getAllTransection = async (req, res) => {
+const { customAlphabet } = require("nanoid");
+const alphabet =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+const getAllTransaction = async (req, res) => {
   try {
     const { frequency, selectedDate, type } = req.body;
-    const transections = await transectionModel.find({
+    const transactions = await transectionModel.find({
       ...(frequency !== "custom"
         ? {
             date: {
@@ -16,35 +20,94 @@ const getAllTransection = async (req, res) => {
               $lte: selectedDate[1],
             },
           }),
-      userid: req.user._id,
+      expenseAppUserId: req.user.expenseAppUserId,
       ...(type !== "all" && { type }),
     });
-    res.status(200).json(transections);
+    res
+      .status(200)
+      .json({
+        status: "success.",
+        message: "All transactions fetched successfully.",
+        transactions: transactions,
+      });
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res
+      .status(500)
+      .json({
+        status: "failed",
+        message: "Failed to fetch transactions.",
+        error: error,
+      });
+  }
+};
+const getOneTransaction = async (req, res) => {
+  const { transactionId } = req.params;
+  try {
+    const transaction = await transectionModel.findOne({
+      transactionId: transactionId,
+    });
+    res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Transaction fetched successfully.",
+        transaction: transaction,
+      });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({
+        status: "failed",
+        message: "Failed to fetch transaction.",
+        error: error,
+      });
+  }
+};
+const addTransaction = async (req, res) => {
+  const { amount, type, category, refrence, description, date } = req.body;
+  try {
+    // Generate a Nano ID for user
+    const nanoid = customAlphabet(alphabet, 10); // 10 is the length of the Nano ID
+    const nanoId = nanoid();
+
+    // const newTransection = new transectionModel(req.body);
+    const newTransection = new transectionModel({
+      expenseAppUserId: req.user.expenseAppUserId,
+      transactionId: nanoId,
+      amount: amount,
+      type: type,
+      category: category,
+      refrence: refrence,
+      description: description,
+      date: date,
+    });
+    await newTransection.save();
+    res.status(201).send({
+      status: "success",
+      message: "Transaction created successfully.",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "failed",
+      message: "Failed to create transaction.",
+      error: error,
+    });
   }
 };
 
-const deleteTransection = async (req, res) => {
-  try {
-    await transectionModel.findOneAndDelete({ _id: req.body.transacationId });
-    res.status(200).send("Transaction Deleted!");
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-};
-const editTransection = async (req, res) => {
+const editTransaction = async (req, res) => {
   const { amount, type, category, refrence, description, date } = req.body;
-  const { transacationId } = req.body;
+  const { transactionId } = req.params;
   try {
     await transectionModel.findOneAndUpdate(
-      { _id: transacationId },
+      { transactionId: transactionId},
       // req.body.payload
       {
         $set: {
-          userid: req.user._id,
+          expenseAppUserId: req.user.expenseAppUserId,
           amount: amount,
           type: type,
           category: category,
@@ -54,37 +117,45 @@ const editTransection = async (req, res) => {
         },
       }
     );
-    res.status(200).send("Edit SUccessfully");
+    res.status(200).send({
+      status: "success",
+      message: "Transaction updated successfully.",
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).json({
+      status: "failed",
+      message: "Failed to update transaction.",
+      error: error,
+    });
   }
 };
-
-const addTransection = async (req, res) => {
-  const { amount, type, category, refrence, description, date } = req.body;
+const deleteTransaction = async (req, res) => {
+  const { transactionId } = req.params;
   try {
-    // const newTransection = new transectionModel(req.body);
-    const newTransection = new transectionModel({
-      userid: req.user._id,
-      amount: amount,
-      type: type,
-      category: category,
-      refrence: refrence,
-      description: description,
-      date: date,
-    });
-    await newTransection.save();
-    res.status(201).send("Transection Created");
+    await transectionModel.findOneAndDelete({ transactionId: transactionId});
+    res
+      .status(200)
+      .send({
+        status: "success",
+        message: "Transaction deleted successfully.",
+      });
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res
+      .status(500)
+      .json({
+        status: "failed",
+        message: "Failed to delete transaction.",
+        error: error,
+      });
   }
 };
 
 module.exports = {
-  getAllTransection,
-  addTransection,
-  editTransection,
-  deleteTransection,
+  getAllTransaction,
+  getOneTransaction,
+  addTransaction,
+  editTransaction,
+  deleteTransaction,
 };
