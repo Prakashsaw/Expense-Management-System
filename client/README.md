@@ -88,27 +88,18 @@
 
 **Step:6-** Now Expense Management System App is running in your local system.
 
-## Features
+## Features 🚀  
 
-#### Login and Registration with full user validation.
-
-#### Validate user email with sending email for email confirmation link email then user email have been verified.
-
-#### User authentication and authorization using JWT token for secure user authentication.
-
-#### Forgot password features when user don't remembered their password.
-
-#### User can Update their profile details after loggedIn and also able to change their password as well.
-
-#### User can add their transaction, edit transaction, delete transaction with confirmation.
-
-#### User can view their finantial transaction in weekly, monthly and yealy basis (filterration).
-
-#### User can view transaction history by selecting custom dates also.
-
-#### User can filter their transaction by category like by all income, all expenses and both income and expenses.
-
-#### User can view expense analytics and visualizations in graphs and charts.
+- **User Registration & Login** with complete validation.  
+- **Email Verification:** Users receive a confirmation link via email to verify their email address.  
+- **Secure Authentication & Authorization** using JWT tokens.  
+- **Forgot Password:** Users can reset their password if they forget it.  
+- **Profile Management:** Users can update their profile details and change their password after logging in.  
+- **Transaction Management:** Users can add, edit, and delete transactions with confirmation prompts.  
+- **Financial Tracking:** Users can view transactions on a **weekly, monthly, and yearly basis** with filtering options.  
+- **Custom Date Filtering:** Users can view transaction history by selecting specific date ranges.  
+- **Category-Based Filtering:** Users can filter transactions by **income, expenses, or both**.  
+- **Expense Analytics & Visualizations:** Users can analyze their expenses through **graphs and charts**.  
 
 ## Screenshots 📸
 ![Home Page](src/Images/1-home-page.png)
