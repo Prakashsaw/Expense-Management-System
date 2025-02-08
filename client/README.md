@@ -10,7 +10,7 @@
 ```
 
 ## Description
-* Create a web-based expense management system to help users track and manage their financial transactions.
+* Created a web-based expense management system to help users track and manage their financial transactions.
 * User Login and SignUp functionality with full validation(email validation through sending email), bcrypt passsword in backend, JWT token for secure user authentication.
 * Feature of forgot password with sending email for reset password link using nodemailer.
 * Record and categorize expenses on weekly, monthly and yearly, Expense analytics and visualizations in graphs and charts, user can edit and delete transactions.
@@ -110,6 +110,22 @@
 
 #### User can view expense analytics and visualizations in graphs and charts.
 
+## Screenshots 📸
+![Home Page](src/Images/1-home-page.png)
+![Login Page](src/Images/2-login.png)
+![Forgot Password](src/Images/14-forgot-password.png)
+![Sign Up](src/Images/3-signup.png)
+![Expense Homepage](src/Images/5-expense-homepage.png)
+![Add Expense](src/Images/6-add-expense.png)
+![Filter Expenses](src/Images/7-filter-expense.png)
+![Update Expense](src/Images/8-update-expense.png)
+![Expense Analytics](src/Images/9-expense-amalytics.png)
+![Delete Expense Warning](src/Images/10-delete-warning.png)
+![User Profile Menu](src/Images/11-see-menu-for-user-profile.png)
+![Update User Profile](src/Images/12-update-profile.png)
+![Chanage Password](src/Images/13-change-password.png)
+![Contact Us](src/Images/4-contact-us.png)
+![Copy Right Footer](src/Images/15-copy-right.png)
 
 ## Made By
 - [@Prakashsaw](https://github.com/Prakashsaw)
