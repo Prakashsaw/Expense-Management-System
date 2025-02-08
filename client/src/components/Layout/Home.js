@@ -3,10 +3,9 @@ import Header1 from "./Header1";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import "./Home.css";
+import homepageImg from "../../../src/Images/homepage-img.png";
 
 const Home = () => {
-  const img =
-    "https://www.codingnepalweb.com/demos/create-responsive-website-html-css/hero-bg.png";
   const navigate = useNavigate();
   //prevent for login user
   useEffect(() => {
@@ -43,7 +42,7 @@ const Home = () => {
               </div>
             </div>
             <div className="img">
-              <img src={img} alt="hero" />
+              <img src={homepageImg} alt="homepage-img" />
             </div>
           </section>
         </div>
