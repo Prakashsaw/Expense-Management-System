@@ -132,7 +132,8 @@ Once the setup is complete, the app will be running on your local system.
 | **Update User Profile** | ![Update Profile](client/src/Images/12-update-profile.png) |
 | **Change User Password** | ![Change Password](client/src/Images/13-change-password.png) |
 
-### **Expense Management**  
+### **Expense Management**
+|---------|-----------|  
 | **Expense Home Page** | ![Expense Homepage](client/src/Images/5-expense-homepage.png) |
 | **Add Expense** | ![Add Expense](client/src/Images/6-add-expense.png) | 
 | **Filter Expense** | ![Filter Expenses](client/src/Images/7-filter-expense.png) |
@@ -141,6 +142,7 @@ Once the setup is complete, the app will be running on your local system.
 | **Expense Analytics** | ![Expense Analytics](client/src/Images/9-expense-amalytics.png) |
 
 ### **Contact Us**  
+|---------|-----------|
 | **Contact Us** | ![Contact Us](client/src/Images/4-contact-us.png) |
 | **Copy Right** | ![Copy Right Footer](client/src/Images/15-copy-right.png) |
 
