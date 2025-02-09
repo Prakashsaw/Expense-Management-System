@@ -133,6 +133,7 @@ Once the setup is complete, the app will be running on your local system.
 | **Change User Password** | ![Change Password](client/src/Images/13-change-password.png) |
 
 ### **Expense Management**
+| Feature | Screenshot |
 |---------|-----------|  
 | **Expense Home Page** | ![Expense Homepage](client/src/Images/5-expense-homepage.png) |
 | **Add Expense** | ![Add Expense](client/src/Images/6-add-expense.png) | 
@@ -142,6 +143,7 @@ Once the setup is complete, the app will be running on your local system.
 | **Expense Analytics** | ![Expense Analytics](client/src/Images/9-expense-amalytics.png) |
 
 ### **Contact Us**  
+| Feature | Screenshot |
 |---------|-----------|
 | **Contact Us** | ![Contact Us](client/src/Images/4-contact-us.png) |
 | **Copy Right** | ![Copy Right Footer](client/src/Images/15-copy-right.png) |
